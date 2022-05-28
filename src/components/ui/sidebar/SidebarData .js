@@ -45,7 +45,7 @@ export const SidebarData = [
             },
             {
                 title: "Lista de Egresos",
-                path: "sales",
+                path: "egresses",
                 icon: null,
                 cName: "sub-nav",
             },

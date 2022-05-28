@@ -1,7 +1,38 @@
-import clienteAxios from '../config/axios';
-import { ADD_EGRESS, ADD_EGRESS_ERROR, ADD_EGRESS_SUCCESS, GET_EGRESSES_CATEGORIES, GET_EGRESSES_CATEGORIES_ERROR, GET_EGRESSES_CATEGORIES_SUCCESS, GET_EGRESSES_SUBCATEGORIES, GET_EGRESSES_SUBCATEGORIES_ERROR, GET_EGRESSES_SUBCATEGORIES_SUCCESS } from "../types/egresses.types";
+import clienteAxios from "../config/axios";
+import {
+    ADD_EGRESS,
+    ADD_EGRESS_ERROR,
+    ADD_EGRESS_SUCCESS,
+    GET_EGRESSES,
+    GET_EGRESSES_CATEGORIES,
+    GET_EGRESSES_CATEGORIES_ERROR,
+    GET_EGRESSES_CATEGORIES_SUCCESS,
+    GET_EGRESSES_ERROR,
+    GET_EGRESSES_SUBCATEGORIES,
+    GET_EGRESSES_SUBCATEGORIES_ERROR,
+    GET_EGRESSES_SUBCATEGORIES_SUCCESS,
+    GET_EGRESSES_SUCCESS,
+} from "../types/egresses.types";
 
-
+export const getAllEgressesAction = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: GET_EGRESSES,
+        });
+        try {
+            const response = await clienteAxios.get("/egresses");
+            dispatch({
+                type: GET_EGRESSES_SUCCESS,
+                payload: response.data,
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_EGRESSES_ERROR,
+                payload: error.response.data.message,
+            });
+        }
+    }
+};
 
 export const getAllEgressesCategoriesAction = () => {
     return async (dispatch) => {
@@ -17,7 +48,7 @@ export const getAllEgressesCategoriesAction = () => {
         } catch (error) {
             console.log(error);
             dispatch({
-                type: GET_EGRESSES_CATEGORIES_ERROR
+                type: GET_EGRESSES_CATEGORIES_ERROR,
             });
         }
     };
@@ -36,17 +67,17 @@ export const getAllEgressesSubCategoriesAction = () => {
         } catch (error) {
             console.log(error);
             dispatch({
-                type: GET_EGRESSES_SUBCATEGORIES_ERROR
+                type: GET_EGRESSES_SUBCATEGORIES_ERROR,
             });
         }
     };
 };
 
 export const addNewEgressAction = (egress) => {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch({
             type: ADD_EGRESS,
-        })
+        });
         try {
             const res = await clienteAxios.post("/egresses", egress);
             dispatch({
@@ -56,9 +87,8 @@ export const addNewEgressAction = (egress) => {
         } catch (error) {
             console.log(error);
             dispatch({
-                type: ADD_EGRESS_ERROR
+                type: ADD_EGRESS_ERROR,
             });
         }
-        
-    }
-}
+    };
+};

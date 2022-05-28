@@ -2,12 +2,15 @@ import {
     ADD_EGRESS,
     ADD_EGRESS_ERROR,
     ADD_EGRESS_SUCCESS,
+    GET_EGRESSES,
     GET_EGRESSES_CATEGORIES,
     GET_EGRESSES_CATEGORIES_ERROR,
     GET_EGRESSES_CATEGORIES_SUCCESS,
+    GET_EGRESSES_ERROR,
     GET_EGRESSES_SUBCATEGORIES,
     GET_EGRESSES_SUBCATEGORIES_ERROR,
     GET_EGRESSES_SUBCATEGORIES_SUCCESS,
+    GET_EGRESSES_SUCCESS,
 } from "../types/egresses.types";
 
 const initialState = {
@@ -20,6 +23,24 @@ const initialState = {
 
 const egressesReducers = (state = initialState, action) => {
     switch (action.type) {
+        case GET_EGRESSES:
+            return {
+                ...state,
+                loading: true,
+            };
+        case GET_EGRESSES_SUCCESS:
+            return {
+                ...state,
+                egresses: action.payload,
+                loading: false,
+            };
+            
+        case GET_EGRESSES_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            };
         case GET_EGRESSES_CATEGORIES:
             return {
                 ...state,

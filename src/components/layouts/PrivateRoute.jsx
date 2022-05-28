@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 import Navbar from "../ui/Navbar";
 import Sidebar from "../ui/sidebar/SideBar";
@@ -21,7 +21,7 @@ const PrivateRoute = () => {
             <div className="w-full h-full overflow-y-auto">
                 <Navbar />
                 <div className="p-4">
-                    <Outlet />
+                   {auth? <Outlet />: <Navigate to="/"/>}
                 </div>
             </div>
         </div>
