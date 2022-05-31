@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { addNewEgressAction } from "../../actions/egresses.action";
 import Card from "../ui/Card/Card";
 import { validateNewEgress } from "./utils/validateNewEgress";
-import Swal from "sweetalert2";
+
+import { formatDate } from "../../helpers/FormatDate";
+const date = new Date();
 
 const INITIAL_STATE_FORM = {
-    date: "",
+    date: formatDate(date),
     description: "",
     provider: 1,
     category: "",
@@ -42,29 +44,22 @@ const FormNewEgress = () => {
             [e.target.name]: e.target.value,
         });
     };
-    const handleValidate = async () => {
-        const result = validateNewEgress(newEgress);
-        console.log(result);
-        setErrors(result);
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        handleValidate();
+        const errors = validateNewEgress(newEgress);
 
-        if (errors) {
+        if (Object.keys(errors).length) {
+            console.log(errors);
+            setErrors(errors);
             return;
         }
-        setErrors(false);
+        setErrors({});
 
         dispatch(addNewEgressAction(newEgress));
-        Swal.fire({
-            title: `Egreso registrado`,
-            text: "Se registró el egreso con exito",
-            icon: "success",
-        });
         setNewEgress(INITIAL_STATE_FORM);
     };
+
     return (
         <Card>
             <div>
@@ -79,7 +74,7 @@ const FormNewEgress = () => {
                                 id="date"
                                 onChange={handleChange}
                                 value={newEgress.date}
-                                onBlur={handleValidate}
+                                //onBlur={handleValidate}
                             />
                             {errors.date && (
                                 <p className="mt-1 text-xs text-red-500">
@@ -96,7 +91,7 @@ const FormNewEgress = () => {
                                     name="provider"
                                     onChange={handleChange}
                                     value={newEgress.provider}
-                                    onBlur={handleValidate}
+                                    //onBlur={handleValidate}
                                 >
                                     <option value="1">Ninguno</option>
                                 </select>
@@ -117,7 +112,7 @@ const FormNewEgress = () => {
                                     onChange={handleChange}
                                     value={newEgress.category}
                                     ref={categoryRef}
-                                    onBlur={handleValidate}
+                                    //onBlur={handleValidate}
                                 >
                                     <option hidden value="">
                                         Seleccione una categoría
@@ -152,7 +147,7 @@ const FormNewEgress = () => {
                                     disabled={!newEgress.category}
                                     onChange={handleChange}
                                     value={newEgress.subcategory}
-                                    onBlur={handleValidate}
+                                    //onBlur={handleValidate}
                                 >
                                     <option hidden value="">
                                         Seleccione una subcategoría
@@ -195,7 +190,7 @@ const FormNewEgress = () => {
                                     name="value"
                                     onChange={handleChange}
                                     value={newEgress.value}
-                                    onBlur={handleValidate}
+                                    //onBlur={handleValidate}
                                 />
                                 {errors.value && (
                                     <p className="mt-1 text-xs text-red-500">

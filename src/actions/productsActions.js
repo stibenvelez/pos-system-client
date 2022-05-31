@@ -17,10 +17,7 @@ import {
     GET_PRODUCT_ERROR,
     GET_PRODUCT_SUCCESS,
 } from "../types/productsTypes";
-import io from "socket.io-client";
 
-let socket;
-socket = io(import.meta.VITE_BACKEND_URL);
 // get products
 export const getAllProductsActions = (filters) => {
     return async (dispatch) => {

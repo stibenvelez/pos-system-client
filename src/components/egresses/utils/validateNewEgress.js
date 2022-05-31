@@ -1,15 +1,15 @@
 export const validateNewEgress = (egress) => {
     const errors = {};
-    if (!egress.category) {
+    if (egress.category === '') {
         errors.category = "La categoría es requerida";
     }
-    if (!egress.subcategory) {
+    if (egress.subcategory === '') {
         errors.subcategory = "La subcategoría es requerida";
     }
-    if (!egress.value) {
+    if (egress.value === '') {  
         errors.value = "El valor es requerido";
     }
-    if (!egress.date) {
+    if (egress.date === '') {
         errors.date = "La fecha es requerida";
     }
 

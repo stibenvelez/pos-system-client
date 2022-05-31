@@ -13,6 +13,7 @@ import {
     GET_EGRESSES_SUBCATEGORIES_SUCCESS,
     GET_EGRESSES_SUCCESS,
 } from "../types/egresses.types";
+import Swal from "sweetalert2";
 
 export const getAllEgressesAction = () => {
     return async (dispatch) => {
@@ -31,7 +32,7 @@ export const getAllEgressesAction = () => {
                 payload: error.response.data.message,
             });
         }
-    }
+    };
 };
 
 export const getAllEgressesCategoriesAction = () => {
@@ -80,6 +81,12 @@ export const addNewEgressAction = (egress) => {
         });
         try {
             const res = await clienteAxios.post("/egresses", egress);
+            
+            Swal.fire({
+                title: `Egreso registrado`,
+                text: "Se registró el egreso con exito",
+                icon: "success",
+            });
             dispatch({
                 type: ADD_EGRESS_SUCCESS,
                 payload: res.data.msg,
@@ -92,3 +99,4 @@ export const addNewEgressAction = (egress) => {
         }
     };
 };
+

@@ -6,25 +6,25 @@ import ActionsSections from "../../components/employees/ActionsSections";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card/Card";
 import Template from "../../components/ui/Template";
-
+import Socket from "../../config/Socket";
 
 const EmployeesPage = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const [optionsState, setOptionsState] = useState<string>('');
+    const [optionsState, setOptionsState] = useState("");
 
     useEffect(() => {
-        (() => dispatch<any>(getAllEmployeesAction()))();
+        (() => dispatch(getAllEmployeesAction()))();
     }, []);
+    
+    const employees = useSelector(({ employees }) => employees.employees);
 
-    const employees = useSelector(({ employees}:any) => employees.employees);
-
-    const handleClick = () => {
-        console.log('agregando empelado');
-    }
-
-    console.log(optionsState);
-
+    useEffect(() => {
+        Socket.on("employeAdded", () => {
+             dispatch(getAllEmployeesAction());
+        });
+    });
+    
     return (
         <Template
             title={"Empleados"}
@@ -35,7 +35,7 @@ const EmployeesPage = () => {
                     <div>
                         <Button
                             value={"agregar empelado"}
-                            onClick={() => setOptionsState('addEmploye')}
+                            onClick={() => setOptionsState("addEmploye")}
                         />
                     </div>
                 </Card>

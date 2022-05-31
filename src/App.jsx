@@ -4,13 +4,15 @@ import { AuthAction } from "./actions/authAction";
 import Routers from "./routes";
 import "sweetalert2/dist/sweetalert2.min.css";
 
-const App = () => {
-    const dispatch = useDispatch();
 
+const App = () => {
+
+    const dispatch = useDispatch();
+    
     useEffect(() => {
         (() => dispatch(AuthAction()))();
     }, []);
-
+    
     return (
         <div>
             <Routers />

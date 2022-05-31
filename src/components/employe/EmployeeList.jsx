@@ -35,16 +35,16 @@ const EmployeeList = ({ employees, setOptionsState }) => {
         <Table>
             <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
                 <tr className="text-left">
-                    {COLUMNS.map((column) => (
-                        <th scope="col" className="px-6 py-3">
+                    {COLUMNS.map((column, index) => (
+                        <th key={index} scope="col" className="px-6 py-3">
                             {column.name}
                         </th>
                     ))}
                 </tr>
             </thead>
             <tbody>
-                {DATA.map((employe) => (
-                    <Row>
+                {DATA.map((employe, index) => (
+                    <Row key={index}>
                         <th
                             scope="row"
                             className="px-6 py-2 font-medium text-gray-900 capitalize dark:text-white whitespace-nowrap"
