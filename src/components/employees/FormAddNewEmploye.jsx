@@ -20,7 +20,7 @@ const FormAddNewEmploye = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         Socket.emit("newEmploye", newEmploye);
-        //dispatch(addNewEmployeAction(newEmploye));
+        dispatch(addNewEmployeAction(newEmploye));
     };
 
     return (
@@ -29,7 +29,7 @@ const FormAddNewEmploye = () => {
                 <h3 className="text-lg text-gray-800 mb-3 font-bold">
                     Agregar un nuevo empelado
                 </h3>
-                <form on onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="p-4 flex flex-col gap-4">
                         <div>
                             <label htmlFor="name">Nombre</label>

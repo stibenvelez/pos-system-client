@@ -16,14 +16,11 @@ const EmployeesPage = () => {
     useEffect(() => {
         (() => dispatch(getAllEmployeesAction()))();
     }, []);
+
     
     const employees = useSelector(({ employees }) => employees.employees);
 
-    useEffect(() => {
-        Socket.on("employeAdded", () => {
-             dispatch(getAllEmployeesAction());
-        });
-    });
+
     
     return (
         <Template

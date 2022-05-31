@@ -1,8 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { getEmployeeByIdAction } from "../../actions/employees.action";
 import Table from "../ui/Table";
 import Row from "../ui/Table/Row";
 
 const EmployeeList = ({ employees, setOptionsState }) => {
+    const dispatch = useDispatch();
+
+    const handleViewEmployee = (id) => {
+        setOptionsState("viewEmploye");
+        dispatch(getEmployeeByIdAction(id));
+    };
+
     const COLUMNS = [{ name: "Nombre" }, { name: "Acciones" }];
 
     const DATA = employees.map((employe) => ({
@@ -10,7 +19,7 @@ const EmployeeList = ({ employees, setOptionsState }) => {
         actions: (
             <div className="flex justify-center">
                 <button
-                    onClick={() => setOptionsState("viewEmploye")}
+                    onClick={() => handleViewEmployee(employe.idEmploye)}
                     className="items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 rounded-l hover:bg-gray-600"
                 >
                     Ver
