@@ -5,7 +5,7 @@ import ItemReport from "./ItemReport";
 import TableSkeleton from "./skeletons/TableSkeleton";
 
 const ListReports = () => {
-    const reports = useSelector(({ reports }) => reports.sales.results);
+    const {sales} = useSelector(({ reports }) => reports.sales);
     const loading = useSelector(({ reports }) => reports.loading);
     if (loading) {
         return (
@@ -13,7 +13,7 @@ const ListReports = () => {
         );
     }
 
-    if (reports.length === 0) {
+    if (sales.length === 0) {
         return (
             <div className="py-3 p-5 bg-amber-100 shadow-md border border-yellow-200 text-sm text-yellow-800">
                 <p>No hay resultados para mostrar</p>
@@ -47,11 +47,11 @@ const ListReports = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {reports &&
-                            reports.map((report) => (
+                        {sales &&
+                            sales.map((sale) => (
                                 <ItemReport
-                                    report={report}
-                                    key={report.idSaleDetail}
+                                    report={sale}
+                                    key={sale.idSaleDetail}
                                 />
                             ))}
                     </tbody>

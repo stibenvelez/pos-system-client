@@ -3,6 +3,7 @@ import {
     ADD_EGRESS,
     ADD_EGRESS_ERROR,
     ADD_EGRESS_SUCCESS,
+    GET_EGRESS,
     GET_EGRESSES,
     GET_EGRESSES_CATEGORIES,
     GET_EGRESSES_CATEGORIES_ERROR,
@@ -12,6 +13,8 @@ import {
     GET_EGRESSES_SUBCATEGORIES_ERROR,
     GET_EGRESSES_SUBCATEGORIES_SUCCESS,
     GET_EGRESSES_SUCCESS,
+    GET_EGRESS_ERROR,
+    GET_EGRESS_SUCCESS,
 } from "../types/egresses.types";
 import Swal from "sweetalert2";
 
@@ -34,6 +37,27 @@ export const getAllEgressesAction = () => {
         }
     };
 };
+
+export const getEgressByIdAction = (id) => {
+    return async (dispatch) => {
+        dispatch({
+            type: GET_EGRESS,
+        });
+        try {
+            const response = await clienteAxios.get(`/egresses/${id}`);
+            dispatch({
+                type: GET_EGRESS_SUCCESS,
+                payload: response.data,
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_EGRESS_ERROR,
+                payload: error.response.data.message,
+            });
+        }
+    };
+}
+
 
 export const getAllEgressesCategoriesAction = () => {
     return async (dispatch) => {

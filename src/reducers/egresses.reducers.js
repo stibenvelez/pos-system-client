@@ -2,6 +2,7 @@ import {
     ADD_EGRESS,
     ADD_EGRESS_ERROR,
     ADD_EGRESS_SUCCESS,
+    GET_EGRESS,
     GET_EGRESSES,
     GET_EGRESSES_CATEGORIES,
     GET_EGRESSES_CATEGORIES_ERROR,
@@ -11,6 +12,8 @@ import {
     GET_EGRESSES_SUBCATEGORIES_ERROR,
     GET_EGRESSES_SUBCATEGORIES_SUCCESS,
     GET_EGRESSES_SUCCESS,
+    GET_EGRESS_ERROR,
+    GET_EGRESS_SUCCESS,
 } from "../types/egresses.types";
 
 const initialState = {
@@ -23,6 +26,7 @@ const initialState = {
 
 const egressesReducers = (state = initialState, action) => {
     switch (action.type) {
+        case GET_EGRESS:
         case GET_EGRESSES:
             return {
                 ...state,
@@ -34,13 +38,26 @@ const egressesReducers = (state = initialState, action) => {
                 egresses: action.payload,
                 loading: false,
             };
-            
+
         case GET_EGRESSES_ERROR:
             return {
                 ...state,
                 error: action.payload,
                 loading: false,
             };
+        case GET_EGRESS_SUCCESS:
+            return {
+                ...state,
+                egress: action.payload,
+                loading: false,
+            };
+        case GET_EGRESS_ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            };
+
         case GET_EGRESSES_CATEGORIES:
             return {
                 ...state,
@@ -84,15 +101,14 @@ const egressesReducers = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                message: action.payload
-            }
+                message: action.payload,
+            };
         case ADD_EGRESS_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: true,
-            }
-        
+            };
 
         default:
             return state;

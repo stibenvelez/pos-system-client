@@ -17,6 +17,7 @@ import SalesReportPage from "../pages/Reports/SalesReportPage";
 import ProductPage from "../pages/products/ProductPage";
 import EgressesPage from "../pages/egresses/EgressesPage";
 import NewEgressPage from "../pages/egresses/NewEgressPage";
+import EgressPage from "../pages/egresses/EgressPage";
 
 const Routers = () => {
 
@@ -42,6 +43,7 @@ const Routers = () => {
                     <Route path="egresses">
                         <Route index element={<EgressesPage />} />  
                         <Route path="new-egress" element={<NewEgressPage />} />
+                        <Route path=":id" element={<EgressPage />} />
                     </Route>
                     <Route path="products">
                         <Route index element={<ProductsPages />} />

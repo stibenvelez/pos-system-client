@@ -4,9 +4,8 @@ import formatMoney from '../../../helpers/formatMoney'
 import { useSelector } from 'react-redux'
 
 const IndicatorsCards = () => {
-    const { totalSold, totalCost, totalCommission } = useSelector(
-        ({ reports }) => reports.sales
-    );
+    const { totalSold, totalCost, totalCommission, totalExpenses } =
+        useSelector(({ reports }) => reports.sales);
     const loading = useSelector(({ reports }) => reports.loading);
 
     if (loading) {
@@ -58,7 +57,7 @@ const IndicatorsCards = () => {
               <Card className="h-20">
                   <h4 className="">Gastos</h4>
                   <p className="text-2xl font-bold text-rose-900">
-                      {formatMoney.format(0)}
+                      {formatMoney.format(totalExpenses)}
                   </p>
               </Card>
           </div>

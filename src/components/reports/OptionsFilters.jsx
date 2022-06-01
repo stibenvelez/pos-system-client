@@ -37,7 +37,7 @@ const OptionsFilters = () => {
         
         getEmployees();
     }, [searchParams]);
-console.log(employees)
+
     return (
         <Card className="py-4">
             <div className="flex gap-2">
