@@ -32,7 +32,9 @@ const Sidebar = () => {
                         <Link to="/" className="text-2xl font-bold text-white">
                             <div className="w-28 md:w-40">
                                 <img
-                                    src={`/public/assets/img/app/logo-white.svg`}
+                                    src={`${
+                                        import.meta.env.VITE_PUBLIC_URL
+                                    }/public/assets/img/app/logo-white.svg`}
                                     className="fill-red-500"
                                     alt="React Logo"
                                 />
