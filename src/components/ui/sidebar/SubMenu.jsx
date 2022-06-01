@@ -10,13 +10,13 @@ const SubMenu = ({ item }) => {
     return (
         <>
             <NavLink
-                className={` flex items-center justify-between p-5 text-base text-white cursor-pointer hover:bg-rose-700 hover:border-l-4 hover:pl-4`}
+                className={`flex items-center justify-between p-5 text-base text-white cursor-pointer hover:bg-rose-700 hover:border-l-4 hover:pl-4`}
                 to={item.path}
                 onClick={item.subNav && showSubnav}
             >
-                <div>
-                    {item.icon}
-                    <span className="ml-4">{item.title}</span>
+                <div className="flex gap-4 items-center">
+                    <i className="text-white">{item.icon}</i>
+                    <span className="">{item.title}</span>
                 </div>
                 <div>
                     {item.subNav && subnav ? (

@@ -41,7 +41,7 @@ const Routers = () => {
                         />
                     </Route>
                     <Route path="egresses">
-                        <Route index element={<EgressesPage />} />  
+                        <Route index element={<EgressesPage />} />
                         <Route path="new-egress" element={<NewEgressPage />} />
                         <Route path=":id" element={<EgressPage />} />
                     </Route>

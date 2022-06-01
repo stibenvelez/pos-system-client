@@ -57,8 +57,11 @@ const IndicatorsCards = () => {
 
     return (
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 ">
-            {DATA_INDICATORS.map((item) => (
-                <Card className="h-36 flex-col flex-wrap gap-4 items-center">
+            {DATA_INDICATORS.map((item, index) => (
+                <Card
+                    key={index}
+                    className="h-36 flex-col flex-wrap gap-4 items-center"
+                >
                     <div
                         className={`inline-block rounded-md p-1 ${item.color}`}
                     >

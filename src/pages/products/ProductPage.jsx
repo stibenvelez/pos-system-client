@@ -3,7 +3,7 @@ import InfoProduct from "../../components/products/product/InfoProduct";
 import Template from "../../components/ui/Template";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByIdAction } from "../../actions/productsActions";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ProductPage = () => {
     const dispatch = useDispatch();
@@ -13,12 +13,12 @@ const ProductPage = () => {
         (() => dispatch(getProductByIdAction(id)))();
     }, []);
 
-    const { product } = useSelector(({ products }) => products.product);
     return (
         <Template
-            title={product}
-            description="Edite la informacion del product product"
+            title="Informacion del producto"
+            description="Informacion detalalda del producto"
         >
+
             <InfoProduct />
         </Template>
     );

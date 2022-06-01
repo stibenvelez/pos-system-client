@@ -6,7 +6,6 @@ import ActionsSections from "../../components/employees/ActionsSections";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card/Card";
 import Template from "../../components/ui/Template";
-import Socket from "../../config/Socket";
 
 const EmployeesPage = () => {
     const dispatch = useDispatch();

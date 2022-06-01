@@ -18,6 +18,5 @@ export default combineReducers({
     auth: authReducer,
     reports: reportsReducer,
     employees: employesReducers,
-    egresses: egressesReducers,
-    socket: socketReducers,
+    egresses: egressesReducers
 });

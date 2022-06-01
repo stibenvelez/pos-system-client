@@ -66,6 +66,8 @@ const FormNewProduct = () => {
                 <Spinner />
             </Card>
         );
+    
+    console.log(formik.values)
 
     return (
         <div className="flex flex-col items-center gap-8 lg:items-start lg:justify-center lg:flex-row">
@@ -339,6 +341,7 @@ const FormNewProduct = () => {
                                         aria-describedby="user_avatar_help"
                                         id="user_avatar"
                                         type="file"
+                                        onChange={formik.handleChange}
                                     />
                                 </div>
                             </div>

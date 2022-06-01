@@ -1,10 +1,10 @@
-
+import { CashIcon, ClipboardIcon, ClipboardListIcon, CubeIcon, CurrencyDollarIcon, ViewGridAddIcon } from "@heroicons/react/outline";
 
 export const SidebarData = [
     {
         title: "Ingresos",
         path: "#",
-        icon: null,
+        icon: <CurrencyDollarIcon className="h-5 w-5" />,
         iconClosed: null,
         iconOpened: null,
 
@@ -32,7 +32,7 @@ export const SidebarData = [
     {
         title: "Egresos",
         path: "#",
-        icon: null,
+        icon: <CashIcon className="h-5 w-5" />,
         iconClosed: null,
         iconOpened: null,
 
@@ -54,8 +54,7 @@ export const SidebarData = [
     {
         title: "Products",
         path: "#",
-        icon: null,
-        icon: null,
+        icon: <CubeIcon className="h-5 w-5" />,
         iconClosed: null,
         iconOpened: null,
 
@@ -78,7 +77,7 @@ export const SidebarData = [
     {
         title: "Reportes",
         path: "#",
-        icon: null,
+        icon: <ClipboardListIcon className="h-5 w-5" />,
         iconClosed: null,
         iconOpened: null,
 
@@ -98,7 +97,7 @@ export const SidebarData = [
     {
         title: "Config",
         path: "#",
-        icon: null,
+        icon: <ViewGridAddIcon className="h-5 w-5" />,
         iconClosed: null,
         iconOpened: null,
 
