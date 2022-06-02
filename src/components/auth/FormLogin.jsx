@@ -27,7 +27,7 @@ const loading = useSelector(({ auth }) => auth.loading);
                     <div>
                         <div className="flex justify-center w-full">
                             <img
-                                src={`${import.meta.env.VITE_PUBLIC_URL}/assets/img/app/logo.svg`}
+                                src={`${import.meta.env.VITE_PUBLIC_URL}/img/app/logo.svg`}
                                 className="fill-red-500"
                                 alt="React Logo"
                             />
