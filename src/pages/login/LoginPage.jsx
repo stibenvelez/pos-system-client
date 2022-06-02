@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import FormLogin from "../../components/auth/FormLogin";
-import img from "/assets/img/app/auto.jpg";
+import img from `${import.meta.env.VITE_PUBLIC_URL}/img/app/auto.jpg`;
 
 const Background = styled.div`
     background: linear-gradient(
