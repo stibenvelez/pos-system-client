@@ -4,18 +4,31 @@ import { useSearchParams } from "react-router-dom";
 import { getReportrFiltersAction } from "../../actions/reportsActions";
 import clienteAxios from "../../config/axios";
 import Card from "../ui/Card/Card";
+import { XIcon } from "@heroicons/react/solid";
+import {formatDate} from '../../helpers/FormatDate'
 
+const firtMonthDay = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+);
 
+const lastDay = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+);
+    
 
-const OptionsFilters = () => {
-
+console.log(lastDay);  
+const OptionsFilters = ({ setShowFilters }) => {
     const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams({
-        dateFrom: "2022-05-05",
-        dateTo: "2022-05-31",
+        dateFrom: formatDate(firtMonthDay),
+        dateTo: formatDate(lastDay),
     });
-    const [employees, setEmployees] = useState([])
-        
+    const [employees, setEmployees] = useState([]);
+
     const handleChange = (e) => {
         setSearchParams({
             ...Object.fromEntries([...searchParams]),
@@ -30,19 +43,27 @@ const OptionsFilters = () => {
             );
         getFilter();
     }, [searchParams]);
-    
+
     useEffect(() => {
-        const getEmployees = async () =>{
-            const result = await clienteAxios('/employees')
+        const getEmployees = async () => {
+            const result = await clienteAxios("/employees");
             setEmployees(result.data);
-        }
-        
+        };
+
         getEmployees();
     }, [searchParams]);
 
     return (
         <Card className="py-4">
-            <div className="flex gap-2">
+            <div className="w-full flex flex-col">
+                <div className="w-full flex justify-end ">
+                    <div
+                        className="hover:bg-indigo-100 cursor-pointer p-1 rounded-full transition duration-200 ease-in-out hover:text-indigo-600 hover:shadow-sm text-gray-700"
+                        onClick={()=>setShowFilters(false)}
+                    >
+                        <XIcon className="h-5 w-5 " />
+                    </div>
+                </div>
                 <div className="flex flex-wrap gap-4 lg:col-span-4">
                     <div className="">
                         <label htmlform="dateFrom">Desde: </label>

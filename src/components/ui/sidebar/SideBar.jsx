@@ -13,9 +13,9 @@ const Sidebar = () => {
     const showSidebar = () => setSidebar(!sidebar);
 
     return (
-        <div className="relative z-50 ">
+        <div className="z-50 ">
             <div
-                className="absolute flex items-center justify-center w-12 h-12 rounded-md bg-slate-800 hover:bg-slate-700 button-3 -right-14 sm:hidden"
+                className="absolute flex items-center justify-center w-12 h-12 rounded-md bg-slate-800 hover:bg-slate-700 top-3 button-3 left-3  sm:hidden shadow-sm"
                 onClick={showSidebar}
             >
                 <Link className="text-white" to="#">
@@ -23,7 +23,7 @@ const Sidebar = () => {
                 </Link>
             </div>
             <nav
-                className={`bg-slate-800 h-screen sm:w-56 w-full overflow-y-auto flex justify-center transition-all duration-75 sm:relative sm:left-0 fixed ease-out ${
+                className={`bg-slate-800 h-screen sm:w-56 w-full overflow-y-auto flex justify-center transition-all duration-300 sm:relative sm:left-0 fixed ease-in-out ${
                     sidebar ? "left-0" : "-left-full "
                 }`}
             >
@@ -48,7 +48,13 @@ const Sidebar = () => {
                         <AiIcons.AiOutlineClose onClick={showSidebar} />
                     </Link>
                     {SidebarData.map((item, index) => {
-                        return <SubMenu item={item} key={index} />;
+                        return (
+                            <SubMenu
+                                item={item}
+                                key={index}
+                                showSidebar={showSidebar}
+                            />
+                        );
                     })}
                 </div>
             </nav>

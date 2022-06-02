@@ -23,7 +23,6 @@ const DataSale = ({ handleChange, sale, errors }) => {
             </div>
 
             <div className="mt-3">
-
                 <div className="grid gap-6 lg:grid-cols-3">
                     <div className="">
                         <label
@@ -38,7 +37,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                                 type="text"
                                 name="documentType"
                                 autoComplete="given-documentType"
-                                className="px-3 py-2 mt-1 bg-gray-100 border-t border-b border-l border-gray-200 rounded-l-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="px-3 py-2 mt-1 bg-gray-100 border-t border-b border-l  border-gray-200 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 onChange={handleChange}
                                 value={sale.dataSale.documentType}
                             >
@@ -52,7 +51,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                                 name="document"
                                 id="document"
                                 autoComplete="document"
-                                className="w-full px-3 py-2 mt-1 border border-gray-200 rounded-r-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="w-full px-3 py-2 mt-1 border-r border-t border-b border-gray-200 rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 onChange={handleChange}
                                 value={sale.dataSale.document}
                             />
@@ -63,7 +62,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                                 name="anonymousClient"
                                 onChange={handleSale}
                             />{" "}
-                            Cliente anómino
+                            Cliente anómino 
                         </label> */}
                         </div>
                         {errors.document && sale.dataSale.document === "" && (
