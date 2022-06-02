@@ -20,6 +20,7 @@ const FormNewProduct = () => {
     useEffect(() => {
         const getProductCategories = async () => {
             const res = await clienteAxios("/product-categories");
+            console.log(res);
             setProductCategories(res.data);
         };
         getProductCategories();
@@ -50,12 +51,10 @@ const FormNewProduct = () => {
 
     const actionSubmit = async (values) => {
         if (product && product.idProduct) {
-            console.log("editar producto");
             formik.resetForm()
             dispatch(editProductByIdAction(values));
             return;
         }
-        console.log("crear producto");
         dispatch(addNewProductAction(values));
         formik.resetForm();
     };
@@ -66,21 +65,20 @@ const FormNewProduct = () => {
                 <Spinner />
             </Card>
         );
-    
-    console.log(formik.values)
+
 
     return (
         <div className="flex flex-col items-center gap-8 lg:items-start lg:justify-center lg:flex-row">
-            <div className="w-64 h-64 bg-gray-300 border-8 rounded">
+            <div className="w-72 bg-gray-300 border-8 rounded">
                 <img
                     className="object-contain rounded"
-                    src={`/public/assets/img/products/${
+                    src={`${import.meta.env.VITE_PUBLIC_URL}/img/products/${
                         formik.values.image ?? "productDefault.png"
                     }`}
                     alt="product"
                 />
             </div>
-            <div className="w-2/3">
+            <div className="w-full">
                 <div className="grid grid-cols-1 gap-4 ">
                     <form onSubmit={formik.handleSubmit}>
                         <div className="flex flex-col gap-4 p-10 bg-white rounded-md shadow">
@@ -138,20 +136,16 @@ const FormNewProduct = () => {
                                             <option hidden value="">
                                                 --selecionar --
                                             </option>
-                                            {productCategories.map(
-                                                (category) => (
-                                                    <option
-                                                        key={
-                                                            category.idProductCategory
-                                                        }
-                                                        value={
-                                                            category.idProductCategory
-                                                        }
-                                                    >
-                                                        {category.category}
-                                                    </option>
-                                                )
-                                            )}
+                                            {productCategories.map((item) => (
+                                                <option
+                                                    key={item.idProductCategory}
+                                                    value={
+                                                        item.idProductCategory
+                                                    }
+                                                >
+                                                    {item.category}
+                                                </option>
+                                            ))}
                                         </select>
                                         {formik.errors.idProductCategory && (
                                             <div>
@@ -329,7 +323,7 @@ const FormNewProduct = () => {
                                         />
                                     </div>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <label
                                         className="block mb-2 font-medium text-gray-900 dark:text-gray-300"
                                         htmlFor="user_avatar"
@@ -343,7 +337,7 @@ const FormNewProduct = () => {
                                         type="file"
                                         onChange={formik.handleChange}
                                     />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="flex gap-2">
                                 <button

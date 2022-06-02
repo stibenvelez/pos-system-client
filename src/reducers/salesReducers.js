@@ -37,10 +37,13 @@ const initialState = {
 
 const salesReducers = (state = initialState, action) => {
     switch (action.type) {
+        case POST_NEW_SALE:
+        case GET_SALE_BY_ID:
         case GET_ALL_SALES:
             return {
                 ...state,
                 loading: true,
+                error: false,
             };
         case GET_ALL_SALES_SUCCESS:
             return {
@@ -56,13 +59,6 @@ const salesReducers = (state = initialState, action) => {
                 loading: false,
                 error: action.payload,
             };
-
-        case GET_SALE_BY_ID:
-            return {
-                ...state,
-                loading: true,
-            };
-
         case GET_SALE_BY_ID_SUCCES:
             return {
                 ...state,
@@ -75,13 +71,6 @@ const salesReducers = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload,
-            };
-
-        case POST_NEW_SALE:
-            return {
-                ...state,
-                loading: true,
-                error: false,
             };
         case POST_NEW_SALE_SUCCESS:
             return {

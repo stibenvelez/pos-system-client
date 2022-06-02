@@ -101,9 +101,6 @@ export const addNewProductAction = (product) => {
         });
         try {
             await clienteAxios.post(`/products`, product);
-            //SOCKET IO
-            socket.emit("newProduct", product);
-
             dispatch({
                 type: ADD_NEW_PRODUCT_SUCCESS
             });

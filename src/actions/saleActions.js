@@ -2,6 +2,7 @@ import clienteAxios from "../config/axios";
 import { toast } from "react-toastify";
 import {
     ADD_NEW_PRODUCT_DETAIL,
+    ADD_NEW_PRODUCT_ERROR,
     REMOVE_ITEM_PRODUCT_DETAIL,
     POST_NEW_SALE,
     POST_NEW_SALE_SUCCESS,
@@ -10,7 +11,6 @@ import {
     GET_ALL_SALES_SUCCESS,
     GET_ALL_SALES_ERROR,
     FILTER_SALES_LIST,
-    ADD_NEW_PRODUCT_ERROR,
     GET_SALE_BY_ID,
     GET_SALE_BY_ID_SUCCES,
     GET_SALE_BY_ID_ERROR,
@@ -37,14 +37,12 @@ const addProductToSaleDetail = (product) => ({
 
 export const validateErrorsNewProductAction = (errors) => {
     return (dispatch) => {
-        dispatch(validateErrors(errors));
+        dispatch({
+            type: ADD_NEW_PRODUCT_ERROR,
+            payload: errors,
+        });
     };
 };
-
-const validateErrors = (errors) => ({
-    type: ADD_NEW_PRODUCT_ERROR,
-    payload: errors,
-});
 
 // remove item from sale detail
 export const removeItemFromSaleDetailAction = (id) => {
@@ -132,9 +130,8 @@ export const RegisterOneNewSaleAction = (sale) => {
                 title: `Ingreso registrado`,
                 text: "Se registró la venta con exito",
                 icon: "success",
-    
             });
-            
+
             dispatch(registerNewSaleSuccess());
         } catch (error) {
             dispatch(registerNewSaleError());
@@ -167,19 +164,23 @@ const filterSales = (filters) => ({
 });
 
 // CANCEL SALE
-export const cancelSaleByIdAction = sale => {
-    return async dispatch => {
-        dispatch({ type: CANCEL_SALE })
+export const cancelSaleByIdAction = (sale) => {
+    return async (dispatch) => {
+        dispatch({ type: CANCEL_SALE });
         try {
             await clienteAxios.put("sales/cancel-sale", sale);
-            Swal.fire("ingreso anulado!", "Se anulo el ingreso con exito", "success");
+            Swal.fire(
+                "ingreso anulado!",
+                "Se anulo el ingreso con exito",
+                "success"
+            );
             dispatch({ type: CANCEL_SALE_SUCCESS, payload: sale.id });
         } catch (error) {
             console.log(error);
-            dispatch({ type: CANCEL_SALE_ERROR});
+            dispatch({ type: CANCEL_SALE_ERROR });
         }
-    }
-}
+    };
+};
 
 export const editProductSaleDetailAction = (product) => {
     return (dispatch) => {

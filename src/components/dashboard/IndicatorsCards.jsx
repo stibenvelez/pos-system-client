@@ -22,7 +22,7 @@ const IndicatorsCards = () => {
     const DATA_INDICATORS = [
         {
             title: "Ingresos totales",
-            value: formatMoney.format(totalSold * 4),
+            value: formatMoney.format(totalSold),
             icon: (
                 <CurrencyDollarIcon className="h-8 text-green-800 text-2xl" />
             ),

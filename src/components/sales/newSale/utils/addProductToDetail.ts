@@ -19,6 +19,7 @@ const addProductToDetail = async (newProduct) => {
 
     const id = newProduct.id || uuid();
     newProduct.id = id;
+    newProduct.unitPrice = product.unitPrice
     newProduct.totalDiscount =
         parseInt(newProduct.quantity) * newProduct.unitDiscount;
     newProduct.totalPrice = newProduct.quantity * product.unitPrice;

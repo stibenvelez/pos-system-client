@@ -18,7 +18,6 @@ import {
 } from "../../../actions/saleActions";
 import { useNavigate } from "react-router-dom";
 import addProductToDetail from "./utils/addProductToDetail";
-import validateAddProduct from "./utils/validateAddProduct";
 
 const initialStateNewProduct = {
     category: "",
@@ -44,7 +43,6 @@ const FormNewSale = () => {
     const dispatch = useDispatch();
     const [newProduct, setNewProduct] = useState(initialStateNewProduct);
     const [fullSalePrice, setFulSalePrice] = useState(0);
-    const [productsFiltered, setproductsFiltered] = useState([]);
     const [errors, setErrors] = useState({});
     const [sale, setSale] = useState(INITIAL_SATATE_SALE);
     const [productSeleted, setProductSeleted] = useState(null);
@@ -53,14 +51,12 @@ const FormNewSale = () => {
         dispatch(addProductToSaleDetailAction(newProduct));
         setNewProduct(initialStateNewProduct);
     };
-    
+
     const RegisterOneNewSale = (sale) =>
         dispatch(RegisterOneNewSaleAction(sale));
 
     const detail = useSelector(({ sales }) => sales.detail);
-    const errorSubmit = useSelector(({ sales }) => sales.error);
     const user = useSelector(({ auth }) => auth.user);
-    const products = useSelector(({ products }) => products.products);
 
     useEffect(() => {
         const total = detail.reduce((acc, value) => acc + value.totalPrice, 0);
@@ -80,7 +76,9 @@ const FormNewSale = () => {
     const handleAddProductToDetail = async (dataProduct) => {
         const { result, errors } = await addProductToDetail(dataProduct);
         dispatch(validateErrorsNewProductAction(errors));
-        if (!errors) {addProductToSailDetail(result)};
+        if (!errors) {
+            addProductToSailDetail(result);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -108,26 +106,11 @@ const FormNewSale = () => {
 
         newSale.dataSale.registeredBy = user.idUser;
         RegisterOneNewSale(newSale);
-        /*
-        const error = await errorSubmit
-        if (error) {
-            toast.error("Error de conexion", {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            });
-            return; 
-        }
         setSale(INITIAL_SATATE_SALE);
-        */
     };
 
     return (
-        <div className="" onSubmit={handleSubmit}>
+        <div onSubmit={handleSubmit}>
             <form>
                 <div className="flex flex-col gap-6">
                     <div className="p-4 bg-white rounded-md shadow">
