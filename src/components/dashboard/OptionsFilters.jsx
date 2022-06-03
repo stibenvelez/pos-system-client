@@ -5,7 +5,7 @@ import { getReportrFiltersAction } from "../../actions/reportsActions";
 import clienteAxios from "../../config/axios";
 import Card from "../ui/Card/Card";
 import { XIcon } from "@heroicons/react/solid";
-import {formatDate} from '../../helpers/FormatDate'
+import { formatDate } from "../../helpers/FormatDate";
 
 const firtMonthDay = new Date(
     new Date().getFullYear(),
@@ -18,14 +18,13 @@ const lastDay = new Date(
     new Date().getMonth() + 1,
     0
 );
-    
+
 const OptionsFilters = ({ setShowFilters }) => {
     const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams({
         dateFrom: formatDate(firtMonthDay),
         dateTo: formatDate(lastDay),
     });
-    const [employees, setEmployees] = useState([]);
 
     const handleChange = (e) => {
         setSearchParams({
@@ -33,22 +32,11 @@ const OptionsFilters = ({ setShowFilters }) => {
             [e.target.name]: e.target.value,
         });
     };
-/*
-    useEffect(() => {
-        const getFilter = () =>
-            dispatch(
-                getReportrFiltersAction(Object.fromEntries([...searchParams]))
-            );
-        getFilter();
-    }, [searchParams]);
-*/
-    useEffect(() => {
-        const getEmployees = async () => {
-            const result = await clienteAxios("/employees");
-            setEmployees(result.data);
-        };
 
-        getEmployees();
+    useEffect(() => {
+        console.log('cambio...', searchParams);
+        (() =>
+            getReportrFiltersAction(Object.fromEntries([...searchParams])))();
     }, [searchParams]);
 
     return (
@@ -57,7 +45,7 @@ const OptionsFilters = ({ setShowFilters }) => {
                 <div className="w-full flex justify-end ">
                     <div
                         className="hover:bg-indigo-100 cursor-pointer p-1 rounded-full transition duration-200 ease-in-out hover:text-indigo-600 hover:shadow-sm text-gray-700"
-                        onClick={()=>setShowFilters(false)}
+                        onClick={() => setShowFilters(false)}
                     >
                         <XIcon className="h-5 w-5 " />
                     </div>
