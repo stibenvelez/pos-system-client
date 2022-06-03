@@ -19,8 +19,6 @@ const lastDay = new Date(
     0
 );
     
-
-console.log(lastDay);  
 const OptionsFilters = ({ setShowFilters }) => {
     const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams({
@@ -35,7 +33,7 @@ const OptionsFilters = ({ setShowFilters }) => {
             [e.target.name]: e.target.value,
         });
     };
-
+/*
     useEffect(() => {
         const getFilter = () =>
             dispatch(
@@ -43,7 +41,7 @@ const OptionsFilters = ({ setShowFilters }) => {
             );
         getFilter();
     }, [searchParams]);
-
+*/
     useEffect(() => {
         const getEmployees = async () => {
             const result = await clienteAxios("/employees");
