@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import clienteAxios from "../../../config/axios";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ProductData = ({
     newProduct,
@@ -241,24 +241,6 @@ const ProductData = ({
                         </div>
                     )}
                 </div>
-                {/* <div className="col-span-6 md md:col-span-2">
-                    <label
-                        htmlFor="commissionValue"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        comision
-                    </label>
-                    <input
-                        id="commissionValue"
-                        name="commissionValue"
-                        type="text"
-                        placeholder="ABC000"
-                        autoComplete="licensePlate"
-                        className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        onChange={handleProduct}
-                        //value={newProduct.commissionValue}
-                    />
-                </div> */}
                 <div className="col-span-6 md:col-span-2">
                     <label
                         htmlFor="unitDiscount"

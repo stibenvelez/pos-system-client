@@ -1,7 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const DataSale = ({ handleChange, sale, errors }) => {
+const DataSale = ({ handleChange, errors }) => {
 
+    const { date, document, documentType, payMethod } = useSelector(
+        ({ sales }) => sales.dataSale
+    );
+
+    
+    
     return (
         <div>
             <div className="col-span-6 sm:col-span-2">
@@ -18,7 +25,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                     autoComplete="given-name"
                     className="px-2 py-1 mt-1 border border-gray-200 rounded-md"
                     onChange={handleChange}
-                    value={sale.dataSale.date}
+                    value={date}
                 />
             </div>
 
@@ -37,11 +44,11 @@ const DataSale = ({ handleChange, sale, errors }) => {
                                 type="text"
                                 name="documentType"
                                 autoComplete="given-documentType"
-                                className="px-3 py-2 mt-1 bg-gray-100 border-t border-b border-l  border-gray-200 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="px-3 py-2 mt-1 bg-gray-100 border-t border-b border-l border-gray-200 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 onChange={handleChange}
-                                value={sale.dataSale.documentType}
+                                value={documentType}
                             >
-                                <option value="1">CC</option>
+                                s<option value="1">CC</option>
                                 <option value="2">NIT</option>
                                 <option value="3">CE</option>
                                 <option value="4">PPE</option>
@@ -51,9 +58,9 @@ const DataSale = ({ handleChange, sale, errors }) => {
                                 name="document"
                                 id="document"
                                 autoComplete="document"
-                                className="w-full px-3 py-2 mt-1 border-r border-t border-b border-gray-200 rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="w-full px-3 py-2 mt-1 border-t border-b border-r border-gray-200 rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 onChange={handleChange}
-                                value={sale.dataSale.document}
+                                value={document}
                             />
                             {/* <label className="ml-3">
                             <input
@@ -65,7 +72,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                             Cliente anómino 
                         </label> */}
                         </div>
-                        {errors.document && sale.dataSale.document === "" && (
+                        {errors.document && document === "" && (
                             <div>
                                 <p className="p-1 text-sm text-red-600">
                                     {errors.document}
@@ -87,7 +94,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                             autoComplete="payMethod"
                             className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             onChange={handleChange}
-                            value={sale.dataSale.payMethod}
+                            value={payMethod}
                         >
                             <option hidden value="">
                                 --selecionar --
@@ -96,7 +103,7 @@ const DataSale = ({ handleChange, sale, errors }) => {
                             <option value="2">Nequi</option>
                             <option value="3">Bancolombia</option>
                         </select>
-                        {errors.payMethod && sale.dataSale.payMethod == "" && (
+                        {errors.payMethod && payMethod == "" && (
                             <div>
                                 <p className="p-1 text-sm text-red-600">
                                     {errors.payMethod}

@@ -13,6 +13,7 @@ import validateNewSale from "./utils/validateNewSale";
 import { formatDate } from "../../../helpers/FormatDate";
 import {
     addProductToSaleDetailAction,
+    readDatasaleAction,
     RegisterOneNewSaleAction,
     validateErrorsNewProductAction,
 } from "../../../actions/saleActions";
@@ -28,23 +29,12 @@ const initialStateNewProduct = {
     employe: "",
 };
 
-const INITIAL_SATATE_SALE = {
-    dataSale: {
-        date: formatDate(Date()),
-        documentType: 1,
-        document: "",
-        payMethod: "",
-    },
-    detail: [],
-};
-
 const FormNewSale = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [newProduct, setNewProduct] = useState(initialStateNewProduct);
     const [fullSalePrice, setFulSalePrice] = useState(0);
     const [errors, setErrors] = useState({});
-    const [sale, setSale] = useState(INITIAL_SATATE_SALE);
     const [productSeleted, setProductSeleted] = useState(null);
 
     const addProductToSailDetail = (newProduct) => {
@@ -52,25 +42,22 @@ const FormNewSale = () => {
         setNewProduct(initialStateNewProduct);
     };
 
-    const RegisterOneNewSale = (sale) =>
-        dispatch(RegisterOneNewSaleAction(sale));
-
     const detail = useSelector(({ sales }) => sales.detail);
-    const user = useSelector(({ auth }) => auth.user);
+    const dataSale = useSelector(({ sales }) => sales.dataSale);
 
+    const user = useSelector(({ auth }) => auth.user);
     useEffect(() => {
         const total = detail.reduce((acc, value) => acc + value.totalPrice, 0);
         setFulSalePrice(total);
     }, [detail]);
 
     const handleChange = (e) => {
-        setSale({
-            ...sale,
-            dataSale: {
-                ...sale.dataSale,
+        dispatch(
+            readDatasaleAction({
+                ...dataSale,
                 [e.target.name]: e.target.value,
-            },
-        });
+            })
+        );
     };
 
     const handleAddProductToDetail = async (dataProduct) => {
@@ -84,7 +71,7 @@ const FormNewSale = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newSale = {
-            dataSale: sale.dataSale,
+            dataSale: dataSale,
             detail: detail,
         };
 
@@ -102,11 +89,10 @@ const FormNewSale = () => {
                 progress: undefined,
             });
             return;
-        }
+        }   
 
-        newSale.dataSale.registeredBy = user.idUser;
-        RegisterOneNewSale(newSale);
-        setSale(INITIAL_SATATE_SALE);
+        dataSale.registeredBy = user.idUser;
+        dispatch(RegisterOneNewSaleAction(newSale));
     };
 
     return (
@@ -116,7 +102,6 @@ const FormNewSale = () => {
                     <div className="p-4 bg-white rounded-md shadow">
                         <DataSale
                             handleChange={handleChange}
-                            sale={sale}
                             errors={errors}
                         />
                     </div>

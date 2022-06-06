@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Card from "../../ui/Card/Card";
-
 import ItemSailDetail from "./ItemSailDetail";
 
 // Redux
@@ -15,7 +13,6 @@ const SaleDetail = () => {
             (acc, value) => acc + value.totalPrice,
             0
         );
-
         const totalDiscount = sailDetails.reduce(
             (acc, value) => acc + value.totalDiscount,
             0

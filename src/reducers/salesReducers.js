@@ -1,3 +1,4 @@
+import { formatDate } from "../helpers/FormatDate";
 import {
     ADD_NEW_PRODUCT_DETAIL,
     REMOVE_ITEM_PRODUCT_DETAIL,
@@ -17,11 +18,18 @@ import {
     EDIT_PRODUCT_SALE_DETAIL,
     EDIT_PRODUCT_SALE_DETAIL_SUCCESS,
     EDIT_PRODUCT_SALE_DETAIL_ERROR,
+    READ_DATASALE,
 } from "../types/salesTypes";
 
 const initialState = {
     sales: [],
     sale: {},
+    dataSale: {
+        date: formatDate(Date()),
+        documentType: 1,
+        document: "",
+        payMethod: "",
+    },
     producttoremove: {},
     detail: [],
     error: false,
@@ -78,6 +86,7 @@ const salesReducers = (state = initialState, action) => {
                 loading: false,
                 detail: [],
                 error: false,
+                dataSale: initialState.dataSale
             };
         case POST_NEW_SALE_ERROR:
             return {
@@ -146,6 +155,12 @@ const salesReducers = (state = initialState, action) => {
                 error: true,
             };
 
+        case READ_DATASALE:
+            return {
+                ...state,
+                dataSale: action.payload,
+            };
+        
         default:
             return state;
     }

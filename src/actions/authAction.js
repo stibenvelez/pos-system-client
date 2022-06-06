@@ -28,7 +28,7 @@ export const AuthAction = () => {
                 },
             };
             const result = await clienteAxios.get("/users/profile", config);
-
+            console.log(result);
             dispatch({
                 type: AUTH_SUCCES,
                 payload: result.data,
@@ -47,9 +47,8 @@ export const loginAction = (user) => {
         dispatch({ type: LOGIN });
         try {
             const { data } = await clienteAxios.post("/users/login", user);
-            console.log(data);
             localStorage.setItem("token", data.token);
-            dispatch({ type: LOGIN_SUCCES, payload: user });
+            dispatch({ type: LOGIN_SUCCES, payload: data });
         } catch (error) {
 
             dispatch({ type: LOGIN_ERROR, payload: error.response.data.msg });

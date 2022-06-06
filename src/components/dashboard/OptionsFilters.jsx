@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { createSearchParams, useSearchParams } from "react-router-dom";
 import { getReportrFiltersAction } from "../../actions/reportsActions";
 import clienteAxios from "../../config/axios";
 import Card from "../ui/Card/Card";
@@ -21,23 +21,36 @@ const lastDay = new Date(
 
 const OptionsFilters = ({ setShowFilters }) => {
     const dispatch = useDispatch();
+
     const [searchParams, setSearchParams] = useSearchParams({
         dateFrom: formatDate(firtMonthDay),
         dateTo: formatDate(lastDay),
     });
+    const [employees, setEmployees] = useState([]);
+    console.log(searchParams.entries());
 
     const handleChange = (e) => {
         setSearchParams({
             ...Object.fromEntries([...searchParams]),
             [e.target.name]: e.target.value,
         });
+        createSearchParams(searchParams);
     };
 
+    /*
     useEffect(() => {
-        console.log('cambio...', searchParams);
         (() =>
-            getReportrFiltersAction(Object.fromEntries([...searchParams])))();
-    }, [searchParams]);
+            {dispatch(
+                getReportrFiltersAction(Object.fromEntries([...searchParams]))
+            )})();
+    }, []);
+*/
+    useEffect(() => {
+        (async () => {
+            const result = await clienteAxios("/employees");
+            setEmployees(result.data);
+        })();
+    }, []);
 
     return (
         <Card className="py-4">
