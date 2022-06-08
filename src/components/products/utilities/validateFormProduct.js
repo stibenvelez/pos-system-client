@@ -1,10 +1,29 @@
-import * as Yup from "yup";
-const ProductSchema = Yup.object().shape({
-    product: Yup.string().required("Ingrese el nombre de un producto"),
-    brand: Yup.string().nullable(),
-    idProductCategory: Yup.string().required("Seleccione una categoria"),
-    commissionPercentage: Yup.string(),
-    commissionValue: Yup.string(),
-});
 
-export default ProductSchema;
+
+export const validateFormProduct = async (values) => {
+    const errors = {};
+    if (values.product === "") {
+        errors.product = "Indique el nombre del producto";
+    }
+    if (values.idProductCategory === "") {
+        errors.idProductCategory = "Seleccione una categoria";
+    }
+    if (values.brand === "") {
+        errors.brand = "Seleccione una marca";
+    }
+    if (values.unitPrice === "" || isNaN(values.unitPrice) || values.unitPrice <= 0) {
+        errors.unitPrice = "Indique un precio de venta";
+    }
+    if (values.description ==="") {
+        errors.description = 'Required';
+    }
+    if (values.unitPrice === "") {
+        errors.unitPrice = 'Required';
+    }
+    if (values.commissionPercentage === "") {
+        errors.commissionPercentage = 'Indique un numero de 0 a 100';
+    }
+
+    return errors;
+}
+    

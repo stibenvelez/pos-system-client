@@ -6,30 +6,19 @@ import Table from '../ui/Table';
 const ProductsList = () => {
     const products = useSelector(({ products }) => products.products);
     const loading = useSelector(({ products }) => products.loading);
-{
-}
-    if (loading) {
-        return (
-            <div className="relative overflow-x-auto sm:rounded-lg">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400"></table>
-                <div className="w-full flex justify-center my-8">
-                    <Spinner />
-                </div>
-            </div>
-        );
-    }
 
-    if (products.length === 0) {
+    if (products.length === 0 && !loading) {
         return (
-            <div className="py-3 p-5 bg-amber-100 shadow-md border border-yellow-200 text-sm text-yellow-800">
+            <div className="p-5 py-3 text-sm text-yellow-800 border border-yellow-200 shadow-md bg-amber-100">
                 <p>No se encontraron resultados</p>
             </div>
         );
     }
+    
     return (
         <div>
             <Table>
-                <thead className="text-xs text-gray-50 uppercase bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
+                <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
                             Producto

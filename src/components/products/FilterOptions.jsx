@@ -1,8 +1,8 @@
-import React from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { filterProductsAction } from "../../actions/productsActions";
-import Card from "../../components/ui/Card/Card";
+import { debounce } from "debounce";
 
 const FilterOptions = () => {
     const dispach = useDispatch();
@@ -15,23 +15,24 @@ const FilterOptions = () => {
             })
         );
     };
+  const debouncedChangeHandler = useCallback(debounce(handleChange, 300), []);
 
     return (
         <div>
             <div className="py-3">
                 <Link
                     to="new-product"
-                    className="bg-slate-800 py-2 px-3 text-white rounded-md hover:bg-slate-700"
+                    className="px-3 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-700"
                 >
                     Agregar un producto
                 </Link>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 py-2">
+            <div className="grid grid-cols-1 gap-4 py-2 lg:grid-cols-6">
                 <div className="flex flex-wrap gap-4 lg:col-span-4">
                     <div>
                         <label htmlform="category">Categoria: </label>
                         <select
-                            className="border py-2 px-2 rounded bg-gray-50"
+                            className="px-2 py-2 border rounded bg-gray-50"
                             name="category"
                             id="category"
                             onChange={handleChange}
@@ -46,7 +47,7 @@ const FilterOptions = () => {
                     <div>
                         <label htmlform="state">Estado: </label>
                         <select
-                            className="border py-2 px-2 rounded bg-gray-50"
+                            className="px-2 py-2 border rounded bg-gray-50"
                             id="state"
                             name="state"
                             onChange={handleChange}
@@ -58,13 +59,13 @@ const FilterOptions = () => {
                         </select>
                     </div>
                 </div>
-                <div className=" justify-end lg:col-start-5  lg:col-end-7">
-                    <div className="flex align-middle items-center">
+                <div className="justify-end lg:col-start-5 lg:col-end-7">
+                    <div className="flex items-center align-middle">
                         <label htmlFor="simple-search" className="sr-only">
                             Search
                         </label>
                         <div className="relative w-full">
-                            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg
                                     className="w-5 h-5 text-gray-500 dark:text-gray-400"
                                     fill="currentColor"
@@ -81,9 +82,11 @@ const FilterOptions = () => {
                             <input
                                 type="text"
                                 id="simple-search"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:outline-none  focus:border-indigo-800 block w-full pl-10 py-2.5  dark:bg-gray-700 dark:indigo-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-600 dark:focus:border-indigo-800"
                                 placeholder=" Buscar"
+                                name="search"
                                 required=""
+                                onChange={debouncedChangeHandler}
                             />
                         </div>
                     </div>

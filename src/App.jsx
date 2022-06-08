@@ -4,6 +4,9 @@ import { AuthAction } from "./actions/authAction";
 import Routers from "./routes";
 import "sweetalert2/dist/sweetalert2.min.css";
 import "react-toastify/dist/ReactToastify.css";
+import "vite/modulepreload-polyfill";
+
+
 
 const App = () => {
 

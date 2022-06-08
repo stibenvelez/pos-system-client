@@ -1,24 +1,42 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formatDateTime } from "../../../helpers/FormatDate";
 
 const InfoProduct = () => {
+    const navigate = useNavigate();
     const product = useSelector(({ products }) => products.product);
+
     return (
         <div className="flex flex-col items-center gap-8 lg:items-start lg:justify-center lg:flex-row">
-            <div className="w-72 bg-gray-300 border-8 rounded">
-                <img
-                    className="object-contain rounded"
-                    src={`${import.meta.env.VITE_PUBLIC_URL}/img/products/${
-                        product.image ?? "productDefault.png"
-                    }`}
-                    alt="product"
-                />
+            <div className="bg-gray-300 border-8 rounded w-72">
+                {!product.image ? (
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="object-contain text-gray-400 rounded"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                        />
+                    </svg>
+                ) : (
+                    <img
+                        className="object-contain w-full rounded"
+                        src={`${
+                            import.meta.env.VITE_BACKEND_URL
+                        }/static/products/images/1654660747622.jpg`}
+                        alt="product"
+                    />
+                )}
             </div>
             <div className="w-full">
                 <div className="grid grid-cols-1 gap-4 ">
-                    <div className="flex flex-col gap-4 p-4 md:p-10 bg-white rounded-md shadow">
+                    <div className="flex flex-col gap-4 p-4 bg-white rounded-md shadow md:p-10">
                         <div className="flex flex-col gap-4">
                             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                                 <div className="">
@@ -36,7 +54,7 @@ const InfoProduct = () => {
                                         placeholder="Ejemplo: Pasacinta, Parlante 10 pulgadas, polarizado completo"
                                         autoComplete="product"
                                         className="block w-full px-3 py-2 mt-1 capitalize border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.product}
+                                        defaultValue={product?.product}
                                         readOnly
                                     />
                                 </div>
@@ -53,7 +71,7 @@ const InfoProduct = () => {
                                         name="idProductCategory"
                                         autoComplete="idProductCategory"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.category}
+                                        defaultValue={product?.category}
                                         readOnly
                                     />
                                 </div>
@@ -71,7 +89,7 @@ const InfoProduct = () => {
                                         placeholder="Pionneer, Bose, Focal, Kenwood"
                                         autoComplete="brand"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.brand}
+                                        defaultValue={product?.brand}
                                         readOnly
                                     />
                                 </div>
@@ -93,7 +111,7 @@ const InfoProduct = () => {
                                         placeholder="Ejemplo: Pasasinta, Parlante 10 pulgadas, polarizado completo"
                                         autoComplete="unitPrice"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.unitPrice}
+                                        defaultValue={product?.unitPrice}
                                         readOnly
                                     />
                                 </div>
@@ -111,7 +129,7 @@ const InfoProduct = () => {
                                         placeholder="Ejemplo: Pasasinta, Parlante 10 pulgadas, polarizado completo"
                                         autoComplete="quantity"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.unitCost}
+                                        defaultValue={product?.unitCost}
                                         readOnly
                                     />
                                     product
@@ -131,7 +149,7 @@ const InfoProduct = () => {
                                         autoComplete="commissionPercentage"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         defaultValue={
-                                            product.commissionPercentage
+                                            product?.commissionPercentage
                                         }
                                         readOnly
                                     />
@@ -151,7 +169,7 @@ const InfoProduct = () => {
                                         placeholder="Ejemplo: Pasasinta, Parlante 10 pulgadas, polarizado completo"
                                         autoComplete="commissionValue"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.commissionValue}
+                                        defaultValue={product?.commissionValue}
                                         readOnly
                                     />
                                 </div>
@@ -164,7 +182,7 @@ const InfoProduct = () => {
                                         <span className="text-red-600">*</span>
                                     </label>
 
-                                    {formatDateTime(product.createAt)}
+                                    {formatDateTime(product?.createAt)}
                                 </div>
                                 <div className="">
                                     <label
@@ -175,7 +193,7 @@ const InfoProduct = () => {
                                         <span className="text-red-600">*</span>
                                     </label>
 
-                                    {formatDateTime(product.updateAt)}
+                                    {formatDateTime(product?.updateAt)}
                                 </div>
                             </div>
                             <div>
@@ -191,20 +209,26 @@ const InfoProduct = () => {
                                         name="observations"
                                         autoComplete="observations"
                                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product.observations}
+                                        defaultValue={product?.observations}
                                         readOnly
                                     />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="py-3 flex">
+                    <div className="flex gap-2 py-3">
                         <Link
-                            to={`/dashboard/products/edit-product/${product.idProduct}`}
-                            className="bg-gray-500 py-2 px-3 text-white rounded-md hover:bg-gray-400 transition duration-150 ease-in-out"
+                            to={`/dashboard/products/edit-product/${product?.idProduct}`}
+                            className="px-3 py-2 text-white transition duration-150 ease-in-out rounded-md bg-slate-800 hover:bg-slate-700"
                         >
                             Editar producto
                         </Link>
+                        <button
+                            onClick={() => navigate(-1)}
+                            className="px-3 py-2 text-white transition duration-150 ease-in-out bg-gray-500 rounded-md hover:bg-gray-400"
+                        >
+                            Volver
+                        </button>
                     </div>
                 </div>
             </div>
