@@ -29,7 +29,6 @@ const initialState = {
 
 const productsReducers = (state = initialState, action) => {
     switch (action.type) {
-        case EDIT_PRODUCT:
         case GET_PRODUCT:
         case FETCH_PRODUCTS:
             return {
@@ -37,10 +36,15 @@ const productsReducers = (state = initialState, action) => {
                 loading: true,
                 product: {},
             };
+        case EDIT_PRODUCT:
+            return {
+                ...state,
+                loading: true,
+            }
         case ADD_NEW_PRODUCT:
             return {
                 ...state,
-                loading: true
+                loading: true,
             };
         case FETCH_PRODUCTS_SUCCESS:
             return {
@@ -98,8 +102,8 @@ const productsReducers = (state = initialState, action) => {
         case DISABLE_PRODUCT:
             return {
                 ...state,
-            }
-        
+            };
+
         case DISABLE_PRODUCT_SUCCESS:
             return {
                 ...state,
@@ -112,7 +116,6 @@ const productsReducers = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-
             };
 
         default:

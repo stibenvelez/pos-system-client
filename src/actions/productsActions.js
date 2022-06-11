@@ -65,16 +65,29 @@ export const getProductByIdAction = (id) => {
 };
 
 // EDIT PRODUCT BY ID
-export const editProductByIdAction = (product) => {
+export const editProductByIdAction = (productData) => {
     return async (dispatch) => {
         dispatch(editProductById());
         try {
-            const res = await clienteAxios.put(
-                `/products/${product.id}`,
-                product
+            const data = new FormData();
+            productData.idProduct &&
+                data.append("idProduct", productData.idProduct);
+            data.append("product", productData.product);
+            data.append("brand", productData.brand);
+            data.append("idProductCategory", productData.idProductCategory);
+            data.append(
+                "commissionPercentage",
+                productData.commissionPercentage
             );
+            data.append("unitCost", productData.unitCost);
+            data.append("unitPrice", productData.unitPrice);
+            data.append("observations", productData.observations);
+            data.append("image", productData.image);
+
+            const idProduct = data.get("idProduct");
+            const res = await clienteAxios.put(`/products/${idProduct}`, data);
             dispatch(editProductByIdSuccess(res.data[0]));
-            dispatch(getProductByIdAction(product.idProduct));
+            //dispatch(getProductByIdAction(product.idProduct));
         } catch (error) {
             console.log(error);
             dispatch(editProductByIdError());
@@ -102,7 +115,7 @@ export const addNewProductAction = (product) => {
         try {
             await clienteAxios.post(`/products`, product);
             dispatch({
-                type: ADD_NEW_PRODUCT_SUCCESS
+                type: ADD_NEW_PRODUCT_SUCCESS,
             });
         } catch (error) {
             dispatch({

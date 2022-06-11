@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../ui/Spinners/Spinner";
 import Card from "../ui/Card/Card";
 import { validateFormProduct } from "./utilities/validateFormProduct";
+import { editProductByIdAction } from "../../actions/productsActions";
 
 const INITIAL_VALUES = {
+    idProduct: false,
     product: "",
     brand: "",
     idProductCategory: "",
@@ -31,6 +33,8 @@ const FormNewProduct = () => {
     const [newProduct, setNewProduct] = useState(INITIAL_VALUES);
     const [errors, setErrors] = useState({});
     const [stateForm, setStateForm] = useState("");
+    const product = useSelector(({ products }) => products.product);
+    const loading = useSelector(({ products }) => products.loading);
 
     useEffect(() => {
         (async () => {
@@ -39,27 +43,12 @@ const FormNewProduct = () => {
         })();
     }, []);
 
-    const product = useSelector(({ products }) => products.product);
-    const loading = useSelector(({ products }) => products.loading);
-
     useEffect(() => {
-        if (!id) {
-            setStateForm(ESTATE_PRODUCT.add);
-            return;
+        if (id) {
+            setStateForm(ESTATE_PRODUCT.edit);
+            setNewProduct(product);
         }
-        setStateForm(ESTATE_PRODUCT.edit);
-    }, [id]);
-
-    /*
-    const formik = useFormik({
-        initialValues: id ? product : initialValues,
-        validationSchema: ProductSchema,
-        enableReinitialize: true,
-        onSubmit: (values) => {
-            actionSubmit(values);
-        },
-    });
-*/
+    }, [product]);
 
     const handleChange = ({ name, value }) => {
         setNewProduct({
@@ -70,7 +59,6 @@ const FormNewProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const errors = await validateFormProduct(newProduct);
 
         if (Object.keys(errors).length > 0) {
@@ -78,19 +66,9 @@ const FormNewProduct = () => {
             return;
         }
 
-        const data = new FormData();
-        data.append("product", newProduct.product);
-        data.append("brand", newProduct.brand);
-        data.append("idProductCategory", newProduct.idProductCategory);
-        data.append("commissionPercentage", newProduct.commissionPercentage);
-        data.append("unitCost", newProduct.unitCost);
-        data.append("unitPrice", newProduct.unitPrice);
-        data.append("observations", newProduct.observations);
-        data.append("image", newProduct.image);
-
         if (product && product.idProduct) {
-            //dispatch(editProductByIdAction(values));
-            //return;
+            dispatch(editProductByIdAction(newProduct));
+            return;
         }
         //dispatch(addNewProductAction(data));
     };
@@ -102,23 +80,51 @@ const FormNewProduct = () => {
             </Card>
         );
 
+    const rederImg = () => {        
+        if (newProduct?.image && newProduct?.image.name) {
+            return (
+                <img
+                    className="object-contain object-center rounded"
+                    src={
+                        newProduct.image &&
+                        URL.createObjectURL(newProduct?.image)
+                    }
+                    alt="product"
+                />
+            );
+        }    
+
+        if (product.image) {
+            return (
+                <img
+                    className="object-contain object-center rounded"
+                    src={
+                        import.meta.env.VITE_BACKEND_URL +
+                        "/static/products/images/" +
+                        product.image
+                    }
+                    alt="product"
+                />
+            );
+        }        
+
+        return (
+            <img
+                className="object-contain object-center rounded"
+                src={
+                    import.meta.env.VITE_BACKEND_URL +
+                    "/static/products/images/productDefault.png"
+                }
+                alt="product"
+            />
+        );
+    };
+
     const SectionImgProduct = () => {
         return (
             <div>
                 <div className="overflow-hidden bg-gray-300 border-8 rounded w-72 h-72">
-                    <img
-                        className="object-contain object-center rounded"
-                        src={
-                            newProduct.image
-                                ? URL.createObjectURL(newProduct?.image)
-                                : `${
-                                      import.meta.env.VITE_PUBLIC_URL
-                                  }/img/products/${
-                                      newProduct.image ?? "productDefault.png"
-                                  }`
-                        }
-                        alt="product"
-                    />
+                    {rederImg()}
                 </div>
                 <div className="py-4">
                     <label class="block">
@@ -293,13 +299,14 @@ const FormNewProduct = () => {
                                             value={newProduct.unitPrice}
                                         />
 
-                                        {errors.unitPrice && (
-                                            <div>
-                                                <p className="p-1 text-sm text-red-600">
-                                                    {errors.unitPrice}
-                                                </p>
-                                            </div>
-                                        )}
+                                        {errors.unitPrice &&
+                                            newProduct.unitPrice !== "" && (
+                                                <div>
+                                                    <p className="p-1 text-sm text-red-600">
+                                                        {errors.unitPrice}
+                                                    </p>
+                                                </div>
+                                            )}
                                     </div>
                                     <div className="">
                                         <label

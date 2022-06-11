@@ -52,7 +52,7 @@ const ItemProduct = ({ productData }) => {
         });
     };
     return (
-        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 shadow ">
             <th
                 scope="row"
                 className="flex items-center gap-2 px-6 py-2 font-medium text-gray-900 capitalize dark:text-white whitespace-nowrap"
@@ -70,9 +70,13 @@ const ItemProduct = ({ productData }) => {
                     className="w-12 h-12 rounded-full cursor-pointer"
                     onClick={() => navigate(`${idProduct}`)}
                 />
-                {product}
+                <div className="flex flex-col">
+                    <Link to={`${idProduct}`}>{product}</Link>
+                    <p className="text-sm font-normal text-gray-400">
+                        {category}
+                    </p>
+                </div>
             </th>
-            <td className="px-6 py-2 font-semibold">{category}</td>
             <td className="px-6 py-2">{formatMoney.format(unitCost)}</td>
             <td className="px-6 py-2">{formatMoney.format(unitPrice)}</td>
             <td className="px-6 py-2">{commissionPercentage}%</td>

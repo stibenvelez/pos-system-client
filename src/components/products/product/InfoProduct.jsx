@@ -29,7 +29,7 @@ const InfoProduct = () => {
                         className="object-contain w-full rounded"
                         src={`${
                             import.meta.env.VITE_BACKEND_URL
-                        }/static/products/images/1654660747622.jpg`}
+                        }/static/products/images/${product.image}`}
                         alt="product"
                     />
                 )}

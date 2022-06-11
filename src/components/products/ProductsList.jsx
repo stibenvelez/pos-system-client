@@ -24,9 +24,6 @@ const ProductsList = () => {
                             Producto
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Categoría
-                        </th>
-                        <th scope="col" className="px-6 py-3">
                             Costo unitario
                         </th>
                         <th scope="col" className="px-6 py-3">
