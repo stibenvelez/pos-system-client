@@ -107,13 +107,24 @@ const editProductByIdError = () => ({
 });
 
 //ADD NEW PRODUCT
-export const addNewProductAction = (product) => {
+export const addNewProductAction = (productData) => {
     return async (dispatch) => {
+        console.log(productData);
+        const data = new FormData();
+        data.append("product", productData.product);
+        data.append("brand", productData.brand);
+        data.append("idProductCategory", productData.idProductCategory);
+        data.append("commissionPercentage", productData.commissionPercentage);
+        data.append("unitCost", productData.unitCost);
+        data.append("unitPrice", productData.unitPrice);
+        data.append("observations", productData.observations);
+        data.append("image", productData.image);
+
         dispatch({
             type: ADD_NEW_PRODUCT,
         });
         try {
-            await clienteAxios.post(`/products`, product);
+            await clienteAxios.post(`/products`, data);
             dispatch({
                 type: ADD_NEW_PRODUCT_SUCCESS,
             });

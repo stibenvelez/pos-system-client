@@ -11,13 +11,13 @@ const ItemReport = ({ report }) => {
         employeName,
     } = report;
   return (
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <td class="px-4 py-3 font-medium">{product}</td>
-          <td class="px-4 py-3">{quantity}</td>
-          <td class="px-4 py-3">{formatMoney.format(totalPrice)}</td>
-          <td class="px-4 py-3">{employeName}</td>
-          <td class="px-4 py-3">{formatMoney.format(commissionValue)}</td>
-          <td class="px-4 py-3">{formatDate(createdAt)}</td>
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td className="px-4 py-3 font-medium">{product}</td>
+          <td className="px-4 py-3">{quantity}</td>
+          <td className="px-4 py-3">{formatMoney.format(totalPrice)}</td>
+          <td className="px-4 py-3">{employeName}</td>
+          <td className="px-4 py-3">{formatMoney.format(commissionValue)}</td>
+          <td className="px-4 py-3">{formatDate(createdAt)}</td>
       </tr>
   );
 }

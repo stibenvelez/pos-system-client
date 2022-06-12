@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../ui/Spinners/Spinner";
 import Card from "../ui/Card/Card";
 import { validateFormProduct } from "./utilities/validateFormProduct";
-import { editProductByIdAction } from "../../actions/productsActions";
+import { addNewProductAction, editProductByIdAction } from "../../actions/productsActions";
+import { createNewProductAdapter } from "../../adapters/product.adapter";
 
 const INITIAL_VALUES = {
     idProduct: false,
@@ -70,7 +71,7 @@ const FormNewProduct = () => {
             dispatch(editProductByIdAction(newProduct));
             return;
         }
-        //dispatch(addNewProductAction(data));
+        dispatch(addNewProductAction(createNewProductAdapter(newProduct)));
     };
 
     if (loading)
@@ -127,8 +128,8 @@ const FormNewProduct = () => {
                     {rederImg()}
                 </div>
                 <div className="py-4">
-                    <label class="block">
-                        <span class="sr-only">Choose File</span>
+                    <label className="block">
+                        <span className="sr-only">Choose File</span>
                         <input
                             type="file"
                             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-700 file:text-white hover:file:bg-slate-600 hover:file:text-white focus:outline-none focus:shadow-outline hover:file:cursor-pointer"

@@ -12,6 +12,10 @@ const ProductPage = () => {
     useEffect(() => {
         (() => dispatch(getProductByIdAction(id)))();
     }, []);
+    
+    useEffect(() => {
+        (() => dispatch(getProductByIdAction(id)))();
+    }, []);
 
     return (
         <Template

@@ -28,7 +28,6 @@ export const AuthAction = () => {
                 },
             };
             const result = await clienteAxios.get("/users/profile", config);
-            console.log(result);
             dispatch({
                 type: AUTH_SUCCES,
                 payload: result.data,
