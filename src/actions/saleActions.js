@@ -2,7 +2,7 @@ import clienteAxios from "../config/axios";
 import { toast } from "react-toastify";
 import {
     ADD_NEW_PRODUCT_DETAIL,
-    ADD_NEW_PRODUCT_ERROR,
+    VALIDATE_ADD_NEW_PRODUCT_ERROR,
     REMOVE_ITEM_PRODUCT_DETAIL,
     POST_NEW_SALE,
     POST_NEW_SALE_SUCCESS,
@@ -39,7 +39,7 @@ const addProductToSaleDetail = (product) => ({
 export const validateErrorsNewProductAction = (errors) => {
     return (dispatch) => {
         dispatch({
-            type: ADD_NEW_PRODUCT_ERROR,
+            type: VALIDATE_ADD_NEW_PRODUCT_ERROR,
             payload: errors,
         });
     };
@@ -112,7 +112,7 @@ const getSaleByidError = (error) => ({
 });
 
 // Register one new sale
-export const RegisterOneNewSaleAction = (sale) => {
+export const registerOneNewSaleAction = (sale) => {
     return async (dispatch) => {
         dispatch({
             type: POST_NEW_SALE,

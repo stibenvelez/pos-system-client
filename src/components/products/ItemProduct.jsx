@@ -21,6 +21,7 @@ const ItemProduct = ({ productData }) => {
         idState,
         state,
         image,
+        brand,
     } = productData;
 
     const COLOR_STATE = {
@@ -72,6 +73,9 @@ const ItemProduct = ({ productData }) => {
                 />
                 <div className="flex flex-col">
                     <Link to={`${idProduct}`}>{product}</Link>
+                    <p className="text-sm font-normal text-gray-400">
+                        {brand && brand}
+                    </p>
                     <p className="text-sm font-normal text-gray-400">
                         {category}
                     </p>

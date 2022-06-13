@@ -14,7 +14,7 @@ import { formatDate } from "../../../helpers/FormatDate";
 import {
     addProductToSaleDetailAction,
     readDatasaleAction,
-    RegisterOneNewSaleAction,
+    registerOneNewSaleAction,
     validateErrorsNewProductAction,
 } from "../../../actions/saleActions";
 import { useNavigate } from "react-router-dom";
@@ -46,6 +46,7 @@ const FormNewSale = () => {
     const dataSale = useSelector(({ sales }) => sales.dataSale);
 
     const user = useSelector(({ auth }) => auth.user);
+    console.log(user);
     useEffect(() => {
         const total = detail.reduce((acc, value) => acc + value.totalPrice, 0);
         setFulSalePrice(total);
@@ -56,6 +57,7 @@ const FormNewSale = () => {
             readDatasaleAction({
                 ...dataSale,
                 [e.target.name]: e.target.value,
+                registeredBy: user.idUser
             })
         );
     };
@@ -74,7 +76,6 @@ const FormNewSale = () => {
             dataSale: dataSale,
             detail: detail,
         };
-
         const errors = validateNewSale(newSale);
 
         if (Object.keys(errors).length) {
@@ -91,8 +92,8 @@ const FormNewSale = () => {
             return;
         }   
 
-        dataSale.registeredBy = user.idUser;
-        dispatch(RegisterOneNewSaleAction(newSale));
+        console.log(newSale);
+        dispatch(registerOneNewSaleAction(newSale));
     };
 
     return (

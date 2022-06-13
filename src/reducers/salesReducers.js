@@ -1,6 +1,7 @@
 import { formatDate } from "../helpers/FormatDate";
 import {
     ADD_NEW_PRODUCT_DETAIL,
+    VALIDATE_ADD_NEW_PRODUCT_ERROR,
     REMOVE_ITEM_PRODUCT_DETAIL,
     GET_ALL_SALES_SUCCESS,
     GET_ALL_SALES,
@@ -8,7 +9,6 @@ import {
     POST_NEW_SALE_SUCCESS,
     POST_NEW_SALE_ERROR,
     FILTER_SALES_LIST,
-    ADD_NEW_PRODUCT_ERROR,
     GET_SALE_BY_ID,
     GET_SALE_BY_ID_SUCCES,
     GET_SALE_BY_ID_ERROR,
@@ -29,6 +29,7 @@ const initialState = {
         documentType: 1,
         document: "",
         payMethod: "",
+        registeredBy:""
     },
     producttoremove: {},
     detail: [],
@@ -37,7 +38,7 @@ const initialState = {
     filters: {
         category: "",
         dateFrom: "2022-05-01",
-        dateTo: "2022-05-31",
+        dateTo: "2022-06-30",
         state: "1",
     },
     errorsNewProduct: {},
@@ -86,7 +87,7 @@ const salesReducers = (state = initialState, action) => {
                 loading: false,
                 detail: [],
                 error: false,
-                dataSale: initialState.dataSale
+                dataSale: initialState.dataSale,
             };
         case POST_NEW_SALE_ERROR:
             return {
@@ -102,7 +103,7 @@ const salesReducers = (state = initialState, action) => {
 
                 errorsNewProduct: false,
             };
-        case ADD_NEW_PRODUCT_ERROR:
+        case VALIDATE_ADD_NEW_PRODUCT_ERROR:
             return {
                 ...state,
                 errorsNewProduct: action.payload,
@@ -160,7 +161,7 @@ const salesReducers = (state = initialState, action) => {
                 ...state,
                 dataSale: action.payload,
             };
-        
+
         default:
             return state;
     }
