@@ -1,12 +1,12 @@
 
 
 import { useDispatch, useSelector } from 'react-redux'
-import { AuthAction } from '../actions/authAction';
+import { authAction } from "../redux/auth/auth.action";
 
 const useAuth = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        const autenticate = dispatch(AuthAction())
+        const autenticate = dispatch(authAction());
         autenticate()
     }, [])
     

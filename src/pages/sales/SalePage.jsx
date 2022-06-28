@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
-import { getSaleByIdAction } from "../../actions/saleActions";
+import { getSaleByIdAction } from "../../redux/sales/sales.action";
 import { getSaleDetailByIdSaleAction } from "../../actions/salesDetailsAction";
 import SaleComponent from "../../components/sales/sale/SaleComponent";
 import { useNavigate } from "react-router-dom";

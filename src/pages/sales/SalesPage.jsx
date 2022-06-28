@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import SalesList from "../../components/sales/SalesList";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllSalesAction } from "../../actions/saleActions";
 
 import FilterOptions from "../../components/sales/FilterOptions";
+import { getAllSalesAction } from "../../redux/sales/sales.action";
 
 const SalesPage = () => {
     const dispatch = useDispatch();

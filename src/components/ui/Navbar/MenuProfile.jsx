@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { singOutAction } from "../../../actions/authAction";
+import { singOutAction } from "../../../redux/auth/auth.action";
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }

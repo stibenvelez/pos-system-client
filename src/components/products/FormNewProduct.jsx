@@ -7,6 +7,9 @@ import Card from "../ui/Card/Card";
 import { validateFormProduct } from "./utilities/validateFormProduct";
 import { addNewProductAction, editProductByIdAction } from "../../actions/productsActions";
 import { createNewProductAdapter } from "../../adapters/product.adapter";
+import { PlusSmIcon, TrashIcon} from "@heroicons/react/outline";
+import Modal from "../ui/Modal";
+import FormBrand from "../brads/FormBrand";
 
 const INITIAL_VALUES = {
     idProduct: false,
@@ -17,7 +20,7 @@ const INITIAL_VALUES = {
     unitCost: 0,
     unitPrice: 0,
     observations: "",
-    productImg: {},
+    image: {},
 };
 
 const ESTATE_PRODUCT = {
@@ -34,8 +37,11 @@ const FormNewProduct = () => {
     const [newProduct, setNewProduct] = useState(INITIAL_VALUES);
     const [errors, setErrors] = useState({});
     const [stateForm, setStateForm] = useState("");
+    const [openModalBrand, setOpenModalBrand] = useState(false);
+
     const product = useSelector(({ products }) => products.product);
     const loading = useSelector(({ products }) => products.loading);
+    const { brands } = useSelector(({ brands }) => brands);
 
     useEffect(() => {
         (async () => {
@@ -121,10 +127,17 @@ const FormNewProduct = () => {
         );
     };
 
+    const handleDeleImage = () => {
+        console.log('borrar imagen')
+    }
+    
     const SectionImgProduct = () => {
         return (
             <div>
-                <div className="overflow-hidden bg-gray-300 border-8 rounded w-72 h-72">
+                <div className="overflow-hidden bg-gray-300 border-8 rounded w-72 h-72 relative ">
+                    <button onClick={handleDeleImage} className="absolute right-2 bottom-2 bg-gray-200 rounded-full p-1 cursor-pointer hover:bg-red-200">
+                        <TrashIcon className="w-6 text-white " />
+                    </button>
                     {rederImg()}
                 </div>
                 <div className="py-4">
@@ -149,8 +162,20 @@ const FormNewProduct = () => {
         );
     };
 
+    const onCancel = () => {
+        setOpenModalBrand(false);
+    };
+
+    const handleOpenModalBrand = () => {
+        setOpenModalBrand(true);
+    };
+
+
     return (
         <div className="flex flex-col items-center gap-8 lg:items-start lg:justify-center lg:flex-row">
+            <Modal modalOpen={openModalBrand} onCancel={() => onCancel()}>
+                <FormBrand onCancel={() => onCancel()} />
+            </Modal>
             {SectionImgProduct()}
             <div className="w-full">
                 <div className="grid grid-cols-1 gap-4 ">
@@ -213,9 +238,7 @@ const FormNewProduct = () => {
                                                     value: e.target.value,
                                                 })
                                             }
-                                            value={
-                                                newProduct.pidProductCategoryroduct
-                                            }
+                                            value={newProduct.idProductCategory}
                                         >
                                             <option hidden value="">
                                                 --selecionar --
@@ -231,6 +254,7 @@ const FormNewProduct = () => {
                                                 </option>
                                             ))}
                                         </select>
+
                                         {errors.idProductCategory && (
                                             <div>
                                                 <p className="p-1 text-sm text-red-600">
@@ -246,22 +270,42 @@ const FormNewProduct = () => {
                                         >
                                             Marca
                                         </label>
-                                        <input
-                                            id="brand"
-                                            name="brand"
-                                            type="text"
-                                            placeholder="Pionneer, Bose, Focal, Kenwood"
-                                            autoComplete="brand"
-                                            className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            onChange={(e) =>
-                                                handleChange({
-                                                    name: e.target.name,
-                                                    value: e.target.value,
-                                                })
-                                            }
-                                            value={newProduct.brand}
-                                        />
-
+                                        <div className="flex items-center gap-2 mt-1">
+                                            <select
+                                                id="brand"
+                                                name="brand"
+                                                type="text"
+                                                placeholder="Pionneer, Bose, Focal, Kenwood"
+                                                autoComplete="brand"
+                                                className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                onChange={(e) =>
+                                                    handleChange({
+                                                        name: e.target.name,
+                                                        value: e.target.value,
+                                                    })
+                                                }
+                                                value={newProduct.brand}
+                                            >
+                                                <option hidden value="">
+                                                    --selecionar --
+                                                </option>
+                                                {brands.map((brand) => (
+                                                    <option
+                                                        key={brand.idBrand}
+                                                        value={brand.idBrand}
+                                                    >
+                                                        {brand.brand}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <button
+                                                type="button"
+                                                onClick={handleOpenModalBrand}
+                                                className="bg-gray-500 p-1  rounded shadow hover:bg-indigo-400 block"
+                                            >
+                                                <PlusSmIcon className="text-white w-4" />
+                                            </button>
+                                        </div>
                                         {errors.brand &&
                                             newProduct.brand == "" && (
                                                 <div>
@@ -407,7 +451,7 @@ const FormNewProduct = () => {
                                     type="submit"
                                 >
                                     {Object.keys(product).length
-                                        ? "Editar Producto"
+                                        ? "Editar"
                                         : "agregar"}
                                 </button>
                                 <input

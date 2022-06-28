@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProductsActions } from "../../actions/productsActions";
+
 import FilterOptions from "../../components/products/FilterOptions";
 import ProductsList from "../../components/products/ProductsList";
 import Template from "../../components/ui/Template";
+import { getAllProductsActions } from "../../redux/products/products.action";
 
 const ProductsPages = () => {
     const dispatch = useDispatch();

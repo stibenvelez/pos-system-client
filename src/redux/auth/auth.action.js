@@ -1,26 +1,23 @@
+import clienteAxios from "../../config/axios";
 import {
-    AUTH,
-    AUTH_SUCCES,
-    AUTH_ERROR,
-    LOGIN,
-    LOGIN_SUCCES,
-    LOGIN_ERROR,
-    SIGN_OUT,
-    SIGN_OUT_SUCCESS,
-    SIGN_OUT_ERROR,
-} from "../types/authTypes";
-import clienteAxios from "../config/axios";
+    setAuth,
+    setAuthSuccess,
+    setAuthError,
+    setLogin,
+    setLoginError,
+    setLoginSuccess,
+    signOut,
+    signOutSuccess,
+} from "./auth.slice";
 
 export const authAction = () => {
     return async (dispatch) => {
-        dispatch({
-            type: AUTH,
-        });
+        dispatch(setAuth());
         try {
             const token = localStorage.getItem("token");
             if (!token) {
                 console.log("no hay token");
-                return false
+               throw new Error("No hay token");
             }
             const config = {
                 headers: {
@@ -29,40 +26,34 @@ export const authAction = () => {
                 },
             };
             const result = await clienteAxios.get("/users/profile", config);
-            dispatch({
-                type: AUTH_SUCCES,
-                payload: result.data,
-            });
+            dispatch(setAuthSuccess(result.data));
         } catch (error) {
-            dispatch({
-                type: AUTH_ERROR,
-            });
+            dispatch(setAuthError());
         }
     };
 };
 
 export const loginAction = (user) => {
     return async (dispatch) => {
-        dispatch({ type: LOGIN });
+        dispatch(setLogin());
         try {
             const { data } = await clienteAxios.post("/users/login", user);
             localStorage.setItem("token", data.token);
-            dispatch({ type: LOGIN_SUCCES, payload: data });
+            dispatch(setLoginSuccess(data));
         } catch (error) {
-
-            dispatch({ type: LOGIN_ERROR, payload: error.response.data.msg });
+            dispatch(setLoginError(error.response.data.msg));
         }
     };
 };
 
 export const singOutAction = () => {
     return async (dispatch) => {
-        dispatch({ type: SIGN_OUT });
+        dispatch(signOut())
         try {
-            localStorage.removeItem('token')
-            dispatch({ type: SIGN_OUT_SUCCESS});
+            localStorage.removeItem("token");
+            dispatch(signOutSuccess());
         } catch (error) {
-            dispatch({ type: SIGN_OUT_ERROR });
+           console.log(error)
         }
     };
 };

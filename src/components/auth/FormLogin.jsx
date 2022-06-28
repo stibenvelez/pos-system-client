@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import Card from "../ui/Card/Card";
-import { loginAction } from "../../actions/authAction";
+import { loginAction } from "../../redux/auth/auth.action";
 import { useDispatch, useSelector } from "react-redux";
 
 const FormLogin = () => {
@@ -14,7 +14,7 @@ const FormLogin = () => {
             [e.target.name]: e.target.value,
         });
     };
-const loading = useSelector(({ auth }) => auth.loading);
+    const loading = useSelector(({ auth }) => auth.loading);
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(loginAction(signup));
@@ -27,7 +27,9 @@ const loading = useSelector(({ auth }) => auth.loading);
                     <div>
                         <div className="flex justify-center w-full">
                             <img
-                                src={`${import.meta.env.VITE_PUBLIC_URL}/img/app/logo.svg`}
+                                src={`${
+                                    import.meta.env.VITE_PUBLIC_URL
+                                }/img/app/logo.svg`}
                                 className="fill-red-500"
                                 alt="React Logo"
                             />
@@ -104,7 +106,7 @@ const loading = useSelector(({ auth }) => auth.loading);
                                         aria-hidden="true"
                                     />
                                 </span>
-                                {loading ? 'Cargando...' : 'Sign in'}
+                                {loading ? "Cargando..." : "Sign in"}
                             </button>
                         </div>
                     </form>

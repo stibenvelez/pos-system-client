@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesReportAction } from "../../actions/reportsActions";
+import { getSalesReportAction } from "../../redux/reports/reports.action";
 import IndicatorsCards from "../../components/dashboard/IndicatorsCards";
 import OptionsFilters from "../../components/dashboard/OptionsFilters";
 import { AdjustmentsIcon } from "@heroicons/react/outline";
@@ -28,15 +28,15 @@ const DashboardPage = () => {
                         <OptionsFilters setShowFilters={setShowFilters} />
                     ) : (
                         <button
-                            className="py-1 px-3 bg-slate-700 text-white rounded-md flex gap-2 hover:bg-indigo-800 cursor-pointer items-center"
+                            className="flex items-center gap-2 px-3 py-1 text-white rounded-md cursor-pointer bg-slate-700 hover:bg-indigo-800"
                             onClick={() => setShowFilters(true)}
                         >
-                            <AdjustmentsIcon className="h-5 w-5" />
+                            <AdjustmentsIcon className="w-5 h-5" />
                             Filtros
                         </button>
                     )}
                 </div>
-                <div className="grid lg:grid-cols-8 grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-8">
                     <div className="lg:col-span-10">
                         <IndicatorsCards />
                     </div>
