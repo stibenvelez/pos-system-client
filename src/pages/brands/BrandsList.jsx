@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SlideOver from "../../components/ui/SlideOver";
 import Table from "../../components/ui/Table";
 
-const BrandsList = ({ isOpen, setOpen }) => {
+const BrandsList = () => {
     const { brands } = useSelector(({ brands }) => brands);
     return (
         <>

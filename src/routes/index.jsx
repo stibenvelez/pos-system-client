@@ -62,7 +62,6 @@ const Routers = () => {
             <Routes>
                 <Route path="/" element={<AuthLayout />}>
                     <Route index element={<LoginPage />} />
-                    <Route path="*" element={<NotFountPage />} />
                 </Route>
 
                 <Route path="/dashboard/" element={<PrivateRoute />}>
@@ -114,8 +113,8 @@ const Routers = () => {
                         <Route index element={<BrandsPage />} />
                         {/* <Route path="users/:id" element={<UserPage />} /> */}
                     </Route>
-                    <Route path="*" element={<NotFountPage />} />
                 </Route>
+                <Route path="*" element={<NotFountPage />} />
             </Routes>
         </BrowserRouter>
     );

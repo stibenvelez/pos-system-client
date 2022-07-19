@@ -9,7 +9,7 @@ import BrandsList from "./BrandsList";
 
 const BrandsPage = () => {
     const dispatch = useDispatch();
-    const [isOpen, setOpen] = useState(true);
+    const [isOpen, setOpen] = useState(false);
     useEffect(() => {
         dispatch(getAllBrandsAction());
     }, []);
