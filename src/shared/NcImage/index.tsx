@@ -7,8 +7,6 @@ import React, {
 } from "react";
 import checkInViewIntersectionObserver from "../../helpers/isInViewPortIntersectionObserver";
 
-import PlaceIcon from "./PlaceIcon";
-import ProductDefault from "./productDefault";
 
 export interface NcImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     containerClassName?: string;
@@ -76,12 +74,17 @@ const NcImage: FC<NcImageProps> = ({
     }, [src]);
 
     const renderLoadingPlaceholder = () => {
+        let ruta: any = import.meta
         return (
             <div
                 className={`${className} flex items-center justify-center bg-neutral-200 dark:bg-neutral-6000 text-neutral-100 dark:text-neutral-500 `}
             >
                 <div className="h-full ">
-                    <ProductDefault />
+                    <img
+                        src={`img/products/productDefault.png`}
+                        alt="alt"
+                        className="h-full"
+                    />
                 </div>
             </div>
         );
