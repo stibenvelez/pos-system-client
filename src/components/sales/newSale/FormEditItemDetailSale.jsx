@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployeesAction } from "../../../actions/employees.action";
-import { getAllProductsCategoriesAction } from "../../../actions/productCategory.action";
-import { addProductToSaleDetailAction } from "../../../actions/saleActions";
-import { editProductSaleDetailAction } from "../../../actions/saleActions";
-import clienteAxios from "../../../config/axios";
+import { getAllEmployeesAction } from "../../../redux/employees/employees.actions";
+import { getAllProductsCategoriesAction } from "../../../redux/products/products.action";
+import { editProductSaleDetailAction } from "../../../redux/sales/sales.action";
 import Card from "../../ui/Card/Card";
 import addProductToDetail from "./utils/addProductToDetail";
 
@@ -26,8 +24,8 @@ const FormEditItemDetailSale = ({ product, onClose,handleSubmit }) => {
 
     const products = useSelector(({ products }) => products.products);
     const employees = useSelector(({ employees }) => employees.employees);
-    const productsCategories = useSelector(
-        ({ productsCategories }) => productsCategories.productsCategories
+    const {productsCategories} = useSelector(
+        ({ products }) => products
     );
     const handleChange = ({ target }) => {
         setNewProduct({

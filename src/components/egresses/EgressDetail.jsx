@@ -5,23 +5,28 @@ import { formatDate } from "../../helpers/FormatDate";
 
 const EgressDetail = () => {
     const egress = useSelector((state) => state.egresses.egress);
-    const loading = useSelector((state) => state.egresses.loading);
+    const { loading } = useSelector(({ egresses }) => egresses);
 
     if (loading) {
         return (
             <Card>
-                <div className="flex gap-4 flex-col p-3">
-                    <div className="border rounded-md flex gap-4 p-2">
+                <div className="flex flex-col gap-4 p-3 animate-pulse">
+                    <div className="flex w-full gap-4 p-2 border rounded-md">
                         <div>
                             <img
-                                src={`/public/assets/img/app/logo.svg`}
-                                className="fill-red-500 w-40"
+                                src={`${
+                                    import.meta.env.VITE_PUBLIC_URL
+                                }/img/app/logo.svg`}
+                                className="w-40 fill-red-500"
                                 alt="React Logo"
                             />
                         </div>
-                        <div className="grid grid-cols-4 gap-4 w-full">
-
-
+                        <div class="space-y-3  w-full">
+                            <div class="space-y-3">
+                                <div class="h-4 bg-slate-200 rounded "></div>
+                                <div class="h-3 bg-slate-200 rounded "></div>
+                            <div class="h-2 bg-slate-200 rounded"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -39,15 +44,11 @@ const EgressDetail = () => {
                             </thead>
                             <tbody>
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4">
-                                        
-                                    </th>
+                                    <th scope="row" className="px-6 py-4"></th>
                                     <td
                                         scope="row"
                                         className="px-6 py-4text-gray-900"
-                                    >
-                                       
-                                    </td>
+                                    ></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -60,7 +61,7 @@ const EgressDetail = () => {
     if (!egress) {
         return (
             <div>
-                <div className="p-3 bg-yellow-100 text-yellow-900 rounded shadow-sm">No se encontro un egreso para mostrar</div>
+                <div className="p-3 text-yellow-900 bg-yellow-100 rounded shadow-sm">No se encontro un egreso para mostrar</div>
             </div>
         );
     }
@@ -68,12 +69,14 @@ const EgressDetail = () => {
 
     return (
         <Card>
-            <div className="flex gap-4 flex-col p-3">
-                <div className="border rounded-md flex gap-4 p-2">
+            <div className="flex flex-col gap-4 p-3">
+                <div className="flex gap-4 p-2 border rounded-md">
                     <div>
                         <img
-                            src={`/public/assets/img/app/logo.svg`}
-                            className="fill-red-500 w-40"
+                            src={`${
+                                import.meta.env.VITE_PUBLIC_URL
+                            }/img/app/logo.svg`}
+                            className="w-40 fill-red-500"
                             alt="React Logo"
                         />
                     </div>

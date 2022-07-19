@@ -6,5 +6,5 @@ export const createNewProductAdapter = (Product: any) => ({
     commissionPercentage: Product.commissionPercentage,
     image: Product.image,
     observations: Product.observations,
-    brand: Product.brand,
+    brandId: Product.brandId,
 });

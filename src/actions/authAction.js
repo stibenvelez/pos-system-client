@@ -17,6 +17,7 @@ export const authAction = () => {
             type: AUTH,
         });
         try {
+            /*
             const token = localStorage.getItem("token");
             if (!token) {
                 console.log("no hay token");
@@ -28,7 +29,8 @@ export const authAction = () => {
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const result = await clienteAxios.get("/users/profile", config);
+            */
+            const result = await clienteAxios.get("/users/profile");
             dispatch({
                 type: AUTH_SUCCES,
                 payload: result.data,

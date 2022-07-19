@@ -14,6 +14,12 @@ import {
     setGetSaleById,
     setGetSaleByIdError,
     setGetSaleByIdSuccess,
+    setGetSalesDetails,
+    setGetSalesDetailsBySaleId,
+    setGetSalesDetailsBySaleIdError,
+    setGetSalesDetailsBySaleIdSuccess,
+    setGetSalesDetailsError,
+    setGetSalesDetailsSuccess,
     setPostNewSale,
     setPostNewSaleError,
     setPostNewSaleSuccess,
@@ -144,4 +150,26 @@ export const readDatasaleAction = (data) => {
     return (dispatch) => {
         dispatch(setReadDataSale(data));
     };
+};
+
+export const getAllSalesDetailsAction = () => async (dispatch) => {
+    dispatch(setGetSalesDetails());
+    try {
+        const sales = await clienteAxios.get(`/sales-details`);
+        dispatch(setGetSalesDetailsSuccess(sales.data));
+    } catch (error) {
+        dispatch(setGetSalesDetailsError(error));
+    }
+};
+
+export const getSaleDetailByIdSaleAction = (idSale) => async (dispatch) => {
+    dispatch(setGetSalesDetailsBySaleId());
+    try {
+        const salesDetails = await clienteAxios.get(
+            `/sales-details/search-by-idsale/${idSale}`
+        );
+        dispatch(setGetSalesDetailsBySaleIdSuccess(salesDetails.data));
+    } catch (error) {
+        dispatch(setGetSalesDetailsBySaleIdError(error));
+    }
 };

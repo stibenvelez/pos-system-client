@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getEmployeeByIdAction } from "../../actions/employees.action";
+import { getEmployeeByIdAction } from "../../redux/employees/employees.actions";
+
 import Table from "../ui/Table";
 import Row from "../ui/Table/Row";
 
@@ -14,31 +15,33 @@ const EmployeeList = ({ employees, setOptionsState }) => {
 
     const COLUMNS = [{ name: "Nombre" }, { name: "Acciones" }];
 
-    const DATA = employees.map((employe) => ({
-        name: employe.name,
-        actions: (
-            <div className="flex justify-center">
-                <button
-                    onClick={() => handleViewEmployee(employe.idEmploye)}
-                    className="items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 rounded-l hover:bg-gray-600"
-                >
-                    Ver
-                </button>
-                <button className="items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 hover:bg-blue-800">
-                    Editar
-                </button>
-                <button
-                    className={`items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 rounded-r  ${
-                        employe.idState === 1
-                            ? "hover:bg-red-500"
-                            : "hover:bg-green-600"
-                    } hover:bg-red-500`}
-                >
-                    Desactivar
-                </button>
-            </div>
-        ),
-    }));
+    const DATA =
+        employees &&
+        employees.map((employe) => ({
+            name: employe.name,
+            actions: (
+                <div className="flex justify-center">
+                    <button
+                        onClick={() => handleViewEmployee(employe.idEmploye)}
+                        className="items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 rounded-l hover:bg-gray-600"
+                    >
+                        Ver
+                    </button>
+                    {/* <button className="items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 hover:bg-blue-800">
+                        Editar
+                    </button> */}
+                    <button
+                        className={`items-center px-2 py-1 text-white transition duration-200 ease-in-out bg-gray-400 rounded-r  ${
+                            employe.idState === 1
+                                ? "hover:bg-red-500"
+                                : "hover:bg-green-600"
+                        } hover:bg-red-500`}
+                    >
+                        Desactivar
+                    </button>
+                </div>
+            ),
+        }));
 
     return (
         <Table>

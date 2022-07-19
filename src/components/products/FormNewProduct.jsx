@@ -5,22 +5,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../ui/Spinners/Spinner";
 import Card from "../ui/Card/Card";
 import { validateFormProduct } from "./utilities/validateFormProduct";
-import { addNewProductAction, editProductByIdAction } from "../../actions/productsActions";
+import {
+    addNewProductAction,
+    deleteImageAction,
+    editProductByIdAction,
+} from "../../redux/products/products.action";
 import { createNewProductAdapter } from "../../adapters/product.adapter";
-import { PlusSmIcon, TrashIcon} from "@heroicons/react/outline";
+import { PlusSmIcon, TrashIcon } from "@heroicons/react/outline";
 import Modal from "../ui/Modal";
 import FormBrand from "../brads/FormBrand";
+import NcImage from "../../shared/NcImage";
 
 const INITIAL_VALUES = {
     idProduct: false,
     product: "",
     brand: "",
+    brandId: "",
     idProductCategory: "",
     commissionPercentage: 0,
     unitCost: 0,
     unitPrice: 0,
     observations: "",
-    image: {},
+    image: null,
 };
 
 const ESTATE_PRODUCT = {
@@ -33,29 +39,37 @@ const FormNewProduct = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
-    const [productCategories, setProductCategories] = useState([]);
     const [newProduct, setNewProduct] = useState(INITIAL_VALUES);
     const [errors, setErrors] = useState({});
     const [stateForm, setStateForm] = useState("");
     const [openModalBrand, setOpenModalBrand] = useState(false);
+    const [isModified, setIsModified] = useState(false);
 
-    const product = useSelector(({ products }) => products.product);
+    const { product, productsCategories } = useSelector(
+        ({ products }) => products
+    );
     const loading = useSelector(({ products }) => products.loading);
     const { brands } = useSelector(({ brands }) => brands);
-
-    useEffect(() => {
-        (async () => {
-            const res = await clienteAxios("/product-categories");
-            setProductCategories(res.data);
-        })();
-    }, []);
 
     useEffect(() => {
         if (id) {
             setStateForm(ESTATE_PRODUCT.edit);
             setNewProduct(product);
+            return;
         }
+        setStateForm(ESTATE_PRODUCT.add);
     }, [product]);
+
+    useEffect(() => {
+        const productInitial = { ...product }
+        const productEEdites = { ...newProduct }
+        if (JSON.stringify(productInitial) === JSON.stringify(productEEdites)) {
+            setIsModified(false)
+            return;
+        }
+        setIsModified(true)
+    }, [newProduct])
+
 
     const handleChange = ({ name, value }) => {
         setNewProduct({
@@ -73,10 +87,11 @@ const FormNewProduct = () => {
             return;
         }
 
-        if (product && product.idProduct) {
+        if (stateForm === ESTATE_PRODUCT.edit) {
             dispatch(editProductByIdAction(newProduct));
             return;
         }
+        console.log('creando',newProduct);
         dispatch(addNewProductAction(createNewProductAdapter(newProduct)));
     };
 
@@ -87,60 +102,60 @@ const FormNewProduct = () => {
             </Card>
         );
 
-    const rederImg = () => {        
-        if (newProduct?.image && newProduct?.image.name) {
-            return (
-                <img
-                    className="object-contain object-center rounded"
-                    src={
-                        newProduct.image &&
-                        URL.createObjectURL(newProduct?.image)
-                    }
-                    alt="product"
-                />
-            );
-        }    
+    const rederImg = () => {
+        if (
+            (stateForm === ESTATE_PRODUCT.edit || stateForm === ESTATE_PRODUCT.add) &&
+            newProduct.image &&
+            newProduct.image.name
+        ) {
+            return <NcImage src={URL.createObjectURL(newProduct?.image)} />;
+        }
 
-        if (product.image) {
-            return (
-                <img
-                    className="object-contain object-center rounded"
-                    src={
-                        import.meta.env.VITE_BACKEND_URL +
-                        "/static/products/images/" +
-                        product.image
-                    }
-                    alt="product"
-                />
-            );
-        }        
+        if (stateForm === ESTATE_PRODUCT.edit && !newProduct.image) {
+            return <NcImage />;
+        }
 
-        return (
-            <img
-                className="object-contain object-center rounded"
-                src={
-                    import.meta.env.VITE_BACKEND_URL +
-                    "/static/products/images/productDefault.png"
-                }
-                alt="product"
-            />
-        );
+        if (stateForm === ESTATE_PRODUCT.add) {
+            return (
+                <div className="bg-gray-300 overflow-hidden rounded  shadow-sm outline outline-4 outline-gray-300">
+                    <NcImage src={`${newProduct.image}`} />
+                </div>
+            );
+        }
+        if (newProduct.image) {
+            return (
+                <div className="bg-gray-300 overflow-hidden rounded  shadow-sm outline outline-4 outline-gray-300">
+                    <NcImage
+                        src={`${
+                            import.meta.env.VITE_BACKEND_URL
+                        }/static/products/images/${newProduct.image}`}
+                    />
+                </div>
+            );
+        }
     };
 
     const handleDeleImage = () => {
-        console.log('borrar imagen')
-    }
-    
+        if (stateForm === ESTATE_PRODUCT.edit) {
+            dispatch(deleteImageAction(id));
+        }
+    };
+
     const SectionImgProduct = () => {
         return (
-            <div>
-                <div className="overflow-hidden bg-gray-300 border-8 rounded w-72 h-72 relative ">
-                    <button onClick={handleDeleImage} className="absolute right-2 bottom-2 bg-gray-200 rounded-full p-1 cursor-pointer hover:bg-red-200">
-                        <TrashIcon className="w-6 text-white " />
-                    </button>
+            <div className="lg:w-full flex flex-wrap lg:justify-center">
+                <div className="bg-gray-300 overflow-hidden rounded shadow-sm outline outline-4 outline-gray-300 w-full relative">
                     {rederImg()}
+                    {product.image && (
+                        <button
+                            onClick={handleDeleImage}
+                            className="absolute right-2 bottom-2 bg-gray-400/50 rounded-full p-1 cursor-pointer hover:bg-red-200"
+                        >
+                            <TrashIcon className="w-6 h-6 text-white " />
+                        </button>
+                    )}
                 </div>
-                <div className="py-4">
+                <div className="py-4 w-full">
                     <label className="block">
                         <span className="sr-only">Choose File</span>
                         <input
@@ -170,14 +185,13 @@ const FormNewProduct = () => {
         setOpenModalBrand(true);
     };
 
-
     return (
-        <div className="flex flex-col items-center gap-8 lg:items-start lg:justify-center lg:flex-row">
+        <div className="grid lg:grid-cols-8 gap-4 grid-cols-1">
             <Modal modalOpen={openModalBrand} onCancel={() => onCancel()}>
                 <FormBrand onCancel={() => onCancel()} />
             </Modal>
-            {SectionImgProduct()}
-            <div className="w-full">
+            <div className="lg:col-span-2">{SectionImgProduct()}</div>
+            <div className="lg:col-span-6">
                 <div className="grid grid-cols-1 gap-4 ">
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <div className="flex flex-col gap-4 p-10 bg-white rounded-md shadow">
@@ -243,16 +257,21 @@ const FormNewProduct = () => {
                                             <option hidden value="">
                                                 --selecionar --
                                             </option>
-                                            {productCategories.map((item) => (
-                                                <option
-                                                    key={item.idProductCategory}
-                                                    value={
-                                                        item.idProductCategory
-                                                    }
-                                                >
-                                                    {item.category}
-                                                </option>
-                                            ))}
+                                            {productsCategories &&
+                                                productsCategories.map(
+                                                    (item) => (
+                                                        <option
+                                                            key={
+                                                                item.idProductCategory
+                                                            }
+                                                            value={
+                                                                item.idProductCategory
+                                                            }
+                                                        >
+                                                            {item.category}
+                                                        </option>
+                                                    )
+                                                )}
                                         </select>
 
                                         {errors.idProductCategory && (
@@ -265,15 +284,15 @@ const FormNewProduct = () => {
                                     </div>
                                     <div className="">
                                         <label
-                                            htmlFor="quantity"
+                                            htmlFor="brandId"
                                             className="block text-sm font-medium text-gray-700"
                                         >
                                             Marca
                                         </label>
                                         <div className="flex items-center gap-2 mt-1">
                                             <select
-                                                id="brand"
-                                                name="brand"
+                                                id="brandId"
+                                                name="brandId"
                                                 type="text"
                                                 placeholder="Pionneer, Bose, Focal, Kenwood"
                                                 autoComplete="brand"
@@ -284,15 +303,15 @@ const FormNewProduct = () => {
                                                         value: e.target.value,
                                                     })
                                                 }
-                                                value={newProduct.brand}
+                                                value={newProduct.brandId}
                                             >
                                                 <option hidden value="">
                                                     --selecionar --
                                                 </option>
                                                 {brands.map((brand) => (
                                                     <option
-                                                        key={brand.idBrand}
-                                                        value={brand.idBrand}
+                                                        key={brand.brandId}
+                                                        value={brand.brandId}
                                                     >
                                                         {brand.brand}
                                                     </option>
@@ -447,12 +466,19 @@ const FormNewProduct = () => {
                             </div>
                             <div className="flex gap-2">
                                 <button
-                                    className="px-4 py-2 text-white rounded-md cursor-pointer bg-slate-800 hover:bg-slate-700"
+                                    className={`${
+                                        stateForm === "EDIT" && !isModified
+                                            ? "bg-gray-300"
+                                            : "bg-slate-800 hover:bg-slate-700 cursor-pointer  "
+                                    } px-4 py-2 text-white rounded-md `}
                                     type="submit"
+                                    disabled={
+                                        stateForm === "EDIT" && !isModified
+                                            ? true
+                                            : false
+                                    }
                                 >
-                                    {Object.keys(product).length
-                                        ? "Editar"
-                                        : "agregar"}
+                                    {stateForm === "ADD" ? "agregar" : "Editar"}
                                 </button>
                                 <input
                                     type="button"

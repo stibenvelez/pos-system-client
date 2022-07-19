@@ -1,0 +1,79 @@
+import Swal from "sweetalert2";
+import clienteAxios from "../../config/axios";
+import {
+    setAddEgress,
+    setAddEgressError,
+    setAddEgressSuccess,
+    setEGresses,
+    setEGressesError,
+    setEGressesSuccess,
+    setGetEgress,
+    setGetEgressError,
+    setGetEgressesCategories,
+    setGetEgressesCategoriesError,
+    setGetEgressesCategoriesSuccess,
+    setGetEgressesSubcategories,
+    setGetEgressesSubcategoriesError,
+    setGetEgressesSubcategoriesSuccess,
+    setGetEgressSuccess,
+} from "./egresses.slice";
+
+export const getAllEgressesAction = () => async (dispatch) => {
+    dispatch(setEGresses());
+    try {
+        const response = await clienteAxios.get("/egresses");
+        dispatch(setEGressesSuccess(response.data));
+    } catch (error) {
+        dispatch(setEGressesError(error.response.data.message));
+    }
+};
+
+export const getEgressByIdAction = (id) => async (dispatch) => {
+    dispatch(setGetEgress());
+    try {
+        const response = await clienteAxios.get(`/egresses/${id}`);
+        dispatch(setGetEgressSuccess(response.data));
+    } catch (error) {
+        dispatch(setGetEgressError(error.response.data.message));
+    }
+};
+
+export const getAllEgressesCategoriesAction = () => async (dispatch) => {
+    dispatch(setGetEgressesCategories());
+    try {
+        const response = await clienteAxios.get("/egresses/categories");
+        dispatch(setGetEgressesCategoriesSuccess(response.data));
+    } catch (error) {
+         console.log(error);
+        dispatch(setGetEgressesCategoriesError());
+    }
+}
+
+export const getAllEgressesSubCategoriesAction = () => async (dispatch) => {
+    dispatch(setGetEgressesSubcategories());
+    try {
+        const response = await clienteAxios.get("/egresses/subcategories");
+        dispatch(setGetEgressesSubcategoriesSuccess(response.data));
+    } catch (error) {
+         console.log(error);
+        dispatch(setGetEgressesSubcategoriesError());
+    }
+}
+
+export const addNewEgressAction = (egress) => async (dispatch) => {
+    dispatch(setAddEgress());
+    try {
+        const response = await clienteAxios.post("/egresses", egress);
+        Swal.fire({
+            title: `Egreso registrado`,
+            text: "Se registró el egreso con exito",
+            icon: "success",
+        });
+        dispatch(setAddEgressSuccess(response.data));
+    } catch (error) {
+         console.log(error);
+        dispatch(setAddEgressError());
+    }
+}
+
+

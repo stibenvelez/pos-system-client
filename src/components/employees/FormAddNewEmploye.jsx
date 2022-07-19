@@ -3,7 +3,8 @@ import Card from "../ui/Card/Card";
 import { useNavigate } from "react-router-dom";
 import Socket from "../../config/Socket";
 import { useDispatch } from "react-redux";
-import { addNewEmployeAction } from "../../actions/employees.action";
+import { addNewEmployeAction } from "../../redux/employees/employees.actions";
+
 
 const FormAddNewEmploye = () => {
     const dispatch = useDispatch();

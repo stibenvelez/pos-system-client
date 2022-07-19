@@ -4,8 +4,13 @@ import Spinner from "../ui/Spinners/Spinner";
 import ItemProduct from "./ItemProduct";
 import Table from '../ui/Table';
 const ProductsList = () => {
-    const products = useSelector(({ products }) => products.products);
-    const loading = useSelector(({ products }) => products.loading);
+    const { products, loading } = useSelector(({ products }) => products);
+
+    if(loading) return (
+        <div className="w-full flex justify-center py-4">
+            <Spinner />
+        </div>
+    );
 
     if (products.length === 0 && !loading) {
         return (
@@ -16,7 +21,7 @@ const ProductsList = () => {
     }
     
     return (
-        <div>
+        
             <Table>
                 <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -49,7 +54,7 @@ const ProductsList = () => {
                     ))}
                 </tbody>
             </Table>
-        </div>
+     
     );
 };
 

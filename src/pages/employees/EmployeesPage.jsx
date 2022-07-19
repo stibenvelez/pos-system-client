@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllEmployeesAction } from "../../actions/employees.action";
 import EmployeeList from "../../components/employe/EmployeeList";
 import ActionsSections from "../../components/employees/ActionsSections";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card/Card";
 import Template from "../../components/ui/Template";
+import { getAllEmployeesAction } from "../../redux/employees/employees.actions";
 
 const EmployeesPage = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const EmployeesPage = () => {
     }, []);
 
     
-    const employees = useSelector(({ employees }) => employees.employees);
+    const {employees} = useSelector(({ employees }) => employees);
 
 
     

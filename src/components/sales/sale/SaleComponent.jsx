@@ -8,10 +8,7 @@ import formatData from "../../../helpers/FormatFecha";
 
 const SaleComponent = () => {
     const sale = useSelector(({ sales }) => sales.sale);
-    const salesDetails = useSelector(
-        ({ salesDetails }) => salesDetails.salesDetails
-    );
-    const loading = useSelector(({ sales }) => sales.loading);
+    const { loading } = useSelector(({ sales }) => sales);
     const { id } = sale;
 
     if (loading)
@@ -25,12 +22,14 @@ const SaleComponent = () => {
 
     return (
         <Card>
-            <div className="flex gap-4 flex-col p-3">
-                <div className="border rounded-md flex gap-4 p-2">
+            <div className="flex flex-col gap-4 p-3">
+                <div className="flex gap-4 p-2 border rounded-md">
                     <div>
                         <img
-                            src={`/public/assets/img/app/logo.svg`}
-                            className="fill-red-500 w-40"
+                            src={`${
+                                import.meta.env.VITE_PUBLIC_URL
+                            }/img/app/logo.svg`}
+                            className="w-40 fill-red-500"
                             alt="React Logo"
                         />
                     </div>
@@ -75,15 +74,16 @@ const SaleComponent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {salesDetails.map((saleDetail) => (
-                                <ItemSaleDetail
-                                    saleDetail={saleDetail}
-                                    key={saleDetail.idSaleDetail}
-                                />
-                            ))}
+                            {sale.detail &&
+                                sale.detail.map((saleDetail) => (
+                                    <ItemSaleDetail
+                                        saleDetail={saleDetail}
+                                        key={saleDetail.idSaleDetail}
+                                    />
+                                ))}
                         </tbody>
                     </table>
-                    <section className="py-3 flex items-end flex-col">
+                    <section className="flex flex-col items-end py-3">
                         <div className="flex items-end gap-3 py-1 text-gray-800">
                             <span className="text-sm"> Valor Descontado: </span>
                             <p className="text-lg">

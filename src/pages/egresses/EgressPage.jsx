@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEgressByIdAction } from "../../actions/egresses.action";
+
 import EgressDetail from "../../components/egresses/EgressDetail";
 import Template from "../../components/ui/Template";
+import { getEgressByIdAction } from "../../redux/egresses/egresses.action";
 
 const EgressPage = () => {
     const navigate = useNavigate();
@@ -13,7 +14,6 @@ const EgressPage = () => {
     useEffect(() => {
         (() => dispatch(getEgressByIdAction(id)))();
     }, []);
-
 
     return (
         <Template

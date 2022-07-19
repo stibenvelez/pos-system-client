@@ -1,24 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import formatDate from "../../helpers/FormatFecha";
 import formatMoney from "../../helpers/formatMoney";
-import { useDispatch } from "react-redux";
-import { disableProductAction } from "../../actions/productsActions";
+import { useDispatch, useSelector } from "react-redux";
+
 import Badge from "../ui/Badge";
 import { GET_PRODUCT_SUCCESS } from "../../types/productsTypes";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import { disableProductAction } from "../../redux/products/products.action";
+
 
 const ItemProduct = ({ productData }) => {
     const {
         idProduct,
         product,
-        idProductCategory,
         unitPrice,
         unitCost,
         category,
         commissionPercentage,
-        commissionValue,
-        idState,
         state,
         image,
         brand,
@@ -32,6 +31,8 @@ const ItemProduct = ({ productData }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const {filters} = useSelector(({products})=>products);
+
     const handleDesactivate = (id) => {
         Swal.fire({
             title: `Estás seguro de eliminar el producto ${product}?`,
@@ -43,7 +44,7 @@ const ItemProduct = ({ productData }) => {
             confirmButtonText: "Si, eliminalo!",
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(disableProductAction(id));
+                dispatch(disableProductAction(id, filters));
                 Swal.fire(
                     "Eliminado!",
                     "El producto ha sido eliminado",

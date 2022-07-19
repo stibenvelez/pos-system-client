@@ -1,23 +1,21 @@
-import { LockClosedIcon, XIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewBrandAction, getAllBrandsAction } from "../../actions/brand.action";
-import { getAllProductsCategoriesAction } from "../../actions/productCategory.action";
-
+import {
+    addNewBrandAction,
+} from "../../redux/brands/brands.actions";
+import { getAllProductsCategoriesAction } from "../../redux/products/products.action";
 
 const INITIAL_STATE_BRAND = {
     brand: "",
     brandCategory: "",
     description: "",
-}
+};
 
 const FormBrand = ({ onCancel }) => {
     const dispatch = useDispatch();
     const [newBrand, setNewBrand] = useState(INITIAL_STATE_BRAND);
 
-    const { productsCategories } = useSelector(
-        ({ productsCategories }) => productsCategories
-    );
+    const { productsCategories } = useSelector(({ products }) => products);
 
     const { loading } = useSelector(({ brands }) => brands);
 
@@ -26,16 +24,12 @@ const FormBrand = ({ onCancel }) => {
     };
 
     useEffect(() => {
-        (() => {
-            dispatch(getAllProductsCategoriesAction());
-        })();
+        dispatch(getAllProductsCategoriesAction());
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addNewBrandAction(newBrand));
-        setNewBrand(INITIAL_STATE_BRAND);
-        dispatch(getAllBrandsAction());
         onCancel();
     };
 

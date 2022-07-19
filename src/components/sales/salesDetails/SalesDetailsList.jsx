@@ -8,10 +8,8 @@ import SaleDetailItem from "./SaleDetailItem";
 
 
 const SalesDetailsList = () => {
-    const salesDetails = useSelector(
-        ({ salesDetails }) => salesDetails.salesDetails
-    );
-    const loading = useSelector(({ salesDetails }) => salesDetails.loading);
+
+    const { loading, salesDetails } = useSelector(({ sales }) => sales);
 
     if (loading) {
         return (

@@ -22,6 +22,8 @@ const initialState = {
         state: "1",
     },
     errorsNewProduct: {},
+    salesDetails: [],
+    saleDetail: {},
 };
 
 export const salesSlice = createSlice({
@@ -123,7 +125,34 @@ export const salesSlice = createSlice({
             state.loading = true
             state.error = false
             state.dataSale = action.payload
+        },
+        setGetSalesDetails: (state, action) => {
+            state.loading = true
+            state.error = false
+        },
+        setGetSalesDetailsSuccess: (state, action) => {
+            state.loading = false
+            state.salesDetails = action.payload
+            state.error = false
+        },
+        setGetSalesDetailsError: (state, action) => {
+            state.loading = false
+            state.error = action.payload
+        },
+        setGetSalesDetailsBySaleId: (state, action) => {
+            state.loading = true
+            state.error = false
+        },
+        setGetSalesDetailsBySaleIdSuccess: (state, action) => {
+            state.loading = false
+            state.saleDetail = action.payload;
+            state.error = false
+        },
+        setGetSalesDetailsBySaleIdError: (state, action) => {
+            state.loading = false
+            state.error = action.payload
         }
+
     }
 });
 
@@ -147,6 +176,12 @@ export const {
     setEditProductSaleDetailError,
     setReadDataSale,
     setValidateAddNewProductError,
+    setGetSalesDetails,
+    setGetSalesDetailsSuccess,
+    setGetSalesDetailsError,
+    setGetSalesDetailsBySaleId,
+    setGetSalesDetailsBySaleIdSuccess,
+    setGetSalesDetailsBySaleIdError,
 } = salesSlice.actions;
 
 export default salesSlice.reducer;

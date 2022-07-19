@@ -19,6 +19,8 @@ import EgressesPage from "../pages/egresses/EgressesPage";
 import NewEgressPage from "../pages/egresses/NewEgressPage";
 import EgressPage from "../pages/egresses/EgressPage";
 import { useEffect, useState } from "react";
+import UsersPage from "../pages/users/UsersPage";
+import UserPage from "../pages/users/UserPage";
 
 const Routers = () => {
     const [isReadyForInstall, setIsReadyForInstall] = useState(false);
@@ -102,6 +104,10 @@ const Routers = () => {
                     </Route>
                     <Route path="profile">
                         <Route path=":id" index element={<ProfilePage />} />
+                    </Route>
+                    <Route path="users">
+                        <Route index element={<UsersPage />} />
+                        <Route path="users/:id" element={<UserPage />} />
                     </Route>
                     <Route path="*" element={<NotFountPage />} />
                 </Route>

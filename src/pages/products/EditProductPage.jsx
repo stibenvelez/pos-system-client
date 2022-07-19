@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getAllBrandsAction } from "../../actions/brand.action";
-import { getAllProductsCategoriesAction } from "../../actions/productCategory.action";
+import { useNavigate, useParams } from "react-router-dom";
+
+
 
 import FormNewProduct from "../../components/products/FormNewProduct";
 import Template from "../../components/ui/Template";
-import { getProductByIdAction } from "../../redux/products/products.action";
+import { getAllBrandsAction } from "../../redux/brands/brands.actions";
+import { getAllProductsCategoriesAction, getProductByIdAction } from "../../redux/products/products.action";
 
 const EditProductPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
@@ -22,6 +24,7 @@ const EditProductPage = () => {
             dispatch(getAllProductsCategoriesAction());
         })();
     }, []);
+
     useEffect(() => {
         (() => dispatch(getAllBrandsAction()))();
     }, []);
@@ -32,7 +35,15 @@ const EditProductPage = () => {
             description={"Edite los datos del producto"}
             className="container mx-auto"
         >
-            <div>
+            <div className="space-y-4">
+                <div>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="bg-gray-500 py-1 px-2 rounded-md shadow-sm text-white hover:bg-gray-400 hover:cursor-pointer"
+                    >
+                        Volver
+                    </button>
+                </div>
                 <FormNewProduct />
             </div>
         </Template>

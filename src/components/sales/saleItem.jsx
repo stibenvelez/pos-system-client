@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { formatDate } from "../../helpers/FormatDate";
 import formatMoney from "../../helpers/formatMoney";
 import Swal from 'sweetalert2'
-import { cancelSaleByIdAction } from "../../actions/saleActions";
+
 import {useDispatch} from 'react-redux'
+import { cancelSaleByIdAction } from "../../redux/sales/sales.action";
 const SaleItem = ({ sale }) => {
     const { id, document, date, totalNet, idStateSale } = sale;
     const dispatch = useDispatch()

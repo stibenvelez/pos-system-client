@@ -1,40 +1,64 @@
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { formatDateTime } from "../../../helpers/FormatDate";
+import { formatDateTime } from "../../helpers/FormatDate";
+import NcImage from "../../shared/NcImage";
 
-const InfoProduct = () => {
+const ProductDetail = () => {
     const navigate = useNavigate();
-    const product = useSelector(({ products }) => products.product);
+    const { product, loading } = useSelector(({ products }) => products);
+
+    if (loading) {
+        return (
+            <div className="grid lg:grid-cols-8 gap-4 grid-cols-1">
+                <div className="lg:col-span-2">
+                    <div className="bg-gray-300 rounded aspect-w-1 aspect-h-1 shadow-sm">
+                        <NcImage />
+                    </div>
+                </div>
+                <div className="lg:col-span-6">
+                    <div className="flex flex-col gap-4 p-4 bg-white rounded-md shadow md:p-10 ">
+                        <div className="space-y-2">
+                            <div className="h-3 w-1/2 bg-gray-100 rounded-md"></div>
+                            <div className="h-5 block w-full bg-gray-200 rounded-md"></div>
+                        </div>
+                        <div className="flex w-full gap-2">
+                            <div className="w-full flex-col flex gap-2">
+                                <div className="h-3 w-1/2 bg-gray-100 rounded-md"></div>
+                                <div className="h-5 block w-full bg-gray-200 rounded-md"></div>
+                            </div>
+                            <div className="w-full flex-col flex gap-2">
+                                <div className="h-3 w-1/2 bg-gray-100 rounded-md"></div>
+                                <div className="h-5 block w-full bg-gray-200 rounded-md"></div>
+                            </div>
+                        </div>
+                        <div className="flex w-full gap-2">
+                            <div className="w-full flex-col flex gap-2">
+                                <div className="h-3 w-1/2 bg-gray-100 rounded-md"></div>
+                                <div className="h-5 block w-full bg-gray-200 rounded-md"></div>
+                            </div>
+                            <div className="w-full flex-col flex gap-2">
+                                <div className="h-3 w-1/2 bg-gray-100 rounded-md"></div>
+                                <div className="h-5 block w-full bg-gray-200 rounded-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className="flex flex-col items-center gap-8 lg:items-start lg:justify-center lg:flex-row">
-            <div className="bg-gray-300 border-8 rounded w-72">
-                {!product.image ? (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="object-contain text-gray-400 rounded"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                        />
-                    </svg>
-                ) : (
-                    <img
-                        className="object-contain w-full rounded"
+        <div className="grid lg:grid-cols-8 gap-4 grid-cols-1">
+            <div className="lg:col-span-2">
+                <div className="bg-gray-300 overflow-hidden rounded aspect-w-1 aspect-h-1 shadow-sm outline outline-4 outline-gray-300">
+                    <NcImage
                         src={`${
                             import.meta.env.VITE_BACKEND_URL
                         }/static/products/images/${product.image}`}
-                        alt="product"
                     />
-                )}
+                </div>
             </div>
-            <div className="w-full">
+            <div className="lg:col-span-6">
                 <div className="grid grid-cols-1 gap-4 ">
                     <div className="flex flex-col gap-4 p-4 bg-white rounded-md shadow md:p-10">
                         <div className="flex flex-col gap-4">
@@ -75,24 +99,26 @@ const InfoProduct = () => {
                                         readOnly
                                     />
                                 </div>
-                                <div className="">
-                                    <label
-                                        htmlFor="quantity"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Marca
-                                    </label>
-                                    <input
-                                        id="brand"
-                                        name="brand"
-                                        type="text"
-                                        placeholder="Pionneer, Bose, Focal, Kenwood"
-                                        autoComplete="brand"
-                                        className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        defaultValue={product?.brand}
-                                        readOnly
-                                    />
-                                </div>
+                                {product?.brand && (
+                                    <div className="">
+                                        <label
+                                            htmlFor="quantity"
+                                            className="block text-sm font-medium text-gray-700"
+                                        >
+                                            Marca
+                                        </label>
+                                        <input
+                                            id="brand"
+                                            name="brand"
+                                            type="text"
+                                            placeholder="Pionneer, Bose, Focal, Kenwood"
+                                            autoComplete="brand"
+                                            className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            defaultValue={product?.brand}
+                                            readOnly
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -132,7 +158,6 @@ const InfoProduct = () => {
                                         defaultValue={product?.unitCost}
                                         readOnly
                                     />
-                                    product
                                 </div>
                                 <div className="col-span-1 ">
                                     <label
@@ -223,12 +248,6 @@ const InfoProduct = () => {
                         >
                             Editar producto
                         </Link>
-                        <button
-                            onClick={() => navigate(-1)}
-                            className="px-3 py-2 text-white transition duration-150 ease-in-out bg-gray-500 rounded-md hover:bg-gray-400"
-                        >
-                            Volver
-                        </button>
                     </div>
                 </div>
             </div>
@@ -236,4 +255,4 @@ const InfoProduct = () => {
     );
 };
 
-export default InfoProduct;
+export default ProductDetail;

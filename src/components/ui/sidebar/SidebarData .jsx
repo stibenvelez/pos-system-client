@@ -109,9 +109,10 @@ export const SidebarData = [
             },
             {
                 title: "Usuarios",
-                path: "#",
+                path: "users",
                 icon: null,
-            },
+            }
+
         ],
     },
 ];

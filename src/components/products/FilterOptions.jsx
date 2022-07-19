@@ -1,12 +1,15 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { filterProductsAction } from "../../actions/productsActions";
 import { debounce } from "debounce";
+import { filterProductsAction } from "../../redux/products/products.action";
+import { useEffect } from "react";
 
 const FilterOptions = () => {
     const dispach = useDispatch();
-    const filters = useSelector(({ products }) => products.filters);
+    const searchRef = useRef("");
+    const { filters } = useSelector(({ products }) => products);
+
     const handleChange = (e) => {
         dispach(
             filterProductsAction({
@@ -15,7 +18,12 @@ const FilterOptions = () => {
             })
         );
     };
-  const debouncedChangeHandler = useCallback(debounce(handleChange, 300), []);
+    const handleChangeDebounce = useCallback(debounce(handleChange, 500), []);
+    useEffect(() => {
+        if (searchRef.current.value) {
+            handleChangeDebounce();
+        }
+    }, [searchRef]);
 
     return (
         <div>
@@ -36,7 +44,7 @@ const FilterOptions = () => {
                             name="category"
                             id="category"
                             onChange={handleChange}
-                            //value={filters.category}
+                            value={filters.category}
                         >
                             <option value="">-- todas --</option>
                             <option value="1">Sonido</option>
@@ -51,8 +59,7 @@ const FilterOptions = () => {
                             id="state"
                             name="state"
                             onChange={handleChange}
-
-                            //value={filters.state}
+                            value={filters.state}
                         >
                             <option value="1">Activa</option>
                             <option value="2">Anulada</option>
@@ -85,8 +92,8 @@ const FilterOptions = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:outline-none  focus:border-indigo-800 block w-full pl-10 py-2.5  dark:bg-gray-700 dark:indigo-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-600 dark:focus:border-indigo-800"
                                 placeholder=" Buscar"
                                 name="search"
-                                required=""
-                                onChange={debouncedChangeHandler}
+                                onChange={handleChange}
+                                ref={searchRef}
                             />
                         </div>
                     </div>

@@ -4,9 +4,9 @@ import { faTrash, faPencil } from "@fortawesome/free-solid-svg-icons";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { removeItemFromSaleDetailAction } from "../../../actions/saleActions";
 import Modal from "../../ui/Modal";
 import FormEditItemDetailSale from "./FormEditItemDetailSale";
+import { removeItemFromSaleDetailAction } from "../../../redux/sales/sales.action";
 
 const ItemSailDetail = ({ detail }) => {
     const [modalOpen, setModalOpen] = useState(false)

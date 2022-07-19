@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addNewEgressAction } from "../../actions/egresses.action";
+
 import Card from "../ui/Card/Card";
 import { validateNewEgress } from "./utils/validateNewEgress";
 
 import { formatDate } from "../../helpers/FormatDate";
+import { addNewEgressAction } from "../../redux/egresses/egresses.action";
 const date = new Date();
 
 const INITIAL_STATE_FORM = {

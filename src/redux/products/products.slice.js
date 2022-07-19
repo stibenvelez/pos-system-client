@@ -5,9 +5,11 @@ const initialState = {
     product: {},
     error: null,
     loading: false,
+    loadingProductCategory: false,
     filters: {
         category: "",
     },
+    productsCategories: [],
 };
 
 export const productsSlice = createSlice({
@@ -15,7 +17,7 @@ export const productsSlice = createSlice({
     initialState,
     reducers: {
         setGetProduct: (state, action) => {
-            state.loading = true;
+            (state.product = {}), (state.loading = true);
             state.error = false;
         },
         setGetProductSuccess: (state, action) => {
@@ -67,19 +69,43 @@ export const productsSlice = createSlice({
             state.loading = false;
             state.msg = action.payload;
         },
-        setDisableProduct: (state, action) => {},
+        setDisableProduct: (state, action) => {
+            state.loading = true;
+        },
         setDisableProductSuccess: (state, action) => {
             state.loading = false;
-            state.products = state.products.filter(
-                (product) => product.idProduct !== action.payload
-            );
         },
         setDisableProductError: (state, action) => {
+            state.loading = false;
+            state.error = true;
+        },
+        setGetProductCategory: (state, action) => {
+            state.loadingProductCategory = true;
+            state.error = false;
+        },
+        setGetProductCategorySuccess: (state, action) => {
+            state.loadingProductCategory = false;
+            state.productsCategories = action.payload;
+        },
+        setGetProductCategoryError: (state) => {
+            state.loadingProductCategory = false;
+            state.error = true;
+        },
+        setDeleteImage: (state, action) => {
+            state.loading = true;
+            state.error = false;
+        },
+        setDeleteImageSuccess: (state, action) => {
+            state.loading = false;
+            state.error = false;
+        },
+        setDeleteImageError: (state, action) => {
             state.loading = false;
             state.error = true;
         }
     },
 });
+
 
 export const {
     setGetProduct,
@@ -98,6 +124,13 @@ export const {
     setDisableProduct,
     setDisableProductSuccess,
     setDisableProductError,
+    setGetProductCategory,
+    setGetProductCategorySuccess,
+    setGetProductCategoryError,
+    setDeleteImage,
+    setDeleteImageSuccess,
+    setDeleteImageError,
+
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

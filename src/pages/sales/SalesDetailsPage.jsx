@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAllSalesDetailsAction } from "../../actions/salesDetailsAction";
 import FilterOptions from "../../components/sales/salesDetails/FilterOptions";
 import SalesDetailsList from "../../components/sales/salesDetails/SalesDetailsList";
+import { getAllSalesDetailsAction } from "../../redux/sales/sales.action";
 
 const SalesDetailsPage = () => {
     const dispatch = useDispatch();

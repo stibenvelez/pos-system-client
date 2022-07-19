@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import IndicatorsCards from "../../components/reports/sales/IndicatorsCards";
 import Template from "../../components/ui/Template";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesReportAction } from "../../actions/reportsActions";
 import OptionsFilters from "../../components/reports/OptionsFilters";
 import ListReports from "../../components/reports/ListReports";
 import ChartReport from "../../components/reports/ChartReport";
+import { getSalesReportAction } from "../../redux/reports/reports.action";
 
 const SalesReportPage = () => {
     const dispatch = useDispatch();

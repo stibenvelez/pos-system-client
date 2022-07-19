@@ -8,8 +8,9 @@ export const validateFormProduct = async (values) => {
     if (values.idProductCategory === "") {
         errors.idProductCategory = "Seleccione una categoria";
     }
-    if (values.brand === "") {
-        errors.brand = "Seleccione una marca";
+
+    if (values.brandId === "") {
+        errors.brandId = "Seleccione una marca";
     }
     if (values.unitPrice === "" || isNaN(values.unitPrice) || values.unitPrice <= 0) {
         errors.unitPrice = "Indique un precio de venta";

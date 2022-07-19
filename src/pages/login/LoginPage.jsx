@@ -16,7 +16,6 @@ const Background = styled.div`
 `;
 
 const LoginPage = () => {
-
     return (
         <div>
             <Background className="flex items-center justify-center w-full min-h-screen bg-slate-900">

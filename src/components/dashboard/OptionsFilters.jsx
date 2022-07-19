@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createSearchParams, useSearchParams } from "react-router-dom";
-import { getReportrFiltersAction } from "../../actions/reportsActions";
 import clienteAxios from "../../config/axios";
 import Card from "../ui/Card/Card";
 import { XIcon } from "@heroicons/react/solid";

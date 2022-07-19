@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import EgressesList from "../../components/egresses/EgressesList";
 import Template from "../../components/ui/Template";
-import { getAllEgressesAction } from "../../actions/egresses.action";
+import { getAllEgressesAction } from "../../redux/egresses/egresses.action";
+
 
 const EgressesPage = () => {
     const dispatch: (dispatch: any) => Promise<void> = useDispatch();

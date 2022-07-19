@@ -8,17 +8,15 @@ import ProductData from "./ProductData";
 import Card from "../../ui/Card/Card";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-
 import validateNewSale from "./utils/validateNewSale";
-import { formatDate } from "../../../helpers/FormatDate";
+import { useNavigate } from "react-router-dom";
+import addProductToDetail from "./utils/addProductToDetail";
 import {
     addProductToSaleDetailAction,
     readDatasaleAction,
     registerOneNewSaleAction,
     validateErrorsNewProductAction,
-} from "../../../actions/saleActions";
-import { useNavigate } from "react-router-dom";
-import addProductToDetail from "./utils/addProductToDetail";
+} from "../../../redux/sales/sales.action";
 
 const initialStateNewProduct = {
     category: "",
@@ -46,7 +44,7 @@ const FormNewSale = () => {
     const dataSale = useSelector(({ sales }) => sales.dataSale);
 
     const user = useSelector(({ auth }) => auth.user);
-    console.log(user);
+
     useEffect(() => {
         const total = detail.reduce((acc, value) => acc + value.totalPrice, 0);
         setFulSalePrice(total);
@@ -57,7 +55,7 @@ const FormNewSale = () => {
             readDatasaleAction({
                 ...dataSale,
                 [e.target.name]: e.target.value,
-                registeredBy: user.idUser
+                registeredBy: user.idUser,
             })
         );
     };
@@ -90,10 +88,9 @@ const FormNewSale = () => {
                 progress: undefined,
             });
             return;
-        }   
-
-        console.log(newSale);
+        }
         dispatch(registerOneNewSaleAction(newSale));
+        setErrors({});
     };
 
     return (
@@ -101,10 +98,7 @@ const FormNewSale = () => {
             <form>
                 <div className="flex flex-col gap-6">
                     <div className="p-4 bg-white rounded-md shadow">
-                        <DataSale
-                            handleChange={handleChange}
-                            errors={errors}
-                        />
+                        <DataSale handleChange={handleChange} errors={errors} />
                     </div>
                     <div className="p-4 bg-white rounded-md shadow">
                         <ProductData

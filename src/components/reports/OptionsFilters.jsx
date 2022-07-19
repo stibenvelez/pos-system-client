@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { getReportrFiltersAction } from "../../actions/reportsActions";
+
 import clienteAxios from "../../config/axios";
+import { getReportrFiltersAction } from "../../redux/reports/reports.action";
 import Card from "../ui/Card/Card";
 
 
