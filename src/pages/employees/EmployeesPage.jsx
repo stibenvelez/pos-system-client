@@ -10,7 +10,7 @@ import { getAllEmployeesAction } from "../../redux/employees/employees.actions";
 const EmployeesPage = () => {
     const dispatch = useDispatch();
 
-    const [optionsState, setOptionsState] = useState("");
+    const [optionsState, setOptionsState] = useState(false);
 
     useEffect(() => {
         (() => dispatch(getAllEmployeesAction()))();
@@ -35,11 +35,16 @@ const EmployeesPage = () => {
                         />
                     </div>
                 </Card>
-                <div className="flex flex-col gap-4 lg:flex-row">
-                    <div className="lg:w-1/2">
-                        <ActionsSections optionsState={optionsState} />
-                    </div>
-                    <div className="lg:w-1/2">
+                <div className="flex flex-col gap-4 lg:flex-row ">
+                    {optionsState && (
+                        <div className="w-full max-w-xl ">
+                            <ActionsSections
+                                optionsState={optionsState}
+                                setOptionsState={setOptionsState}
+                            />
+                        </div>
+                    )}
+                    <div className="w-full max-w-xl">
                         <EmployeeList
                             employees={employees}
                             setOptionsState={setOptionsState}

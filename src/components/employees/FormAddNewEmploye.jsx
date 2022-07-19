@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addNewEmployeAction } from "../../redux/employees/employees.actions";
 
 
-const FormAddNewEmploye = () => {
+const FormAddNewEmploye = ({ setOptionsState }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [newEmploye, setNewEmploye] = useState({});
@@ -85,7 +85,7 @@ const FormAddNewEmploye = () => {
                                 className="inline-block px-4 py-2 text-white bg-gray-400 rounded-md cursor-pointer hover:bg-gray-500"
                                 type="button"
                                 value="Cancelar"
-                                onClick={() => navigate(-1)}
+                                onClick={()=>setOptionsState(false)}
                             />
                         </div>
                     </div>

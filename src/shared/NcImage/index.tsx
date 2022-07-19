@@ -74,14 +74,15 @@ const NcImage: FC<NcImageProps> = ({
     }, [src]);
 
     const renderLoadingPlaceholder = () => {
-        let ruta: any = import.meta
         return (
             <div
                 className={`${className} flex items-center justify-center bg-neutral-200 dark:bg-neutral-6000 text-neutral-100 dark:text-neutral-500 `}
             >
                 <div className="h-full ">
                     <img
-                        src={`img/products/productDefault.png`}
+                        src={`${
+                            import.meta.env.VITE_PUBLIC_URL
+                        }/img/products/productDefault.png`}
                         alt="alt"
                         className="h-full"
                     />

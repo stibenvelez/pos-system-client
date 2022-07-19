@@ -111,7 +111,12 @@ export const SidebarData = [
                 title: "Usuarios",
                 path: "users",
                 icon: null,
-            }
+            },
+            {
+                title: "Marcas",
+                path: "brands",
+                icon: null,
+            },
 
         ],
     },

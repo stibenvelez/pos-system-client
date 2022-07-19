@@ -6,16 +6,13 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "vite/modulepreload-polyfill";
 
-
-
 const App = () => {
-
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         (() => dispatch(authAction()))();
     }, []);
-    
+
     return (
         <div>
             <Routers />

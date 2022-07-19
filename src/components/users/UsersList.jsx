@@ -3,18 +3,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Table from "../ui/Table";
 import io from "socket.io-client";
-let socket;
+let socket = io.connect(import.meta.env.VITE_BACKEND_URL);
 const UsersList = () => {
     const { users } = useSelector(({ users }) => users);
 
     const handlePrueba = () => {
-         socket.emit("prueba");
+        socket.emit("prueba", {data: "hola"});
     };
-
-    useEffect(() => {
-        socket = io(import.meta.env.VITE_BACKEND_URL);       
-        socket.on("respuesta", (data) => console.log(data));
-    });
 
     return (
         <Table>
@@ -61,7 +56,7 @@ const UsersList = () => {
                                     </button>
                                     <button
                                         type="button"
-                                        onClick={() => handlePrueba()}
+                                        onClick={()=>handlePrueba()}
                                         className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                                     >
                                         prueba socket

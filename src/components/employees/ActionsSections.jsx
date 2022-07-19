@@ -3,20 +3,14 @@ import Card from '../ui/Card/Card';
 import EmployeeDetail from './EmployeeDetail';
 import FormAddNewEmploye from './FormAddNewEmploye';
 
-const ActionsSections = ({ optionsState }) => {
-    
+const ActionsSections = ({ optionsState, setOptionsState }) => {
     const renderAddEmployeeForm = () => {
-        return (
-           <FormAddNewEmploye/>
-        );
+        return <FormAddNewEmploye setOptionsState={setOptionsState} />;
     };
 
-    const renderVieEmploye = () => {    
-        return (
-           <EmployeeDetail/>
-        );
-    }
-
+    const renderVieEmploye = () => {
+        return <EmployeeDetail setOptionsState={setOptionsState} />;
+    };
 
     const renderMain = () => {
         switch (optionsState) {
@@ -24,9 +18,9 @@ const ActionsSections = ({ optionsState }) => {
                 return renderAddEmployeeForm();
             case "viewEmploye":
                 return renderVieEmploye();
-            
+
             default:
-                return <div>Nada</div>;
+                return <div></div>;
         }
     };
     return renderMain();
