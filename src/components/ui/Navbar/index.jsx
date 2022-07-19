@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import MenuProfile from "./MenuProfile";
 
 const Navbar = () => {
-    //const   user = useSelector(({ auth }) => auth.user);
     return (
         <div className="flex items-center justify-between h-10 p-2 bg-gray-200 shadow">
             <div className="flex justify-end"></div>

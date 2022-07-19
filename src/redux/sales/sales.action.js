@@ -111,10 +111,9 @@ export const registerOneNewSaleAction = (sale) => {
 };
 
 // filter Sales list
-export const FilterSalesListAction = (filter) => {
-    return async (dispatch) => {
-        dispatch(setFilterSalesList(filter));
-    };
+export const FilterSalesListAction = (filter) => async (dispatch) => {
+    console.log("filter", filter);
+    dispatch(setFilterSalesList(filter));
 };
 
 // CANCEL SALE

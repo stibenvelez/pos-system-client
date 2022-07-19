@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Table from "../ui/Table";
-import io from "socket.io-client";
-let socket = io.connect(import.meta.env.VITE_BACKEND_URL);
+//import io from "socket.io-client";
+//let socket = io.connect(import.meta.env.VITE_BACKEND_URL);
 const UsersList = () => {
     const { users } = useSelector(({ users }) => users);
-
+/*
     const handlePrueba = () => {
         socket.emit("prueba", {data: "hola"});
     };
-
+*/
     return (
         <Table>
             <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">

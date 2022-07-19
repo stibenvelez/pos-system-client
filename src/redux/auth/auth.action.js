@@ -30,6 +30,7 @@ export const authAction = () => {
             const result = await clienteAxios.get("/users/profile");
             dispatch(setAuthSuccess(result.data));
         } catch (error) {
+            console.log(error);
             dispatch(setAuthError());
         }
     };

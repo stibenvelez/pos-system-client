@@ -22,7 +22,7 @@ const SalesList = () => {
     if (sales.length === 0) {
         return (
             <div className="p-5 py-3 text-sm text-yellow-800 border border-yellow-200 shadow-md bg-amber-100">
-                <p>{error}</p>
+                <p>No se encontraron resaultados</p>
             </div>
         );
     }

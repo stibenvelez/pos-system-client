@@ -1,8 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-import Card from "../../components/ui/Card/Card";
 import { FilterSalesListAction } from "../../redux/sales/sales.action";
 
 const FilterOptions = () => {
@@ -10,6 +8,7 @@ const FilterOptions = () => {
     const filters = useSelector(({ sales }) => sales.filters);
 
     const handleChange = (e) => {
+        //console.log({[e.target.name]: e.target.value})
         dispatch(
             FilterSalesListAction({
                 ...filters,
