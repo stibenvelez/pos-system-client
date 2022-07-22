@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 import {
     setAddNewBrand,
     setAddNewBrandError,
@@ -10,12 +11,14 @@ import {
 } from "./brands.slice";
 
 export const getAllBrandsAction = () => async (dispatch) => {
+    console.log("getAllBrandsAction");
     dispatch(setGetAllBrands());
     try {
         tokenAuth();
         const response = await clienteAxios.get("/brands");
         dispatch(setGetAllBrandsSuccess(response.data));
     } catch (error) {
+        console.log(error);
         dispatch(setGetAllBrandsError());
     }
 };

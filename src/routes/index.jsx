@@ -22,15 +22,10 @@ import { useEffect, useState } from "react";
 import UsersPage from "../pages/users/UsersPage";
 import UserPage from "../pages/users/UserPage";
 import BrandsPage from "../pages/brands/BrandsPage";
-import { authAction } from "../redux/auth/auth.action";
-import { useDispatch } from "react-redux";
 
 const Routers = () => {
-    const dispatch = useDispatch();
+
     const [isReadyForInstall, setIsReadyForInstall] = useState(false);
-        useEffect(() => {
-            dispatch(authAction());
-        }, []);
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (event) => {
             // Prevent the mini-infobar from appearing on mobile.

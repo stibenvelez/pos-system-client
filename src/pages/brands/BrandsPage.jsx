@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import BrandsList from "../../components/brads/BrandsList";
 import FormBrand from "../../components/brads/FormBrand";
 import SlideOver from "../../components/ui/SlideOver";
@@ -11,6 +10,7 @@ import { getAllBrandsAction } from "../../redux/brands/brands.actions";
 const BrandsPage = () => {
     const dispatch = useDispatch();
     const [isOpen, setOpen] = useState(false);
+
     useEffect(() => {
         dispatch(getAllBrandsAction());
     }, []);
