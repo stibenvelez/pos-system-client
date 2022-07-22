@@ -1,12 +1,10 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import Spinner from "../ui/Spinners/Spinner";
 import SaleItem from "./saleItem";
+import {Table} from "../ui/Table";
 
 const SalesList = () => {
-    const sales = useSelector(({ sales }) => sales.sales);
-    const loading = useSelector(({ sales }) => sales.loading);
-    const error = useSelector(({ sales }) => sales.error);
+    const { sales, loading } = useSelector(({ sales }) => sales);
 
     if (loading) {
         return (
@@ -27,36 +25,32 @@ const SalesList = () => {
         );
     }
     return (
-        <div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                id
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Documento
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Fecha
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Fecha
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Accions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sales.map((sale) => (
-                            <SaleItem sale={sale} key={sale.id} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <Table>
+            <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" className="px-6 py-3">
+                        id
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Documento
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Fecha
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Fecha
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Accions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {sales.map((sale) => (
+                    <SaleItem sale={sale} key={sale.id} />
+                ))}
+            </tbody>
+        </Table>
     );
 };
 

@@ -1,18 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeByIdAction } from "../../redux/employees/employees.actions";
+import SkeletonTable from "../../shared/SkeletonTable";
 
-import Table from "../ui/Table";
-import Row from "../ui/Table/Row";
+import { Table, Row, Thead } from "../ui/Table";
 
-const EmployeeList = ({ employees, setOptionsState }) => {
+const EmployeeList = ({ setOptionsState }) => {
     const dispatch = useDispatch();
 
     const handleViewEmployee = (id) => {
         setOptionsState("viewEmploye");
         dispatch(getEmployeeByIdAction(id));
     };
-
+    const { employees, loading } = useSelector(({ employees }) => employees);
     const COLUMNS = [{ name: "Nombre" }, { name: "Acciones" }];
 
     const DATA =
@@ -43,9 +43,12 @@ const EmployeeList = ({ employees, setOptionsState }) => {
             ),
         }));
 
+    if (loading) {
+        return <SkeletonTable />;
+    }
     return (
         <Table>
-            <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
+            <Thead>
                 <tr className="text-left">
                     {COLUMNS.map((column, index) => (
                         <th key={index} scope="col" className="px-6 py-3">
@@ -53,7 +56,7 @@ const EmployeeList = ({ employees, setOptionsState }) => {
                         </th>
                     ))}
                 </tr>
-            </thead>
+            </Thead>
             <tbody>
                 {DATA.map((employe, index) => (
                     <Row key={index}>

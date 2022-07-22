@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FilterSalesListAction } from "../../redux/sales/sales.action";
@@ -8,7 +7,6 @@ const FilterOptions = () => {
     const filters = useSelector(({ sales }) => sales.filters);
 
     const handleChange = (e) => {
-        //console.log({[e.target.name]: e.target.value})
         dispatch(
             FilterSalesListAction({
                 ...filters,
@@ -20,7 +18,10 @@ const FilterOptions = () => {
     return (
         <>
             <div className="py-3">
-                <Link to="new-sale" className="px-3 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-700">
+                <Link
+                    to="new-sale"
+                    className="px-3 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-700"
+                >
                     Registrar Venta
                 </Link>
             </div>
@@ -103,6 +104,8 @@ const FilterOptions = () => {
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder=" Buscar"
                                 required=""
+                                onChange={handleChange}
+                                value={filters.dateFrom}
                             />
                         </div>
                     </div>

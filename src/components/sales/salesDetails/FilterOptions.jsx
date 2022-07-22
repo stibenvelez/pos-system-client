@@ -1,18 +1,15 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { FilterSalesListAction } from "../../../redux/sales/sales.action";
-
-
-
+import { Link, useNavigate } from "react-router-dom";
+import { filterSalesDetailListAction } from "../../../redux/sales/sales.action";
 
 const FilterOptions = () => {
     const dispatch = useDispatch();
-    const filters = useSelector(({ sales }) => sales.filters);
+    const navigate = useNavigate();
+    const filters = useSelector(({ sales }) => sales.filtersSalesDetails);
 
     const handleChange = (e) => {
         dispatch(
-            FilterSalesListAction({
+            filterSalesDetailListAction({
                 ...filters,
                 [e.target.name]: e.target.value,
             })
@@ -20,8 +17,14 @@ const FilterOptions = () => {
     };
 
     return (
-        <>
-            <div className="py-3">
+        <div className="space-y-4">
+            <div className="flex gap-2">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="px-3 py-2 text-white rounded-md bg-gray-600 hover:bg-gray-500"
+                >
+                    Volver
+                </button>
                 <Link
                     to="/sales/new-sale"
                     className="px-3 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-700"
@@ -68,23 +71,10 @@ const FilterOptions = () => {
                             <option value="3">Polarizado</option>
                         </select>
                     </div>
-                    <div>
-                        <label htmlform="state">Estado: </label>
-                        <select
-                            className="px-2 py-2 border rounded bg-gray-50"
-                            id="state"
-                            name="state"
-                            onChange={handleChange}
-                            value={filters.state}
-                        >
-                            <option value="1">Activa</option>
-                            <option value="2">Anulada</option>
-                        </select>
-                    </div>
                 </div>
                 <div className="justify-end lg:col-start-5 lg:col-end-7">
                     <div className="flex items-center align-middle">
-                        <label htmlFor="simple-search" className="sr-only">
+                        <label htmlFor="search" className="sr-only">
                             Search
                         </label>
                         <div className="relative w-full">
@@ -104,16 +94,18 @@ const FilterOptions = () => {
                             </div>
                             <input
                                 type="text"
-                                id="simple-search"
+                                id="search"
+                                name="search"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder=" Buscar"
-                                required=""
+                                onChange={handleChange}
+                                value={filters.search}
                             />
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

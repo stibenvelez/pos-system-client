@@ -9,7 +9,7 @@ const SaleItem = ({ sale }) => {
     const { id, document, date, totalNet, idStateSale } = sale;
     const dispatch = useDispatch()
 
-    const handleCancel = (id) => {
+    const handleCancel = () => {
         Swal.fire({
             title: "Desea anular este ingreso?",
             text: "Solo el administrador puede revertir la anulacion!",

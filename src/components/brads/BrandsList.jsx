@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import SlideOver from "../../components/ui/SlideOver";
-import Table from "../../components/ui/Table";
+import SlideOver from "../ui/SlideOver";
+import { Table, Thead } from "../ui/Table";
+import SkeletonTable from "../../shared/SkeletonTable";
 
 const BrandsList = () => {
-    const { brands } = useSelector(({ brands }) => brands);
+    const { brands, loading } = useSelector(({ brands }) => brands);
+    if (loading) {
+        return <SkeletonTable columns={4} rows={8} />;
+    }
     return (
         <>
-            
-
             <Table>
-                <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
+                <Thead>
                     <tr>
                         <th scope="col" className="px-6 py-3">
                             Marca
@@ -26,7 +28,7 @@ const BrandsList = () => {
                             Acciones
                         </th>
                     </tr>
-                </thead>
+                </Thead>
                 <tbody>
                     {brands &&
                         brands.map((brand, i) => (

@@ -1,9 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { formatDate } from "../../helpers/FormatDate";
+
+const firtMonthDay = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+);
+
+const lastDay = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+);
+
 
 const initialState = {
     sales: [],
     loading: true,
-    filters: {},
+    filters: {
+        dateFrom: formatDate(firtMonthDay),
+        dateTo: formatDate(lastDay),
+    },
 };
 
 export const reportsSlice = createSlice({
@@ -25,15 +42,20 @@ export const reportsSlice = createSlice({
         setGetFilters: (state, action) => {
             state.loading = false;
             state.filters = action.payload;
-        }
-    }
+        },
+        setReadFilters: (state, action) => {
+            state.loading = false;
+            state.filters = action.payload;
+        },
+    },
 });
 
 export const {
     setGetSalesReports,
     setGetSalesReportsSuccess,
     setGetSalesReportsError,
-    setGetFilters
+    setGetFilters,
+    setReadFilters,
 } = reportsSlice.actions;
 
 export default reportsSlice.reducer;

@@ -14,11 +14,10 @@ export const authAction = () => {
     return async (dispatch) => {
         dispatch(setAuth());
         try {
-            /*
             const token = localStorage.getItem("token");
             if (!token) {
                 console.log("no hay token");
-               throw new Error("No hay token");
+                throw new Error("No hay token");
             }
             const config = {
                 headers: {
@@ -26,7 +25,6 @@ export const authAction = () => {
                     Authorization: `Bearer ${token}`,
                 },
             };
-            */
             const result = await clienteAxios.get("/users/profile");
             dispatch(setAuthSuccess(result.data));
         } catch (error) {
@@ -41,6 +39,7 @@ export const loginAction = (user) => {
         dispatch(setLogin());
         try {
             const { data } = await clienteAxios.post("/users/login", user);
+            console.log(data);
             localStorage.setItem("token", data.token);
             dispatch(setLoginSuccess(data));
         } catch (error) {

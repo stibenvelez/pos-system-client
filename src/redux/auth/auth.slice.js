@@ -4,13 +4,14 @@ const initialState = {
     auth: false,
     user: {},
     loading: true,
+    loadingLogin: false,
 };
 
 export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setAuth: (state, action) => {
+        setAuth: (state) => {
             state.loading = true;
             state.auth = false;
         },
@@ -20,21 +21,21 @@ export const authSlice = createSlice({
             state.user = action.payload;
         },
         setAuthError: (state, action) => {
-            action.loading = false;
-            action.auth = false;
+            state.loading = false;
+            state.auth = false;
         },
         setLogin: (state, action) => {
-            state.loading = true;
+            state.loadingLogin = true;
             state.auth = false;
         },
         setLoginSuccess: (state, action) => {
-            state.loading = false;
+            state.loadingLogin = false;
             state.auth = true;
             state.user = action.payload;
             state.error = false;
         },
         setLoginError: (state, action) => {
-            state.loading = false;
+            state.loadingLogin = false;
             state.auth = false;
             state.user = {};
             state.error = action.payload;

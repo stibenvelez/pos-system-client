@@ -125,7 +125,7 @@ const FormNewSale = () => {
                     </div>
                     {detail.length !== 0 && (
                         <div>
-                            <SaleDetail fullSalePrice={fullSalePrice} />
+                            <SaleDetail  fullSalePrice={fullSalePrice} />
                             <Card className="mt-4">
                                 <div className="flex gap-2">
                                     <input

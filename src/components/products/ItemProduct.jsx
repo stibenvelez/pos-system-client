@@ -44,7 +44,7 @@ const ItemProduct = ({ productData }) => {
             confirmButtonText: "Si, eliminalo!",
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(disableProductAction(id, filters));
+                dispatch(disableProductAction(id));
                 Swal.fire(
                     "Eliminado!",
                     "El producto ha sido eliminado",

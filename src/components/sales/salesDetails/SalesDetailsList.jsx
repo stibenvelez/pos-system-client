@@ -1,15 +1,13 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import Spinner from '../../ui/Spinners/Spinner';
+import { useSelector } from "react-redux";
+import Spinner from "../../ui/Spinners/Spinner";
+import {Table} from "../../ui/Table";
 
 import SaleDetailItem from "./SaleDetailItem";
 
-
-
-
 const SalesDetailsList = () => {
-
-    const { loading, salesDetails } = useSelector(({ sales }) => sales);
+    const { loading, salesDetails } = useSelector(
+        ({ sales }) => sales
+    );
 
     if (loading) {
         return (
@@ -30,49 +28,45 @@ const SalesDetailsList = () => {
         );
     }
     return (
-        <div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-50 uppercase bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3 w-6">
-                                id de venta
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Producto
-                            </th>
-                            <th scope="col" className="px-6 py-3 w-4">
-                                cant.
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                precio unit.
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                precio total
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Trabajador
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Comision
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                fecha
-                            </th>
-
-                            <th scope="col" className="px-6 py-3">
-                                Accions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {salesDetails.map((saleDetail, inx) => (
-                            <SaleDetailItem saleDetail={saleDetail} key={inx} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <Table>
+            <thead className="text-xs text-gray-50 uppercase bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" className="px-6 py-3 w-6">
+                        id de venta
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Producto
+                    </th>
+                    <th scope="col" className="px-6 py-3 w-4">
+                        cant.
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        precio unit.
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        precio total
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Trabajador
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Comision
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        fecha
+                    </th>
+                    {/* 
+                    <th scope="col" className="px-6 py-3">
+                        Accions
+                    </th> */}
+                </tr>
+            </thead>
+            <tbody>
+                {salesDetails.map((saleDetail, inx) => (
+                    <SaleDetailItem saleDetail={saleDetail} key={inx} />
+                ))}
+            </tbody>
+        </Table>
     );
 };
 

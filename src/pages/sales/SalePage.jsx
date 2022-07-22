@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-    getSaleByIdAction,
-    getSaleDetailByIdSaleAction,
-} from "../../redux/sales/sales.action";
+import { getSaleByIdAction } from "../../redux/sales/sales.action";
 import SaleComponent from "../../components/sales/sale/SaleComponent";
 import { useNavigate } from "react-router-dom";
 
@@ -15,11 +12,7 @@ const SalePage = () => {
     useEffect(() => {
         (() => dispatch(getSaleByIdAction(params.id)))();
     }, []);
-/*
-    useEffect(() => {
-        (() => dispatch(getSaleDetailByIdSaleAction(params.id)))();
-    }, []);
-*/
+
     return (
         <div className="container max-w-4xl mx-auto">
             <div className="py-4">

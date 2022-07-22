@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import SalesList from "../../components/sales/SalesList";
 import { useDispatch, useSelector } from "react-redux";
-
+import Template from "../../components/ui/Template";
 import FilterOptions from "../../components/sales/FilterOptions";
 import { getAllSalesAction } from "../../redux/sales/sales.action";
 
@@ -10,21 +10,16 @@ const SalesPage = () => {
     const filters = useSelector(({ sales }) => sales.filters);
 
     useEffect(() => {
-        (()=>dispatch(getAllSalesAction(filters)))()
+        (() => dispatch(getAllSalesAction(filters)))();
     }, [filters]);
 
     return (
-        <div className="container mx-auto ">
+        <Template
+            title="Ingresos"
+            description=" Aqui encontrarà el listado de todas los ingresos
+                            registrados"
+        >
             <div className="flex flex-col gap-4">
-                <div className="">
-                    <h1 className="text-3xl font-bold text-slate-800">
-                        Ventas
-                    </h1>
-                    <p className="text-gray-800">
-                        Aqui encontrara el listado de todas las ventas
-                        realizadas
-                    </p>
-                </div>
                 <div>
                     <FilterOptions />
                 </div>
@@ -32,7 +27,7 @@ const SalesPage = () => {
                     <SalesList />
                 </div>
             </div>
-        </div>
+        </Template>
     );
 };
 

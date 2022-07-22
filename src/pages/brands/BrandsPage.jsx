@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import BrandsList from "../../components/brads/BrandsList";
 import FormBrand from "../../components/brads/FormBrand";
 import SlideOver from "../../components/ui/SlideOver";
 import Template from "../../components/ui/Template";
 import { getAllBrandsAction } from "../../redux/brands/brands.actions";
-import BrandsList from "./BrandsList";
+
 
 const BrandsPage = () => {
     const dispatch = useDispatch();

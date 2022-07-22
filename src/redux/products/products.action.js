@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
+import socket from "../../helpers/Socket";
 import {
     setAddNewProduct,
     setAddNewProductError,
@@ -28,7 +29,6 @@ import {
 // get products
 export const getAllProductsActions = (filters) => async (dispatch) => {
     dispatch(setGetProducts());
-
     try {
         const res = await clienteAxios.get("/products", {
             params: filters,
@@ -115,12 +115,12 @@ export const filterProductsAction = (filters) => {
 };
 
 // DISABLE PRODUCT
-export const disableProductAction = (id, filters) => async (dispatch) => {
+export const disableProductAction = (id) => async (dispatch) => {
     dispatch(setDisableProduct());
     try {
         await clienteAxios.put(`/products/disable/${id}`);
         dispatch(setDisableProductSuccess());
-        dispatch(getAllProductsActions(filters));
+        socket.emit("createdProduct");
     } catch (error) {
         dispatch(setDisableProductError());
     }

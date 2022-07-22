@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const DataSale = ({ handleChange, errors }) => {
-
+    const [isAnonymus, setIsAnonymus] = useState(false);
     const { date, document, documentType, payMethod } = useSelector(
         ({ sales }) => sales.dataSale
     );
 
-    
-    
     return (
         <div>
             <div className="col-span-6 sm:col-span-2">
@@ -33,7 +31,7 @@ const DataSale = ({ handleChange, errors }) => {
                 <div className="grid gap-6 lg:grid-cols-3">
                     <div className="">
                         <label
-                            htmlFor="documentType"
+                            htmlFor="document"
                             className="block text-sm font-medium text-gray-700"
                         >
                             Documento
@@ -44,11 +42,12 @@ const DataSale = ({ handleChange, errors }) => {
                                 type="text"
                                 name="documentType"
                                 autoComplete="given-documentType"
-                                className="px-3 py-2 mt-1 bg-gray-100 border-t border-b border-l border-gray-200 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="px-3 py-2 mt-1 bg-gray-100 border border-gray-200 rounded-l-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 onChange={handleChange}
                                 value={documentType}
+                                disabled={isAnonymus}
                             >
-                                s<option value="1">CC</option>
+                                <option value="1">CC</option>
                                 <option value="2">NIT</option>
                                 <option value="3">CE</option>
                                 <option value="4">PPE</option>
@@ -58,27 +57,14 @@ const DataSale = ({ handleChange, errors }) => {
                                 name="document"
                                 id="document"
                                 autoComplete="document"
-                                className="w-full px-3 py-2 mt-1 border-t border-b border-r border-gray-200 rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className={`${
+                                    isAnonymus ? "bg-gray-100" : ""
+                                } w-full px-3 py-2 mt-1 border border-gray-200 rounded-r-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                                 onChange={handleChange}
-                                value={document}
+                                disabled={isAnonymus}
+                                value={isAnonymus ? 0 : document}
                             />
-                            {/* <label className="ml-3">
-                            <input
-                                type="checkbox"
-                                value="true"
-                                name="anonymousClient"
-                                onChange={handleSale}
-                            />{" "}
-                            Cliente anómino 
-                        </label> */}
                         </div>
-                        {errors.document && document === "" && (
-                            <div>
-                                <p className="p-1 text-sm text-red-600">
-                                    {errors.document}
-                                </p>
-                            </div>
-                        )}
                     </div>
                     <div className="">
                         <label
@@ -110,6 +96,14 @@ const DataSale = ({ handleChange, errors }) => {
                                 </p>
                             </div>
                         )}
+                    </div>
+                    <div className="flex items-center  space-x-2">
+                        <input
+                            type="checkbox"
+                            name="anonymousClient"
+                            onChange={(e) => setIsAnonymus(e.target.checked)}
+                        />
+                        <label className="ml-3">Cliente anómino</label>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,17 @@ const PrivateRoute = () => {
     const auth = useSelector(({ auth }) => auth.auth);
     const loading = useSelector(({ auth }) => auth.loading);
 
-    if (loading) return;
+    if (loading) {
+        return (
+            <div className="h-screen w-full flex justify-center items-center animate-pulse bg-gray-50">
+                <img
+                    src={`${import.meta.env.VITE_PUBLIC_URL}/img/app/logo.svg`}
+                    className="fill-red-500 w-52"
+                    alt="React Logo"
+                />
+            </div>
+        );
+    }
 
     if (!auth && !loading) {
         navigate("/");

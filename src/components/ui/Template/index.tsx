@@ -1,14 +1,13 @@
-import React from 'react'
+import React from "react";
+import { Helmet } from "react-helmet";
 
 type TemplateProps = {
-    children: React.ReactNode,
-    title: string,
-    description: string
-}
-    
+    children: React.ReactNode;
+    title: string;
+    description: string;
+};
 
 const Template = ({ title, description, children }: TemplateProps) => {
-
     return (
         <div className="container mx-auto space-y-4">
             <div className="">

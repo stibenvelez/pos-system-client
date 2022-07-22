@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clienteAxios from "../../../config/axios";
 
 // Redux
@@ -15,7 +15,6 @@ const ProductData = ({
     const [productsFiltered, setproductsFiltered] = useState([]);
     const products = useSelector(({ products }) => products.products);
     const errorsNewProduct = useSelector(({ sales }) => sales.errorsNewProduct);
-
     const productRef = useRef("");
     const categoryRef = useRef("");
 
@@ -62,7 +61,6 @@ const ProductData = ({
         };
         filterPrductByCategorySelected();
     }, [newProduct]);
-
 
     const handleProduct = async (e) => {
         setNewProduct({
@@ -196,7 +194,6 @@ const ProductData = ({
                         className="block w-full px-3 py-2 mt-1 border rounded-md shadow-sm border-gray-200bg-white focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         readOnly={true}
                         value={productSeleted?.unitPrice || 0}
-                        
                     />
                     {errorsNewProduct.unitPrice && newProduct.unitPrice == "" && (
                         <div>

@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesReportAction } from "../../redux/reports/reports.action";
+import {
+    getSalesReportAction,
+    readFiltersAction,
+} from "../../redux/reports/reports.action";
 import IndicatorsCards from "../../components/dashboard/IndicatorsCards";
 import OptionsFilters from "../../components/dashboard/OptionsFilters";
 import { AdjustmentsIcon } from "@heroicons/react/outline";
+import Template from "../../components/ui/Template";
+import { useSearchParams } from "react-router-dom";
 
 const DashboardPage = () => {
     const dispatch = useDispatch();
-    const [showFilters, setShowFilters] = useState(false);
     const filters = useSelector(({ reports }) => reports.filters);
+    const [showFilters, setShowFilters] = useState(false);
+    const [searchParams] = useSearchParams(filters);
+    console.log(Object.fromEntries([...searchParams]));
+    useEffect(() => {
+        dispatch(getSalesReportAction(Object.fromEntries([...searchParams])));
+    }, [searchParams]);
 
     useEffect(() => {
-        (() => dispatch(getSalesReportAction(filters)))();
-    }, [filters]);
+        readFiltersAction(Object.fromEntries([...searchParams]));
+    }, [searchParams]);
 
     return (
-        <div className="container mx-auto">
-            <div className="pb-3">
-                <h1 className="text-3xl font-bold text-slate-800">Dashboard</h1>
-                <p className="text-gray-800">
-                    Principales indicadores de su empresa
-                </p>
-            </div>
+        <Template
+            title="Dashboard"
+            description="Principales indicadores de la empresa"
+        >
+            
             <div className="flex flex-col gap-4">
                 <div className="">
                     {showFilters ? (
@@ -40,9 +48,14 @@ const DashboardPage = () => {
                     <div className="lg:col-span-10">
                         <IndicatorsCards />
                     </div>
+                    <div>
+                        {/* // TODO: create component FeaturedProducts */}
+                        {/* <FeaturedProducts/> */}
+                    </div>
                 </div>
             </div>
-        </div>
+            
+        </Template>
     );
 };
 

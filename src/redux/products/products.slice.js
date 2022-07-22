@@ -17,7 +17,8 @@ export const productsSlice = createSlice({
     initialState,
     reducers: {
         setGetProduct: (state, action) => {
-            (state.product = {}), (state.loading = true);
+            state.product = {},
+            state.loading = true;
             state.error = false;
         },
         setGetProductSuccess: (state, action) => {
@@ -70,7 +71,7 @@ export const productsSlice = createSlice({
             state.msg = action.payload;
         },
         setDisableProduct: (state, action) => {
-            state.loading = true;
+            state.loading = false;
         },
         setDisableProductSuccess: (state, action) => {
             state.loading = false;
@@ -102,10 +103,9 @@ export const productsSlice = createSlice({
         setDeleteImageError: (state, action) => {
             state.loading = false;
             state.error = true;
-        }
+        },
     },
 });
-
 
 export const {
     setGetProduct,
@@ -130,7 +130,6 @@ export const {
     setDeleteImage,
     setDeleteImageSuccess,
     setDeleteImageError,
-
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

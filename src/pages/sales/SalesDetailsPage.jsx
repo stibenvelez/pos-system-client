@@ -1,27 +1,24 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FilterOptions from "../../components/sales/salesDetails/FilterOptions";
 import SalesDetailsList from "../../components/sales/salesDetails/SalesDetailsList";
 import { getAllSalesDetailsAction } from "../../redux/sales/sales.action";
+import Template from "../../components/ui/Template";
 
 const SalesDetailsPage = () => {
     const dispatch = useDispatch();
+    const filtersSalesDetails = useSelector(({ sales }) => sales.filtersSalesDetails);
 
     useEffect(() => {
-        (() => dispatch(getAllSalesDetailsAction()))();
-    }, []);
+        (() => dispatch(getAllSalesDetailsAction(filtersSalesDetails)))();
+    }, [filtersSalesDetails]);
 
     return (
-        <div className="container mx-auto ">
-            <div className="flex flex-col gap-4">
-                <div className="">
-                    <h1 className="text-3xl font-bold text-slate-800">
-                        Detalle de Ventas
-                    </h1>
-                    <p className="text-gray-800">
-                        Este es el detale de cada una de las ventas realizadas
-                    </p>
-                </div>
+        <Template
+            title="Detalle de ingresos"
+            description="Este es el detalle de cada una de los ingresos registrados"
+        >
+            <div className="flex flex-col space-y-4">
                 <div>
                     <FilterOptions />
                 </div>
@@ -29,7 +26,7 @@ const SalesDetailsPage = () => {
                     <SalesDetailsList />
                 </div>
             </div>
-        </div>
+        </Template>
     );
 };
 

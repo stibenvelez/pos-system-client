@@ -2,15 +2,17 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Spinner from "../ui/Spinners/Spinner";
 import ItemProduct from "./ItemProduct";
-import Table from '../ui/Table';
+import { Table, Thead } from "../ui/Table";
+import SkeletonTable from "../../shared/SkeletonTable";
 const ProductsList = () => {
     const { products, loading } = useSelector(({ products }) => products);
 
-    if(loading) return (
-        <div className="w-full flex justify-center py-4">
-            <Spinner />
-        </div>
-    );
+    if (loading)
+        return (
+            <div className="w-full justify-center">
+                <SkeletonTable columns={6} rows={4} paddingYRows={8} />
+            </div>
+        );
 
     if (products.length === 0 && !loading) {
         return (
@@ -19,42 +21,40 @@ const ProductsList = () => {
             </div>
         );
     }
-    
+
     return (
-        
-            <Table>
-                <thead className="text-xs uppercase text-gray-50 bg-slate-800 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Producto
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Costo unitario
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Precio de venta
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            % de comision
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Estado
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Accions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map((productData) => (
-                        <ItemProduct
-                            productData={productData}
-                            key={productData.idProduct}
-                        />
-                    ))}
-                </tbody>
-            </Table>
-     
+        <Table>
+            <Thead>
+                <tr>
+                    <th scope="col" className="px-6 py-3">
+                        Producto
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Costo unitario
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Precio de venta
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        % de comision
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Estado
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                        Accions
+                    </th>
+                </tr>
+            </Thead>
+            <tbody>
+                {products.map((productData) => (
+                    <ItemProduct
+                        productData={productData}
+                        key={productData.idProduct}
+                    />
+                ))}
+            </tbody>
+        </Table>
     );
 };
 

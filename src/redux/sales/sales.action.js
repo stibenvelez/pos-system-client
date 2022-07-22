@@ -7,6 +7,7 @@ import {
     setEditProductSaleDetail,
     setEditProductSaleDetailError,
     setEditProductSaleDetailSuccess,
+    setFilterSalesDetailsList,
     setFilterSalesList,
     setGetAllSales,
     setGetAllSalesError,
@@ -112,8 +113,11 @@ export const registerOneNewSaleAction = (sale) => {
 
 // filter Sales list
 export const FilterSalesListAction = (filter) => async (dispatch) => {
-    console.log("filter", filter);
     dispatch(setFilterSalesList(filter));
+};
+// filter SalesDetail list
+export const filterSalesDetailListAction = (filters) => async (dispatch) => {
+    dispatch(setFilterSalesDetailsList(filters));
 };
 
 // CANCEL SALE
@@ -151,10 +155,10 @@ export const readDatasaleAction = (data) => {
     };
 };
 
-export const getAllSalesDetailsAction = () => async (dispatch) => {
+export const getAllSalesDetailsAction = (filters) => async (dispatch) => {
     dispatch(setGetSalesDetails());
     try {
-        const sales = await clienteAxios.get(`/sales-details`);
+        const sales = await clienteAxios.get(`/sales-details`, { params: filters });
         dispatch(setGetSalesDetailsSuccess(sales.data));
     } catch (error) {
         dispatch(setGetSalesDetailsError(error));

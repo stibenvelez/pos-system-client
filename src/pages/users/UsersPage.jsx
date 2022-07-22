@@ -1,23 +1,22 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Template from "../../components/ui/Template";
 import UsersList from "../../components/users/UsersList";
+import socket from "../../helpers/Socket";
 import { getAllUsersAction } from "../../redux/users/users.actions";
-//import io from "socket.io-client";
-//let socket = io.connect(import.meta.env.VITE_BACKEND_URL);
+
 const UsersPage = () => {
-    const diapatch = useDispatch();
+    const dispatch = useDispatch();
+    const  [msg, setMsg] = useState("");
+
     useEffect(() => {
-        diapatch(getAllUsersAction());
+        dispatch(getAllUsersAction());
     }, []);
-   /*
-    useEffect(() => {
-        socket.on("respuesta", (data) => console.log(data));
-    });
-*/
+    
     return (
         <Template title="Usuarios" description="Lista de usuarios">
             <div className="max-w-2xl mx-auto">
+                {msg.name}
                 <UsersList />
             </div>
         </Template>

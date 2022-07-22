@@ -1,6 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { formatDate } from "../../helpers/FormatDate";
 
+const firtMonthDay = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+);
+
+const lastDay = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
+);
+
 const initialState = {
     sales: [],
     sale: {},
@@ -17,8 +29,14 @@ const initialState = {
     loading: true,
     filters: {
         category: "",
-        dateFrom: "2022-05-01",
-        dateTo: "2022-06-30",
+        dateFrom: formatDate(firtMonthDay),
+        dateTo: formatDate(lastDay),
+        state: "1",
+    },
+    filtersSalesDetails: {
+        category: "",
+        dateFrom: formatDate(firtMonthDay),
+        dateTo: formatDate(lastDay),
         state: "1",
     },
     errorsNewProduct: {},
@@ -91,9 +109,12 @@ export const salesSlice = createSlice({
             )
         },
         setFilterSalesList: (state, action) => {
-            state.loading = true;
             state.error = false;
             state.filters = action.payload
+        },
+        setFilterSalesDetailsList: (state, action) => {
+            state.error = false;
+            state.filtersSalesDetails = action.payload
         },
         setCancelSaleSuccess: (state, action) => {
             state.loading = false;
@@ -169,6 +190,7 @@ export const {
     setAddNewProductDetail,
     setRemoveItemProductDetail,
     setFilterSalesList,
+    setFilterSalesDetailsList,
     setCancelSaleSuccess,
     setCancelSaleError,
     setEditProductSaleDetail,

@@ -5,15 +5,25 @@ import FilterOptions from "../../components/products/FilterOptions";
 import ProductsList from "../../components/products/ProductsList";
 import Template from "../../components/ui/Template";
 import { getAllProductsActions } from "../../redux/products/products.action";
+import socket from "../../helpers/Socket";
 
 const ProductsPages = () => {
     const dispatch = useDispatch();
     const filters = useSelector(({ products }) => products.filters);
 
     useEffect(() => {
-        (() => dispatch(getAllProductsActions(filters)))(), [filters];
+        console.log('ProductsPages');
+        dispatch(getAllProductsActions(filters)), [filters];
     });
-    
+
+    useEffect(() => {
+        socket.on("loadProducts", () => {
+            console.log("obteniendo productos", filters);
+
+            dispatch(getAllProductsActions(filters));
+        });
+    }, [socket]);
+
     return (
         <Template
             title={"Productos"}

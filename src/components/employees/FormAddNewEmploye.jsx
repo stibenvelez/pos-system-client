@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../ui/Card/Card";
 import { useNavigate } from "react-router-dom";
-import Socket from "../../config/Socket";
 import { useDispatch } from "react-redux";
 import { addNewEmployeAction } from "../../redux/employees/employees.actions";
 
@@ -20,7 +19,6 @@ const FormAddNewEmploye = ({ setOptionsState }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Socket.emit("newEmploye", newEmploye);
         dispatch(addNewEmployeAction(newEmploye));
     };
 

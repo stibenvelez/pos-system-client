@@ -1,54 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { createSearchParams, useSearchParams } from "react-router-dom";
-import clienteAxios from "../../config/axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import Card from "../ui/Card/Card";
 import { XIcon } from "@heroicons/react/solid";
-import { formatDate } from "../../helpers/FormatDate";
-
-const firtMonthDay = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    1
-);
-
-const lastDay = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    0
-);
+import { getAllEmployeesAction } from "../../redux/employees/employees.actions";
 
 const OptionsFilters = ({ setShowFilters }) => {
     const dispatch = useDispatch();
-
-    const [searchParams, setSearchParams] = useSearchParams({
-        dateFrom: formatDate(firtMonthDay),
-        dateTo: formatDate(lastDay),
-    });
-    const [employees, setEmployees] = useState([]);
-    console.log(searchParams.entries());
+    const filters = useSelector(({ reports }) => reports.filters);
+    const { employees } = useSelector(({ employees }) => employees);
+    const [searchParams, setSearchParams] = useSearchParams(filters);
 
     const handleChange = (e) => {
         setSearchParams({
             ...Object.fromEntries([...searchParams]),
             [e.target.name]: e.target.value,
         });
-        createSearchParams(searchParams);
     };
 
-    /*
     useEffect(() => {
-        (() =>
-            {dispatch(
-                getReportrFiltersAction(Object.fromEntries([...searchParams]))
-            )})();
-    }, []);
-*/
-    useEffect(() => {
-        (async () => {
-            const result = await clienteAxios("/employees");
-            setEmployees(result.data);
-        })();
+        dispatch(getAllEmployeesAction());
     }, []);
 
     return (

@@ -14,7 +14,7 @@ const FormLogin = () => {
             [e.target.name]: e.target.value,
         });
     };
-    const loading = useSelector(({ auth }) => auth.loading);
+    const {loadingLogin} = useSelector(({ auth }) => auth);
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(loginAction(signup));
@@ -59,6 +59,7 @@ const FormLogin = () => {
                                         placeholder="Usuario"
                                         value={signup.user}
                                         onChange={handleChange}
+                                        disabled={loadingLogin}
                                     />
                                 </div>
                                 <div>
@@ -77,6 +78,7 @@ const FormLogin = () => {
                                         placeholder="Password"
                                         value={signup.password}
                                         onChange={handleChange}
+                                        disabled={loadingLogin}
                                     />
                                 </div>
                             </div>
@@ -106,7 +108,7 @@ const FormLogin = () => {
                                         aria-hidden="true"
                                     />
                                 </span>
-                                {loading ? "Cargando..." : "Sign in"}
+                                {loadingLogin ? "Cargando..." : "Sign in"}
                             </button>
                         </div>
                     </form>

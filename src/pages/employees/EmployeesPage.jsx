@@ -16,11 +16,8 @@ const EmployeesPage = () => {
         (() => dispatch(getAllEmployeesAction()))();
     }, []);
 
-    
-    const {employees} = useSelector(({ employees }) => employees);
 
 
-    
     return (
         <Template
             title={"Empleados"}
@@ -46,7 +43,6 @@ const EmployeesPage = () => {
                     )}
                     <div className="w-full max-w-xl">
                         <EmployeeList
-                            employees={employees}
                             setOptionsState={setOptionsState}
                         />
                     </div>
