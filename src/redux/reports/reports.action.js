@@ -1,4 +1,5 @@
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 import {
     setGetFilters,
     setGetSalesReports,
@@ -9,7 +10,8 @@ import {
 
 export const getSalesReportAction = (filters) =>  async (dispatch) => {
         dispatch(setGetSalesReports());
-        try {
+    try {
+            tokenAuth();
             const result = await clienteAxios.get("/reports/", {
                 params: filters,
             });

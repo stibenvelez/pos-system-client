@@ -12,6 +12,7 @@ import {
 export const getAllBrandsAction = () => async (dispatch) => {
     dispatch(setGetAllBrands());
     try {
+        tokenAuth();
         const response = await clienteAxios.get("/brands");
         dispatch(setGetAllBrandsSuccess(response.data));
     } catch (error) {
@@ -22,6 +23,7 @@ export const getAllBrandsAction = () => async (dispatch) => {
 export const addNewBrandAction = (brand) => async (dispatch) => {
     dispatch(setAddNewBrand());
     try {
+        tokenAuth();
         const response = await clienteAxios.post("/brands", brand);
         dispatch(setAddNewBrandSuccess(response.data.msg));
         dispatch(getAllBrandsAction());

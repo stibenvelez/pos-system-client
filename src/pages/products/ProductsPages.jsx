@@ -12,14 +12,11 @@ const ProductsPages = () => {
     const filters = useSelector(({ products }) => products.filters);
 
     useEffect(() => {
-        console.log('ProductsPages');
         dispatch(getAllProductsActions(filters)), [filters];
     });
 
     useEffect(() => {
         socket.on("loadProducts", () => {
-            console.log("obteniendo productos", filters);
-
             dispatch(getAllProductsActions(filters));
         });
     }, [socket]);

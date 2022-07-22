@@ -1,4 +1,5 @@
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 import {
     setAddEmployee,
     setAddEmployeeError,
@@ -14,6 +15,7 @@ import {
 export const getAllEmployeesAction = () => async (dispatch) => {
     dispatch(setGetEmployees());
     try {
+        tokenAuth();
         const res = await clienteAxios("/employees");
         dispatch(setGetEmployeesSuccess(res.data));
     } catch (error) {
@@ -24,6 +26,7 @@ export const getAllEmployeesAction = () => async (dispatch) => {
 export const addNewEmployeAction = (employe) => async (dispatch) => {
     dispatch(setAddEmployee());
     try {
+        tokenAuth();
         const res = await clienteAxios.post("/employees", employe);
         dispatch(setAddEmployeeSuccess(res.data));
     } catch (error) {
@@ -34,6 +37,7 @@ export const addNewEmployeAction = (employe) => async (dispatch) => {
 export const getEmployeeByIdAction = (id) => async (dispatch) => {
     dispatch(setGetEmployee());
     try {
+        tokenAuth();
         const res = await clienteAxios.get(`/employees/${id}`);
         dispatch(setGetEmployeeSuccess(res.data));
     } catch (error) {

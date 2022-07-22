@@ -16,7 +16,6 @@ export const authAction = () => {
         try {
             const token = localStorage.getItem("token");
             if (!token) {
-                console.log("no hay token");
                 throw new Error("No hay token");
             }
             const config = {
@@ -25,10 +24,9 @@ export const authAction = () => {
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const result = await clienteAxios.get("/users/profile");
+            const result = await clienteAxios.get("/users/profile", config);
             dispatch(setAuthSuccess(result.data));
         } catch (error) {
-            console.log(error);
             dispatch(setAuthError());
         }
     };
@@ -39,7 +37,6 @@ export const loginAction = (user) => {
         dispatch(setLogin());
         try {
             const { data } = await clienteAxios.post("/users/login", user);
-            console.log(data);
             localStorage.setItem("token", data.token);
             dispatch(setLoginSuccess(data));
         } catch (error) {
@@ -50,12 +47,12 @@ export const loginAction = (user) => {
 
 export const singOutAction = () => {
     return async (dispatch) => {
-        dispatch(signOut())
+        dispatch(signOut());
         try {
             localStorage.removeItem("token");
             dispatch(signOutSuccess());
         } catch (error) {
-           console.log(error)
+            console.log(error);
         }
     };
 };

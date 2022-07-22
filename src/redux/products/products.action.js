@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 import socket from "../../helpers/Socket";
 import {
     setAddNewProduct,
@@ -30,6 +31,7 @@ import {
 export const getAllProductsActions = (filters) => async (dispatch) => {
     dispatch(setGetProducts());
     try {
+        tokenAuth();
         const res = await clienteAxios.get("/products", {
             params: filters,
         });
@@ -41,18 +43,17 @@ export const getAllProductsActions = (filters) => async (dispatch) => {
 };
 
 // GET PRODUCT BY ID
-export const getProductByIdAction = (id) => {
-    return async (dispatch) => {
-        dispatch(setGetProduct());
+export const getProductByIdAction = (id) => async (dispatch) => {
+    dispatch(setGetProduct());
 
-        try {
-            const res = await clienteAxios.get(`/products/${id}`);
-            dispatch(setGetProductSuccess(res.data[0]));
-        } catch (error) {
-            console.log(error);
-            dispatch(setGetProductError());
-        }
-    };
+    try {
+        tokenAuth();
+        const res = await clienteAxios.get(`/products/${id}`);
+        dispatch(setGetProductSuccess(res.data[0]));
+    } catch (error) {
+        console.log(error);
+        dispatch(setGetProductError());
+    }
 };
 
 // EDIT PRODUCT BY ID
@@ -74,7 +75,7 @@ export const editProductByIdAction = (productData) => {
             data.append("unitPrice", productData.unitPrice);
             data.append("observations", productData.observations);
             data.append("image", productData.image);
-
+            tokenAuth();
             const idProduct = data.get("idProduct");
             const res = await clienteAxios.put(`/products/${idProduct}`, data);
             dispatch(setEditProductSuccess(res.data[0]));
@@ -100,6 +101,7 @@ export const addNewProductAction = (productData) => async (dispatch) => {
 
     dispatch(setAddNewProduct());
     try {
+        tokenAuth();
         await clienteAxios.post(`/products`, data);
         dispatch(setAddNewProductSuccess());
     } catch (error) {
@@ -118,6 +120,7 @@ export const filterProductsAction = (filters) => {
 export const disableProductAction = (id) => async (dispatch) => {
     dispatch(setDisableProduct());
     try {
+        tokenAuth();
         await clienteAxios.put(`/products/disable/${id}`);
         dispatch(setDisableProductSuccess());
         socket.emit("createdProduct");
@@ -129,6 +132,7 @@ export const disableProductAction = (id) => async (dispatch) => {
 export const getAllProductsCategoriesAction = () => async (dispatch) => {
     dispatch(setGetProductCategory());
     try {
+        tokenAuth();
         const res = await clienteAxios("/product-categories");
         dispatch(setGetProductCategorySuccess(res.data));
     } catch (error) {
@@ -140,8 +144,7 @@ export const getAllProductsCategoriesAction = () => async (dispatch) => {
 export const deleteImageAction = (id) => async (dispatch) => {
     dispatch(setDeleteImage());
     try {
-        console.log("eliminando", id);
-
+        tokenAuth();
         await clienteAxios.put(`/products/delete-image/${id}`);
         dispatch(setDeleteImageSuccess());
         Swal.fire({

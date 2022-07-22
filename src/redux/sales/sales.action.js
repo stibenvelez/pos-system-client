@@ -29,6 +29,7 @@ import {
     setValidateAddNewProductError,
 } from "./sales.slice";
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 
 // add new product to sail detail
 export const addProductToSaleDetailAction = (product) => {
@@ -64,6 +65,7 @@ export const getAllSalesAction = (filters) => {
     return async (dispatch) => {
         dispatch(setGetAllSales());
         try {
+            tokenAuth();
             const sales = await clienteAxios.get(`/sales`, { params: filters });
             dispatch(setGetAllSalesSuccess(sales.data));
         } catch (error) {
@@ -77,6 +79,7 @@ export const getSaleByIdAction = (id) => {
     return async (dispatch) => {
         dispatch(setGetSaleById());
         try {
+            tokenAuth();
             const sale = await clienteAxios.get(`/sales/${id}`);
             dispatch(setGetSaleByIdSuccess(sale.data));
         } catch (error) {
@@ -91,6 +94,7 @@ export const registerOneNewSaleAction = (sale) => {
         dispatch(setPostNewSale());
 
         try {
+            tokenAuth();
             await clienteAxios.post("/sales", sale);
             dispatch(setPostNewSaleSuccess());
             Swal.fire({
@@ -124,6 +128,7 @@ export const filterSalesDetailListAction = (filters) => async (dispatch) => {
 export const cancelSaleByIdAction = (sale) => {
     return async (dispatch) => {
         try {
+            tokenAuth();
             await clienteAxios.put("sales/cancel-sale", sale);
             Swal.fire(
                 "ingreso anulado!",
@@ -158,6 +163,7 @@ export const readDatasaleAction = (data) => {
 export const getAllSalesDetailsAction = (filters) => async (dispatch) => {
     dispatch(setGetSalesDetails());
     try {
+        tokenAuth();
         const sales = await clienteAxios.get(`/sales-details`, { params: filters });
         dispatch(setGetSalesDetailsSuccess(sales.data));
     } catch (error) {
@@ -168,6 +174,7 @@ export const getAllSalesDetailsAction = (filters) => async (dispatch) => {
 export const getSaleDetailByIdSaleAction = (idSale) => async (dispatch) => {
     dispatch(setGetSalesDetailsBySaleId());
     try {
+        tokenAuth();
         const salesDetails = await clienteAxios.get(
             `/sales-details/search-by-idsale/${idSale}`
         );

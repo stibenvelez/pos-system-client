@@ -1,4 +1,5 @@
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 import {
     setGetAllUsers,
     setGetAllUsersError,
@@ -11,6 +12,7 @@ import {
 export const getAllUsersAction = () => async (dispatch) => {
     dispatch(setGetAllUsers());
     try {
+        tokenAuth();
         const { data } = await clienteAxios.get("/users");
         dispatch(setGetAllUsersSuccess(data));
     } catch (error) {
@@ -21,6 +23,7 @@ export const getAllUsersAction = () => async (dispatch) => {
 export const getUserByIdAction = (id) => async (dispatch) => {
     dispatch(setGetUserById());
     try {
+        tokenAuth();
         const { data } = await clienteAxios.get(`/users/${id}`);
         dispatch(setGetUserByIdSuccess(data));
     } catch (error) {

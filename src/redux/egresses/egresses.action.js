@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import clienteAxios from "../../config/axios";
+import tokenAuth from "../../config/tokenAuth";
 import {
     setAddEgress,
     setAddEgressError,
@@ -21,6 +22,8 @@ import {
 export const getAllEgressesAction = () => async (dispatch) => {
     dispatch(setEGresses());
     try {
+
+        tokenAuth();
         const response = await clienteAxios.get("/egresses");
         dispatch(setEGressesSuccess(response.data));
     } catch (error) {
@@ -31,6 +34,8 @@ export const getAllEgressesAction = () => async (dispatch) => {
 export const getEgressByIdAction = (id) => async (dispatch) => {
     dispatch(setGetEgress());
     try {
+
+        tokenAuth();
         const response = await clienteAxios.get(`/egresses/${id}`);
         dispatch(setGetEgressSuccess(response.data));
     } catch (error) {
@@ -41,6 +46,8 @@ export const getEgressByIdAction = (id) => async (dispatch) => {
 export const getAllEgressesCategoriesAction = () => async (dispatch) => {
     dispatch(setGetEgressesCategories());
     try {
+
+        tokenAuth();
         const response = await clienteAxios.get("/egresses/categories");
         dispatch(setGetEgressesCategoriesSuccess(response.data));
     } catch (error) {
@@ -52,6 +59,8 @@ export const getAllEgressesCategoriesAction = () => async (dispatch) => {
 export const getAllEgressesSubCategoriesAction = () => async (dispatch) => {
     dispatch(setGetEgressesSubcategories());
     try {
+
+        tokenAuth();
         const response = await clienteAxios.get("/egresses/subcategories");
         dispatch(setGetEgressesSubcategoriesSuccess(response.data));
     } catch (error) {
@@ -63,6 +72,8 @@ export const getAllEgressesSubCategoriesAction = () => async (dispatch) => {
 export const addNewEgressAction = (egress) => async (dispatch) => {
     dispatch(setAddEgress());
     try {
+
+        tokenAuth();
         const response = await clienteAxios.post("/egresses", egress);
         Swal.fire({
             title: `Egreso registrado`,

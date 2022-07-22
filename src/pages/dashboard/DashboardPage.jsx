@@ -15,7 +15,7 @@ const DashboardPage = () => {
     const filters = useSelector(({ reports }) => reports.filters);
     const [showFilters, setShowFilters] = useState(false);
     const [searchParams] = useSearchParams(filters);
-    console.log(Object.fromEntries([...searchParams]));
+
     useEffect(() => {
         dispatch(getSalesReportAction(Object.fromEntries([...searchParams])));
     }, [searchParams]);
