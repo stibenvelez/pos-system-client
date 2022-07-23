@@ -36,6 +36,30 @@ export const usersSlice = createSlice({
         setGetUserByIdError: (state, action) => {
             state.loading = false;
             state.error = action.payload;
+        },
+        setUpdateUser: (state, action) => {
+            state.loading = true;
+            state.error = false;
+        },
+        setUpdateUserSuccess: (state, action) => {
+            state.loading = false;
+            state.error = false;
+        },
+        setUpdateUserError: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        setUpdatePassword: (state, action) => {
+            state.loading = true;
+            state.error = false;
+        },
+        setUpdatePasswordSuccess: (state, action) => {
+            state.loading = false;
+            state.error = false;
+        },
+        setUpdatePasswordError: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
         }
     }
 });
@@ -46,7 +70,13 @@ export const {
     setGetAllUsersError,
     setGetUserById,
     setGetUserByIdSuccess,
-    setGetUserByIdError
+    setGetUserByIdError,
+    setUpdateUser,
+    setUpdateUserSuccess,
+    setUpdateUserError,
+    setUpdatePassword,
+    setUpdatePasswordSuccess,
+    setUpdatePasswordError
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

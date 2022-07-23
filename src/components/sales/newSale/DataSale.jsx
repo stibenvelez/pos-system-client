@@ -7,6 +7,19 @@ const DataSale = ({ handleChange, errors }) => {
         ({ sales }) => sales.dataSale
     );
 
+    const handleChangeAnonymus = (e) => {
+        const value = {
+            e: {
+                target: {
+                    name: "document",
+                    value: 0,
+                },
+            },
+        };
+        setIsAnonymus(e.target.checked);
+        handleChange(value.e);
+    };
+
     return (
         <div>
             <div className="col-span-6 sm:col-span-2">
@@ -101,7 +114,8 @@ const DataSale = ({ handleChange, errors }) => {
                         <input
                             type="checkbox"
                             name="anonymousClient"
-                            onChange={(e) => setIsAnonymus(e.target.checked)}
+                            //onChange={(e) => setIsAnonymus(e.target.checked)}
+                            onChange={handleChangeAnonymus}
                         />
                         <label className="ml-3">Cliente anómino</label>
                     </div>

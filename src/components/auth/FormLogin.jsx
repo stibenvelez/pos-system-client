@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LockClosedIcon } from "@heroicons/react/solid";
+import { EyeIcon, LockClosedIcon } from "@heroicons/react/solid";
 import Card from "../ui/Card/Card";
 import { loginAction } from "../../redux/auth/auth.action";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const FormLogin = () => {
     const dispatch = useDispatch();
     const [signup, setsignup] = useState({ user: "", password: "" });
+    const [showPassword, setshowPassword] = useState(false);
     const error = useSelector(({ auth }) => auth.error);
     const handleChange = (e) => {
         setsignup({
@@ -14,11 +15,12 @@ const FormLogin = () => {
             [e.target.name]: e.target.value,
         });
     };
-    const {loadingLogin} = useSelector(({ auth }) => auth);
+    const { loadingLogin } = useSelector(({ auth }) => auth);
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(loginAction(signup));
     };
+
 
     return (
         <Card>
@@ -72,7 +74,7 @@ const FormLogin = () => {
                                     <input
                                         id="password"
                                         name="password"
-                                        type="password"
+                                        type={showPassword ? "text" : "password"}
                                         autoComplete="password"
                                         className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         placeholder="Password"
@@ -80,6 +82,17 @@ const FormLogin = () => {
                                         onChange={handleChange}
                                         disabled={loadingLogin}
                                     />
+                                    <div className="flex justify-end py-1">
+                                        <button
+                                            onClick={() =>
+                                                setshowPassword(!showPassword)
+                                            }
+                                            type="button"
+                                            className="text-sm text-gray-400 hover:text-indigo-500 text-right"
+                                        >
+                                            {showPassword ? "Ocultar" : "Ver contraseña"}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="pt-2">
